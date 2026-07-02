@@ -1,0 +1,19 @@
+# Runtime outputs
+**/output/
+**/out/
+**/logs/
+**/hp_status/
+
+# Generated caches
+**/__pycache__/
+*.py[cod]
+
+# Third-party source snapshots kept only for local reference
+**/upstream/
+
+# Temporary files
+*.tmp
+*.pid
+*.log
+~$*
+

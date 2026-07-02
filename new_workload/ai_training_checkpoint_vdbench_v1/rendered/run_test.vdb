@@ -1,0 +1,30 @@
+* AI training checkpoint vdbench v1 - run only
+* Runs hot/cold identification phases against an existing dataset.
+* This file intentionally contains no Vdbench formatting RD.
+* Transfer sizes and thread counts are execution parameters, not claimed as paper constants.
+
+data_errors=1
+create_anchors=yes
+messagescan=no
+
+hd=default,vdbench=/home/chris/PDSL/vdbench,user=chris,shell=ssh
+hd=hd1,system=s52.servers.hustpdsl.cn
+
+fsd=default,depth=1,width=1,shared=yes,openflags=o_direct
+fsd=fsd_dataset_hot,anchor=/mnt/cephfs/ai_training_checkpoint_vdbench_v1/dataset_hot,files=32,size=1g
+fsd=fsd_dataset_warm,anchor=/mnt/cephfs/ai_training_checkpoint_vdbench_v1/dataset_warm,files=24,size=1g
+fsd=fsd_dataset_cold,anchor=/mnt/cephfs/ai_training_checkpoint_vdbench_v1/dataset_cold,files=32,size=1g
+fsd=fsd_checkpoint_current,anchor=/mnt/cephfs/ai_training_checkpoint_vdbench_v1/checkpoint_current,files=12,size=1g
+fsd=fsd_checkpoint_old,anchor=/mnt/cephfs/ai_training_checkpoint_vdbench_v1/checkpoint_old,files=12,size=1g
+
+fwd=epoch_hot_dataset,fsd=fsd_dataset_hot,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8
+fwd=epoch_warm_dataset,fsd=fsd_dataset_warm,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8
+fwd=checkpoint_write_current,fsd=fsd_checkpoint_current,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8
+fwd=checkpoint_read_current,fsd=fsd_checkpoint_current,operation=read,fileio=sequential,fileselect=random,xfersize=4m,threads=8
+fwd=recovery_read_old_checkpoint,fsd=fsd_checkpoint_old,operation=read,fileio=sequential,fileselect=random,xfersize=4m,threads=8
+
+rd=epoch_read_hot_dataset,fwd=epoch_hot_dataset,fwdrate=1000,elapsed=120,interval=1
+rd=epoch_read_warm_dataset,fwd=epoch_warm_dataset,fwdrate=1000,elapsed=120,interval=1
+rd=checkpoint_write_current,fwd=checkpoint_write_current,fwdrate=1000,elapsed=120,interval=1
+rd=checkpoint_read_current,fwd=checkpoint_read_current,fwdrate=1000,elapsed=120,interval=1
+rd=recovery_read_old_checkpoint,fwd=recovery_read_old_checkpoint,fwdrate=1000,elapsed=120,interval=1

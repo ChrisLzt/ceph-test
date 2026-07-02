@@ -1,0 +1,29 @@
+* AI inference KV-cache vdbench v1 - run only
+* Runs hot/cold identification phases against an existing dataset.
+* This file intentionally contains no Vdbench formatting RD.
+* Transfer sizes and thread counts are execution parameters, not claimed as paper constants.
+
+data_errors=1
+create_anchors=yes
+messagescan=no
+
+hd=default,vdbench=@VDBENCH_HOME@,user=@REMOTE_USER@,shell=ssh
+hd=hd1,system=@HOST1@
+
+fsd=default,depth=1,width=1,shared=yes,openflags=o_direct
+fsd=fsd_kv_active,anchor=@ANCHOR@/kv_active,files=32,size=1g
+fsd=fsd_kv_prefix_reuse,anchor=@ANCHOR@/kv_prefix_reuse,files=32,size=1g
+fsd=fsd_kv_next,anchor=@ANCHOR@/kv_next,files=32,size=1g
+fsd=fsd_kv_cold,anchor=@ANCHOR@/kv_cold,files=16,size=1g
+
+fwd=prefill_write_active,fsd=fsd_kv_active,operation=write,fileio=sequential,fileselect=random,xfersize=@KV_WRITE_XFER_SIZE@,threads=@THREADS@
+fwd=decode_read_active,fsd=fsd_kv_active,operation=read,fileio=random,fileselect=random,xfersize=@KV_READ_XFER_SIZE@,threads=@THREADS@
+fwd=prefill_write_next,fsd=fsd_kv_next,operation=write,fileio=sequential,fileselect=random,xfersize=@KV_WRITE_XFER_SIZE@,threads=@THREADS@
+fwd=decode_read_next,fsd=fsd_kv_next,operation=read,fileio=random,fileselect=random,xfersize=@KV_READ_XFER_SIZE@,threads=@THREADS@
+fwd=prefix_reuse_read_old,fsd=fsd_kv_prefix_reuse,operation=read,fileio=random,fileselect=random,xfersize=@KV_READ_XFER_SIZE@,threads=@THREADS@
+
+rd=prefill_write_active,fwd=prefill_write_active,fwdrate=@FWD_RATE@,elapsed=@PHASE_SECONDS@,interval=1
+rd=decode_read_active,fwd=decode_read_active,fwdrate=@FWD_RATE@,elapsed=@PHASE_SECONDS@,interval=1
+rd=prefill_write_next,fwd=prefill_write_next,fwdrate=@FWD_RATE@,elapsed=@PHASE_SECONDS@,interval=1
+rd=decode_read_next,fwd=decode_read_next,fwdrate=@FWD_RATE@,elapsed=@PHASE_SECONDS@,interval=1
+rd=prefix_reuse_read_old,fwd=prefix_reuse_read_old,fwdrate=@FWD_RATE@,elapsed=@PHASE_SECONDS@,interval=1

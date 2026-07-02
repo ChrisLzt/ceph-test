@@ -1,0 +1,26 @@
+* AI inference KV-cache vdbench v1 - prepare only
+* Source model:
+* - vLLM/PagedAttention, SOSP 2023: prefill writes/generates KV cache; decode repeatedly consumes KV cache; KV blocks can be reused across related requests.
+* - MLPerf Storage KV Cache: storage benchmark category for KV-cache I/O behavior.
+* This file only creates the CephFS dataset. Do not use for repeated measurement runs.
+
+data_errors=1
+create_anchors=yes
+messagescan=no
+
+hd=default,vdbench=@VDBENCH_HOME@,user=@REMOTE_USER@,shell=ssh
+hd=hd1,system=@HOST1@
+
+fsd=default,depth=1,width=1,shared=yes,openflags=o_direct
+fsd=fsd_kv_active,anchor=@ANCHOR@/kv_active,files=32,size=1g
+fsd=fsd_kv_prefix_reuse,anchor=@ANCHOR@/kv_prefix_reuse,files=32,size=1g
+fsd=fsd_kv_next,anchor=@ANCHOR@/kv_next,files=32,size=1g
+fsd=fsd_kv_cold,anchor=@ANCHOR@/kv_cold,files=16,size=1g
+
+fwd=prep_kv_active,fsd=fsd_kv_active,operation=read,threads=@FORMAT_THREADS@
+fwd=prep_kv_prefix_reuse,fsd=fsd_kv_prefix_reuse,operation=read,threads=@FORMAT_THREADS@
+fwd=prep_kv_next,fsd=fsd_kv_next,operation=read,threads=@FORMAT_THREADS@
+fwd=prep_kv_cold,fsd=fsd_kv_cold,operation=read,threads=@FORMAT_THREADS@
+
+rd=prepare_clean,fwd=(prep_kv_active,prep_kv_prefix_reuse,prep_kv_next,prep_kv_cold),format=(clean,only),fwdrate=max
+rd=prepare_create,fwd=(prep_kv_active,prep_kv_prefix_reuse,prep_kv_next,prep_kv_cold),format=(restart,only),fwdrate=max

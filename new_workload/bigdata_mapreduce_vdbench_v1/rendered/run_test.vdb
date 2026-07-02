@@ -1,0 +1,46 @@
+* MapReduce vdbench v1 - run only
+* Runs hot/cold identification phases against an existing dataset.
+* This file intentionally contains no Vdbench formatting RD.
+* Source: Abad et al., IEEE IISWC 2012 temporal-locality and inactive-storage observations.
+* 1 MiB transfer size is an engineering parameter, NOT observed in the paper.
+* See README.md and SOURCES.md before use.
+
+data_errors=1
+create_anchors=yes
+messagescan=no
+abort_failed_skew=2
+
+hd=default,vdbench=/home/chris/PDSL/vdbench,user=chris,shell=ssh
+hd=hd1,system=s52.servers.hustpdsl.cn
+
+fsd=default,depth=1,width=1,shared=yes,openflags=o_direct
+fsd=fsd_a,anchor=/mnt/cephfs/bigdata_mapreduce_vdbench_v1/pool_01,files=200,size=12m
+fsd=fsd_b,anchor=/mnt/cephfs/bigdata_mapreduce_vdbench_v1/pool_02,files=200,size=12m
+fsd=fsd_c,anchor=/mnt/cephfs/bigdata_mapreduce_vdbench_v1/pool_03,files=200,size=12m
+fsd=fsd_bg,anchor=/mnt/cephfs/bigdata_mapreduce_vdbench_v1/pool_04,files=5000,size=12m
+fsd=fsd_inactive,anchor=/mnt/cephfs/bigdata_mapreduce_vdbench_v1/pool_05,files=4400,size=12m
+
+fwd=ha_a,fsd=fsd_a,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=85
+fwd=ha_b,fsd=fsd_b,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=1
+fwd=ha_c,fsd=fsd_c,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=1
+fwd=ha_bg,fsd=fsd_bg,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=13
+
+fwd=hb_a,fsd=fsd_a,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=1
+fwd=hb_b,fsd=fsd_b,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=85
+fwd=hb_c,fsd=fsd_c,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=1
+fwd=hb_bg,fsd=fsd_bg,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=13
+
+fwd=hc_a,fsd=fsd_a,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=1
+fwd=hc_b,fsd=fsd_b,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=1
+fwd=hc_c,fsd=fsd_c,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=85
+fwd=hc_bg,fsd=fsd_bg,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=13
+
+fwd=rh_a,fsd=fsd_a,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=85
+fwd=rh_b,fsd=fsd_b,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=1
+fwd=rh_c,fsd=fsd_c,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=1
+fwd=rh_bg,fsd=fsd_bg,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=13
+
+rd=hot_a,fwd=(ha_a,ha_b,ha_c,ha_bg),fwdrate=1000,elapsed=150,interval=1
+rd=hot_b,fwd=(hb_a,hb_b,hb_c,hb_bg),fwdrate=1000,elapsed=150,interval=1
+rd=hot_c,fwd=(hc_a,hc_b,hc_c,hc_bg),fwdrate=1000,elapsed=150,interval=1
+rd=reheat_a,fwd=(rh_a,rh_b,rh_c,rh_bg),fwdrate=1000,elapsed=150,interval=1

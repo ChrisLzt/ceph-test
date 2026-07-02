@@ -1,0 +1,10 @@
+1、首先执行单流读取测试，执行命令后会首先创建1T文件，再进行读取测试
+fio -name=fiotest -filename=/mnt/ikcdir/testfile1 -rw=read -size=1T -bs=8M -numjobs=1 -iodepth=10 -threads=1 -direct=1 -ioengine=libaio -runtime=600 -time_based --eta-newline=1
+
+2、然后进行单流写入测试，使用刚才创建的1T文件进行覆盖写
+fio -name=fiotest -filename=/mnt/ikcdir/testfile1 -rw=write -size=1T -bs=8M -numjobs=1 -iodepth=10 -threads=1 -direct=1 -ioengine=libaio -runtime=600 -time_based --eta-newline=1
+
+3、然后进行多流测试，首先执行单流读取测试命令创建若干个1T文件，比如想测64流，就创建64个1T文件。然后所有客户端启动多个fio单流读写的测试命令，分别对不同的文件进行读写测试，并且增加 --rate=2g参数进行限速，注意客户端间fio进程数量均衡，观察最多能加到多少流，每一流的速度仍然能够稳定在2G带宽
+fio -name=fiotest -filename=/mnt/ikcdir/testfile1 -rw=read -size=1T -bs=8M -numjobs=1 -iodepth=10 -threads=1 -direct=1 -ioengine=libaio -runtime=600 -time_based --eta-newline=1 --rate=2g
+
+fio -name=fiotest -filename=/mnt/ikcdir/testfile1 -rw=write -size=1T -bs=8M -numjobs=1 -iodepth=10 -threads=1 -direct=1 -ioengine=libaio -runtime=600 -time_based --eta-newline=1 --rate=2g

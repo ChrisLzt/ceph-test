@@ -1,0 +1,13 @@
+data_errors=1
+create_anchors=yes
+messagescan=nodisplay
+
+hd=default,vdbench=/home/chris/PDSL/vdbench
+hd=hd1,system=localhost
+
+fsd=fsd_hot,anchor=/mnt/cephfs/vdbench/skew_io/1G/hot,depth=1,width=1,files=30,sizes=1g,shared=no,openflags=o_direct
+fsd=fsd_cold,anchor=/mnt/cephfs/vdbench/skew_io/1G/cold,depth=1,width=4,files=30,sizes=1g,shared=no,openflags=o_direct
+
+fwd=fwd_format,host=hd1,fsd=(fsd_hot,fsd_cold),xfersizes=4m,threads=32
+
+rd=rd_format,fwd=fwd_format,elapsed=2,interval=1,format=restart,fwdrate=max

@@ -1,0 +1,28 @@
+* AI training checkpoint vdbench v1 - prepare only
+* Source model:
+* - Meta DSI / ISCA 2022: large-scale training repeatedly reads and filters stored datasets.
+* - MLPerf Storage checkpointing / DLIO: checkpoint write, read, and recovery semantics.
+* This file only creates the CephFS dataset. Do not use for repeated measurement runs.
+
+data_errors=1
+create_anchors=yes
+messagescan=no
+
+hd=default,vdbench=/home/chris/PDSL/vdbench,user=chris,shell=ssh
+hd=hd1,system=s52.servers.hustpdsl.cn
+
+fsd=default,depth=1,width=1,shared=yes,openflags=o_direct
+fsd=fsd_dataset_hot,anchor=/mnt/cephfs/ai_training_checkpoint_vdbench_v1/dataset_hot,files=32,size=1g
+fsd=fsd_dataset_warm,anchor=/mnt/cephfs/ai_training_checkpoint_vdbench_v1/dataset_warm,files=24,size=1g
+fsd=fsd_dataset_cold,anchor=/mnt/cephfs/ai_training_checkpoint_vdbench_v1/dataset_cold,files=32,size=1g
+fsd=fsd_checkpoint_current,anchor=/mnt/cephfs/ai_training_checkpoint_vdbench_v1/checkpoint_current,files=12,size=1g
+fsd=fsd_checkpoint_old,anchor=/mnt/cephfs/ai_training_checkpoint_vdbench_v1/checkpoint_old,files=12,size=1g
+
+fwd=prep_dataset_hot,fsd=fsd_dataset_hot,operation=read,threads=4
+fwd=prep_dataset_warm,fsd=fsd_dataset_warm,operation=read,threads=4
+fwd=prep_dataset_cold,fsd=fsd_dataset_cold,operation=read,threads=4
+fwd=prep_checkpoint_current,fsd=fsd_checkpoint_current,operation=read,threads=4
+fwd=prep_checkpoint_old,fsd=fsd_checkpoint_old,operation=read,threads=4
+
+rd=prepare_clean,fwd=(prep_dataset_hot,prep_dataset_warm,prep_dataset_cold,prep_checkpoint_current,prep_checkpoint_old),format=(clean,only),fwdrate=max
+rd=prepare_create,fwd=(prep_dataset_hot,prep_dataset_warm,prep_dataset_cold,prep_checkpoint_current,prep_checkpoint_old),format=(restart,only),fwdrate=max

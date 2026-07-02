@@ -1,0 +1,105 @@
+# 来源和参数映射
+
+## 1. 主要论文
+
+Cristina L. Abad, Nathan Roberts, Yi Lu, Roy H. Campbell, “A Storage-Centric Analysis of MapReduce Workloads: File Popularity, Temporal Locality and Arrival Patterns,” 2012 IEEE International Symposium on Workload Characterization (IISWC), pp. 100–109, DOI: 10.1109/IISWC.2012.6402909.
+
+- DOI：<https://doi.org/10.1109/IISWC.2012.6402909>
+- 作者公开全文：<https://assured-cloud-computing.illinois.edu/files/2014/03/A-Storage-Centric-Analysis-of-MapReduce-Workloads-File-Popularity-Temporal-Locality-and-Arrival-Patterns.pdf>
+- 来源等级：B（同行评审论文 + Yahoo! 生产 trace）
+
+数据范围：
+
+- Yahoo! PROD：4,146 节点，约 3.83～3.93 PB。
+- Yahoo! R&D：1,958 节点，约 2.95～3.63 PB。
+- 6 个月 namespace snapshot/audit trace。
+- 合计超过 9.4 亿 create 和 120 亿 open。
+- trace 只有 namespace metadata，毫秒级时间戳；没有每次 open 的实际 I/O 大小。
+
+## 2. v1 已使用的观测值
+
+| 论文观测 | 位置 | v1 映射 | 偏差/说明 |
+|---|---|---|---|
+| PROD：年龄不超过 1 天的文件贡献 85.41% accesses | §IV-B/I4 | 当前年轻热点池获得 85% operation | 从 85.41% 向下取整；accesses 是 open 次数，不是实测 read bytes |
+| PROD：年龄不超过 1 天的文件占 2.21% bytes | §IV-B/I4 | 当前年轻热点池占 2% bytes | 为保持整数文件数和相同单文件大小，从 2.21% 向下取整 |
+| R&D：年龄不超过 1 天的文件贡献 78.91% accesses、占 1.87% bytes | §IV-B/I4 | 未作为默认 profile | 后续可增加 R&D temporal-locality profile，不能与 PROD 参数混用 |
+| inactive storage 占 51%～52% 文件 | §IV-A/I1 | 未保留；统一 12 MiB 后 inactive 文件数 = 44.00% | 当前版本按容量占比优先，且要求所有 FSD 单文件大小一致 |
+| inactive storage 占 42%～46% bytes | §IV-A/I1 | 4,400/10,000 = 44.00% bytes 全程不访问 | 使用区间中间值附近；因统一文件大小，文件数比例等于容量比例 |
+| file population 高 churn、静态 popularity 模型不足 | §IV-A/I2、§VI | A→B→C→A 热点迁移 | 迁移顺序和阶段时长是工程扩展 |
+| file size 与 popularity 没有强相关 | §IV-E/I7 | 所有对象池文件统一为 12 MiB | individual size 不是生产分布；用于单节点 100～120 GiB 测试预算 |
+
+## 3. 已核对但不作为默认容量热度映射的观测值
+
+- PROD top 2.17% 文件贡献 34% open；R&D top 0.47% 文件贡献 39% open（§IV-A/I3）。该数据只描述 open 次数占比，没有给出 read bytes 或访问容量占比，因此不再作为 v1 默认热点强度。
+- 论文明确说明 trace 只有 namespace metadata，无法确定每次 open 实际读取了多少字节；因此 v1 只能把 access share 映射为 Vdbench operation share，不能声称模拟了论文中的真实 read-byte share。
+- 补充检索的同类 MapReduce workload 论文（例如 Chen, Alspaugh, Katz, “Interactive Analytical Processing in Big Data Systems: A Cross-Industry Study of MapReduce Workloads,” arXiv:1208.4174）主要讨论跨行业 MapReduce job/workload 行为，没有给出可直接映射为“某比例存储容量承载某比例访问字节”的热容量参数。因此 v1 仍使用 Abad 等人的 temporal-locality bytes/accesses 关系作为容量热度来源。
+
+## 4. 论文已给出但 v1 未实现的特征
+
+这些数据不能丢失；后续版本应逐项实现：
+
+### File access frequency
+
+- PROD power-law tail：`alpha=2.99, xmin=937`（6 个月）。
+- R&D power-law tail：`alpha=2.36, xmin=325`（6 个月）。
+- PROD：15.03% 文件只访问 1 次，68.40% 最多 5 次，80.98% 最多 10 次。
+- R&D：23.66% 文件只访问 1 次，84.25% 最多 5 次，90.08% 最多 10 次。
+
+v1 不使用聚合 top-open share 作为默认热点强度，也没有生成完整 power-law/低频分布。
+
+### Age at access（AOA）
+
+| Percentile | PROD | R&D |
+|---:|---:|---:|
+| P50 | 407.80 秒 | 33.53 分钟 |
+| P80 | 3.06 小时 | 1.25 天 |
+| P90 | 6.11 天 | 13.06 天 |
+
+- v1 只使用 1 天边界处的 PROD access/bytes share，没有实现完整 AOA CDF 或 P50/P80/P90 阶段。
+
+### Age at deletion（AOD）
+
+| Percentile | PROD | R&D |
+|---:|---:|---:|
+| P50 | 117.1 秒 | 238.51 秒 |
+| P80 | 453.36 秒 | 26.61 分钟 |
+| P90 | 22.27 分钟 | 1.25 小时 |
+
+这些数据用于未来 create→consume→delete 生命周期版本。
+
+### Arrival burst/self-similarity
+
+- PROD 有 36.5% create 的 interarrival ≤ 1 ms。
+- open/create/delete arrivals 均表现出 burst 和 self-similarity。
+- 论文建议用能够保留 autocorrelation 的 Markovian Arrival Process，而不是只从独立 CDF 抽样。
+- open 第一小时的 Hurst 估计：PROD 0.9370（variance-time）/0.8136（R/S），R&D 0.9020/0.9355。
+- create/delete 的 Hurst 值见论文 Table VI。
+
+v1 的固定 `fwdrate` 不代表该 arrival process。
+
+## 5. 工具来源
+
+Oracle Vdbench User Guide 定义了本负载使用的机制：
+
+- FSD `files`/`sizes`：对象池文件数量和大小。
+- FWD `operation=read`：data operations。
+- FWD `skew`：各对象池获得的总 operation 比例。
+- RD `fwdrate`：所有 FWD 的固定总 operation rate。
+- RD `format=only`：只创建目录/文件结构。
+- `abort_failed_skew`/skew report：检查实际 workload share。
+
+来源等级：A（工具官方文档）。
+
+- <https://www.oracle.com/downloads/server-storage/vdbench-downloads.html>
+
+## 6. 不允许的结论
+
+本负载结果不能用于声称：
+
+- 所有大数据 workload 都符合 2%/85%。
+- 论文观测到了 2% 容量承载 85% read bytes。
+- Yahoo! trace 的文件大小是 12 MiB。
+- 本容量优先版本保留了 Yahoo! inactive 文件数 51%～52%。
+- Yahoo! HDFS 使用 1 MiB data request。
+- 固定阶段时长等于原 trace 的热点迁移周期。
+- data proxy 等价于真实 MapReduce 数据扫描。
