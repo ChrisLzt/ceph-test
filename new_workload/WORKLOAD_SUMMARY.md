@@ -4,13 +4,13 @@
 
 ## 总览
 
-| 类型 | 目录 | 工具 | 默认容量 | 默认正式测试时间 | 数据路径 |
-|---|---|---|---:|---:|---|
-| 大数据 | `bigdata_mapreduce_vdbench_v1` | vdbench | 约 117.19 GiB | 10 min | `/mnt/cephfs/bigdata_mapreduce_vdbench_v1` |
-| 图计算 | `graph_graphchi_vdbench_v1` | vdbench | 约 112.50 GiB | 10 min | `/mnt/cephfs/graph_graphchi_vdbench_v1` |
-| HPC | `hpc_wrf_ior_v1` | IOR | 约 112.00 GiB | 约 10 min | `/mnt/cephfs/hpc_wrf_ior_v1` |
-| AI 训练 | `ai_training_checkpoint_vdbench_v1` | vdbench | 约 112.00 GiB | 10 min | `/mnt/cephfs/ai_training_checkpoint_vdbench_v1` |
-| AI 推理 | `ai_inference_kvcache_vdbench_v1` | vdbench | 约 112.00 GiB | 10 min | `/mnt/cephfs/ai_inference_kvcache_vdbench_v1` |
+| 类型 | 目录 | 工具 | 默认容量 | 默认时间 |
+|---|---|---|---:|---:|
+| 大数据 | `bigdata_mapreduce`<br>`_vdbench_v1` | vdbench | 约 117.19 GiB | 10 min |
+| 图计算 | `graph_graphchi`<br>`_vdbench_v1` | vdbench | 约 112.50 GiB | 10 min |
+| HPC | `hpc_wrf`<br>`_ior_v1` | IOR | 约 112.00 GiB | 约 10 min |
+| AI 训练 | `ai_training_checkpoint`<br>`_vdbench_v1` | vdbench | 约 112.00 GiB | 10 min |
+| AI 推理 | `ai_inference_kvcache`<br>`_vdbench_v1` | vdbench | 约 112.00 GiB | 10 min |
 
 ## 1. 大数据：MapReduce 文件冷热负载
 
@@ -37,12 +37,12 @@
 
 默认 4 个阶段各 150 秒，总正式测试时间 10 分钟。
 
-| 阶段 | 读/写 | 访问的数据 | 访问分布 | 目的 |
+| 阶段 | 读/写 | 访问数据 | 访问分布 | 目的 |
 |---|---|---|---|---|
-| `hot_a` | 读 | `pool_01`、`pool_02`、`pool_03`、`pool_04` | 85% / 1% / 1% / 13% | `pool_01` 成为热点 |
-| `hot_b` | 读 | `pool_01`、`pool_02`、`pool_03`、`pool_04` | 1% / 85% / 1% / 13% | 热点从 `pool_01` 迁移到 `pool_02` |
-| `hot_c` | 读 | `pool_01`、`pool_02`、`pool_03`、`pool_04` | 1% / 1% / 85% / 13% | 热点从 `pool_02` 迁移到 `pool_03` |
-| `reheat_a` | 读 | `pool_01`、`pool_02`、`pool_03`、`pool_04` | 85% / 1% / 1% / 13% | `pool_01` 复热 |
+| `hot_a` | 读 | `pool_01~04` | 85% / 1% / 1% / 13% | `pool_01` 成为热点 |
+| `hot_b` | 读 | `pool_01~04` | 1% / 85% / 1% / 13% | 热点迁移到 `pool_02` |
+| `hot_c` | 读 | `pool_01~04` | 1% / 1% / 85% / 13% | 热点迁移到 `pool_03` |
+| `reheat_a` | 读 | `pool_01~04` | 85% / 1% / 1% / 13% | `pool_01` 复热 |
 
 `pool_05` 在全部正式测试阶段不读写，作为 inactive 冷数据对照。
 
@@ -77,16 +77,16 @@ GraphChi 的 Parallel Sliding Windows 会把图划分为 shard/interval。当前
 
 默认 8 个阶段各 75 秒，总正式测试时间 10 分钟。
 
-| 阶段 | 读/写 | 访问的数据 | 访问分布 | 目的 |
+| 阶段 | 读/写 | 访问数据 | 访问分布 | 目的 |
 |---|---|---|---|---|
-| `iter1_i0` | 读 | `shard_00`、`shard_01`、`shard_02`、`shard_03` | 75% / 13% / 6% / 6% | interval 0 的 memory-shard 为主热点 |
-| `iter1_i1` | 读 | `shard_00`、`shard_01`、`shard_02`、`shard_03` | 6% / 75% / 13% / 6% | 热点迁移到 interval 1 |
-| `iter1_i2` | 读 | `shard_00`、`shard_01`、`shard_02`、`shard_03` | 6% / 6% / 75% / 13% | 热点迁移到 interval 2 |
-| `iter1_i3` | 读 | `shard_00`、`shard_01`、`shard_02`、`shard_03` | 13% / 6% / 6% / 75% | 热点迁移到 interval 3 |
-| `iter2_i0` | 读 | `shard_00`、`shard_01`、`shard_02`、`shard_03` | 75% / 13% / 6% / 6% | 第二轮重新访问 interval 0，形成复热 |
-| `iter2_i1` | 读 | `shard_00`、`shard_01`、`shard_02`、`shard_03` | 6% / 75% / 13% / 6% | 第二轮重新访问 interval 1 |
-| `iter2_i2` | 读 | `shard_00`、`shard_01`、`shard_02`、`shard_03` | 6% / 6% / 75% / 13% | 第二轮重新访问 interval 2 |
-| `iter2_i3` | 读 | `shard_00`、`shard_01`、`shard_02`、`shard_03` | 13% / 6% / 6% / 75% | 第二轮重新访问 interval 3 |
+| `iter1_i0` | 读 | `shard_00~03` | 75% / 13% / 6% / 6% | interval 0 为主热点 |
+| `iter1_i1` | 读 | `shard_00~03` | 6% / 75% / 13% / 6% | 热点迁移到 interval 1 |
+| `iter1_i2` | 读 | `shard_00~03` | 6% / 6% / 75% / 13% | 热点迁移到 interval 2 |
+| `iter1_i3` | 读 | `shard_00~03` | 13% / 6% / 6% / 75% | 热点迁移到 interval 3 |
+| `iter2_i0` | 读 | `shard_00~03` | 75% / 13% / 6% / 6% | interval 0 复热 |
+| `iter2_i1` | 读 | `shard_00~03` | 6% / 75% / 13% / 6% | interval 1 复热 |
+| `iter2_i2` | 读 | `shard_00~03` | 6% / 6% / 75% / 13% | interval 2 复热 |
+| `iter2_i3` | 读 | `shard_00~03` | 13% / 6% / 6% / 75% | interval 3 复热 |
 
 图计算负载没有手工指定热点比例；这些分布由 generated graph 经 GraphChi PSW 规则计算后写入 vdbench 配置。
 
@@ -115,11 +115,11 @@ WRF 运行涉及输入文件、边界文件、restart/checkpoint 文件和 histo
 |---|---|---:|---|
 | `input/wrfinput_d01` | 初始气象场 | 约 16 GiB | 启动阶段读取 |
 | `input/wrfbdy_d01` | 边界场 | 约 16 GiB | 启动阶段读取 |
-| `restart/wrfrst_initial` | 初始 restart | 约 16 GiB | 启动阶段读取 |
-| `checkpoint/wrfrst_old` | 旧 checkpoint | 约 16 GiB | 恢复阶段复热 |
-| `history/wrfout_old` | 旧 history/output | 约 16 GiB | 冷背景 |
-| `checkpoint/wrfrst_current` | 当前 checkpoint | 约 16 GiB | 写后热读 |
-| `history/wrfout_current` | 当前 history/output | 约 16 GiB | 写后热读 |
+| `restart/`<br>`wrfrst_initial` | 初始 restart | 约 16 GiB | 启动阶段读取 |
+| `checkpoint/`<br>`wrfrst_old` | 旧 checkpoint | 约 16 GiB | 恢复阶段复热 |
+| `history/`<br>`wrfout_old` | 旧 history/output | 约 16 GiB | 冷背景 |
+| `checkpoint/`<br>`wrfrst_current` | 当前 checkpoint | 约 16 GiB | 写后热读 |
+| `history/`<br>`wrfout_current` | 当前 history/output | 约 16 GiB | 写后热读 |
 
 默认 `NP=4`、file-per-process、每 rank 4 GiB，因此每个文件语义组约 16 GiB。
 
@@ -127,16 +127,16 @@ WRF 运行涉及输入文件、边界文件、restart/checkpoint 文件和 histo
 
 默认 8 次 IOR 阶段调用，每阶段通过 IOR `-D 75` 控制，总正式测试时间约 10 分钟。IOR 需要额外启动/收尾开销，因此实际墙钟时间可能略高。
 
-| 阶段 | 读/写 | 访问的数据 | 目的 |
+| 阶段 | 读/写 | 访问数据 | 目的 |
 |---|---|---|---|
-| `startup_read_wrfinput` | 读 | `input/wrfinput_d01` | 模拟 WRF 启动读取初始气象场 |
-| `startup_read_wrfbdy` | 读 | `input/wrfbdy_d01` | 模拟 WRF 启动读取边界场 |
-| `startup_read_restart` | 读 | `restart/wrfrst_initial` | 模拟从 restart 文件初始化 |
-| `checkpoint_write_current` | 写 | `checkpoint/wrfrst_current` | 模拟运行过程中写当前 checkpoint |
-| `checkpoint_hot_read_current` | 读 | `checkpoint/wrfrst_current` | 模拟 checkpoint 写出后短期被读取/校验，形成写后热读 |
-| `history_write_current` | 写 | `history/wrfout_current` | 模拟写当前 history/output |
-| `history_hot_read_current` | 读 | `history/wrfout_current` | 模拟 history/output 写出后短期读取 |
-| `recovery_reheat_read_old_checkpoint` | 读 | `checkpoint/wrfrst_old` | 模拟恢复时读取旧 checkpoint，形成复热 |
+| `read_input` | 读 | `wrfinput_d01` | 读取初始气象场 |
+| `read_boundary` | 读 | `wrfbdy_d01` | 读取边界场 |
+| `read_restart` | 读 | `wrfrst_initial` | 从 restart 初始化 |
+| `write_ckpt` | 写 | `wrfrst_current` | 写当前 checkpoint |
+| `read_ckpt` | 读 | `wrfrst_current` | checkpoint 写后热读 |
+| `write_history` | 写 | `wrfout_current` | 写当前 history/output |
+| `read_history` | 读 | `wrfout_current` | history 写后热读 |
+| `recover_old_ckpt` | 读 | `wrfrst_old` | 旧 checkpoint 复热 |
 
 `history/wrfout_old` 在正式测试阶段不读写，作为冷背景数据。
 
@@ -165,20 +165,20 @@ Meta DSI 描述大规模训练会反复读取、过滤数据，并存在热门 f
 | `dataset_hot` | 32 | 1 GiB | 32 GiB | 训练阶段主要读取的数据 |
 | `dataset_warm` | 24 | 1 GiB | 24 GiB | 较低热度训练数据 |
 | `dataset_cold` | 32 | 1 GiB | 32 GiB | 不访问的冷训练数据 |
-| `checkpoint_current` | 12 | 1 GiB | 12 GiB | 当前 checkpoint，写后读 |
-| `checkpoint_old` | 12 | 1 GiB | 12 GiB | 旧 checkpoint，恢复阶段复热 |
+| `checkpoint`<br>`_current` | 12 | 1 GiB | 12 GiB | 当前 checkpoint，写后读 |
+| `checkpoint`<br>`_old` | 12 | 1 GiB | 12 GiB | 旧 checkpoint，恢复阶段复热 |
 
 ### 测试阶段
 
 默认 5 个阶段各 120 秒，总正式测试时间 10 分钟。
 
-| 阶段 | 读/写 | 访问的数据 | 目的 |
+| 阶段 | 读/写 | 访问数据 | 目的 |
 |---|---|---|---|
-| `epoch_read_hot_dataset` | 读 | `dataset_hot` | 模拟训练 epoch 中主要训练数据被反复读取 |
-| `epoch_read_warm_dataset` | 读 | `dataset_warm` | 模拟较低热度训练数据读取 |
-| `checkpoint_write_current` | 写 | `checkpoint_current` | 模拟训练过程中写当前 checkpoint |
-| `checkpoint_read_current` | 读 | `checkpoint_current` | 模拟当前 checkpoint 写后读取/校验 |
-| `recovery_read_old_checkpoint` | 读 | `checkpoint_old` | 模拟故障恢复或恢复训练时读取旧 checkpoint，形成复热 |
+| `read_hot_data` | 读 | `dataset_hot` | 主要训练数据反复读取 |
+| `read_warm_data` | 读 | `dataset_warm` | 较低热度训练数据读取 |
+| `write_ckpt` | 写 | `checkpoint_current` | 写当前 checkpoint |
+| `read_ckpt` | 读 | `checkpoint_current` | 当前 checkpoint 写后读取 |
+| `recover_old_ckpt` | 读 | `checkpoint_old` | 旧 checkpoint 复热 |
 
 `dataset_cold` 在正式测试阶段不读写，作为冷训练数据对照。
 
@@ -205,7 +205,7 @@ LLM 推理中，prefill 会生成 KV cache，decode 阶段会持续读取已有 
 | 数据池 | 文件数 | 单文件大小 | 容量 | 作用 |
 |---|---:|---:|---:|---|
 | `kv_active` | 32 | 1 GiB | 32 GiB | 当前请求/会话 KV cache |
-| `kv_prefix_reuse` | 32 | 1 GiB | 32 GiB | 旧 KV cache，prefix reuse 阶段复热 |
+| `kv_prefix`<br>`_reuse` | 32 | 1 GiB | 32 GiB | 旧 KV cache，prefix reuse 阶段复热 |
 | `kv_next` | 32 | 1 GiB | 32 GiB | 下一批请求 KV cache |
 | `kv_cold` | 16 | 1 GiB | 16 GiB | 不访问的冷 KV cache |
 
@@ -213,13 +213,13 @@ LLM 推理中，prefill 会生成 KV cache，decode 阶段会持续读取已有 
 
 默认 5 个阶段各 120 秒，总正式测试时间 10 分钟。
 
-| 阶段 | 读/写 | 访问的数据 | 目的 |
+| 阶段 | 读/写 | 访问数据 | 目的 |
 |---|---|---|---|
-| `prefill_write_active` | 写 | `kv_active` | 模拟当前请求 prefill 生成并写入 KV cache |
-| `decode_read_active` | 读 | `kv_active` | 模拟 decode 阶段反复读取当前 KV cache |
-| `prefill_write_next` | 写 | `kv_next` | 模拟下一批请求生成新的 KV cache |
-| `decode_read_next` | 读 | `kv_next` | 模拟下一批请求进入 decode，热点迁移到新 KV cache |
-| `prefix_reuse_read_old` | 读 | `kv_prefix_reuse` | 模拟共享前缀/多轮对话读取旧 KV cache，形成复热 |
+| `write_active` | 写 | `kv_active` | prefill 写当前 KV cache |
+| `read_active` | 读 | `kv_active` | decode 读取当前 KV cache |
+| `write_next` | 写 | `kv_next` | prefill 写下一批 KV cache |
+| `read_next` | 读 | `kv_next` | 热点迁移到新 KV cache |
+| `reuse_prefix` | 读 | `kv_prefix_reuse` | 旧 KV cache 复热 |
 
 `kv_cold` 在正式测试阶段不读写，作为冷 KV cache 对照。
 
