@@ -36,7 +36,7 @@ fwd=fixed_a_4_b,fsd=fsd_b,operation=read,fileio=sequential,fileselect=random,xfe
 fwd=fixed_a_4_c,fsd=fsd_c,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=1
 fwd=fixed_a_4_bg,fsd=fsd_bg,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=13
 
-rd=fixed_a_1,fwd=(fixed_a_1_a,fixed_a_1_b,fixed_a_1_c,fixed_a_1_bg),fwdrate=1000,elapsed=150,interval=1
-rd=fixed_a_2,fwd=(fixed_a_2_a,fixed_a_2_b,fixed_a_2_c,fixed_a_2_bg),fwdrate=1000,elapsed=150,interval=1
-rd=fixed_a_3,fwd=(fixed_a_3_a,fixed_a_3_b,fixed_a_3_c,fixed_a_3_bg),fwdrate=1000,elapsed=150,interval=1
-rd=fixed_a_4,fwd=(fixed_a_4_a,fixed_a_4_b,fixed_a_4_c,fixed_a_4_bg),fwdrate=1000,elapsed=150,interval=1
+rd=fixed_a_1,fwd=(fixed_a_1_a,fixed_a_1_b,fixed_a_1_c,fixed_a_1_bg),fwdrate=max,elapsed=150,interval=1
+rd=fixed_a_2,fwd=(fixed_a_2_a,fixed_a_2_b,fixed_a_2_c,fixed_a_2_bg),fwdrate=max,elapsed=150,interval=1
+rd=fixed_a_3,fwd=(fixed_a_3_a,fixed_a_3_b,fixed_a_3_c,fixed_a_3_bg),fwdrate=max,elapsed=150,interval=1
+rd=fixed_a_4,fwd=(fixed_a_4_a,fixed_a_4_b,fixed_a_4_c,fixed_a_4_bg),fwdrate=max,elapsed=150,interval=1

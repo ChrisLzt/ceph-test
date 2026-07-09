@@ -25,7 +25,7 @@ vdbench_home=${VDBENCH_HOME:-/home/chris/PDSL/vdbench}
 remote_user=${REMOTE_USER:-chris}
 host1=${HOST1:-s52.servers.hustpdsl.cn}
 phase_seconds=${PHASE_SECONDS:-75}
-fwd_rate=${FWD_RATE:-1000}
+fwd_rate=${FWD_RATE:-max}
 threads=${THREADS:-16}
 files_per_shard=${FILES_PER_SHARD:-1800}
 file_size=${FILE_SIZE:-16m}
@@ -34,12 +34,17 @@ intervals=${INTERVALS:-4}
 vertices_per_interval=${VERTICES_PER_INTERVAL:-128}
 iterations=${ITERATIONS:-2}
 
-for value in "$phase_seconds" "$fwd_rate" "$threads" "$files_per_shard" "$intervals" "$vertices_per_interval" "$iterations"; do
+for value in "$phase_seconds" "$threads" "$files_per_shard" "$intervals" "$vertices_per_interval" "$iterations"; do
     [[ "$value" =~ ^[1-9][0-9]*$ ]] || {
         echo "Numeric parameters must be positive integers: $value" >&2
         exit 2
     }
 done
+
+[[ "$fwd_rate" == "max" || "$fwd_rate" =~ ^[1-9][0-9]*$ ]] || {
+    echo "FWD_RATE must be a positive integer or max: $fwd_rate" >&2
+    exit 2
+}
 
 [[ "$file_size" =~ ^[1-9][0-9]*[kKmMgGtT]$ ]] || {
     echo "FILE_SIZE must use vdbench size syntax, e.g. 16m or 1g: $file_size" >&2

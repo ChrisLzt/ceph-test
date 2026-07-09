@@ -9,15 +9,20 @@ vdbench_home=${VDBENCH_HOME:-/home/chris/PDSL/vdbench}
 remote_user=${REMOTE_USER:-chris}
 host1=${HOST1:-s52.servers.hustpdsl.cn}
 phase_seconds=${PHASE_SECONDS:-150}
-fwd_rate=${FWD_RATE:-1000}
+fwd_rate=${FWD_RATE:-max}
 threads=${THREADS:-16}
 
-for value in "$phase_seconds" "$fwd_rate" "$threads"; do
+for value in "$phase_seconds" "$threads"; do
     [[ "$value" =~ ^[1-9][0-9]*$ ]] || {
         echo "Numeric parameters must be positive integers: $value" >&2
         exit 2
     }
 done
+
+[[ "$fwd_rate" == "max" || "$fwd_rate" =~ ^[1-9][0-9]*$ ]] || {
+    echo "FWD_RATE must be a positive integer or max: $fwd_rate" >&2
+    exit 2
+}
 
 mkdir -p rendered
 

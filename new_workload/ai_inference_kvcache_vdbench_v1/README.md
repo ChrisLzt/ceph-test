@@ -32,25 +32,25 @@
 /mnt/cephfs/ai_inference_kvcache_vdbench_v1/
 ```
 
-默认容量为 120 GiB：
+默认容量约为 117.19 GiB：
 
 | 数据集 | 文件数 | 单文件大小 | 容量 | 作用 |
 |---|---:|---:|---:|---|
-| `kv_active_rank_01~08` | 8 × 5 | 1 GiB | 40 GiB | 当前请求/会话 KV cache |
-| `kv_next_rank_01~08` | 8 × 5 | 1 GiB | 40 GiB | 下一批请求 KV cache，热点迁移目标 |
-| `kv_prefix_rank_01~08` | 8 × 5 | 1 GiB | 40 GiB | 可复用的 prefix KV cache |
+| `kv_active_rank_01~20` | 20 × 100 | 20 MiB | 约 39.06 GiB | 当前请求/会话 KV cache |
+| `kv_next_rank_01~20` | 20 × 100 | 20 MiB | 约 39.06 GiB | 下一批请求 KV cache，热点迁移目标 |
+| `kv_prefix_rank_01~20` | 20 × 100 | 20 MiB | 约 39.06 GiB | 可复用的 prefix KV cache |
 
 ### 数据构造由来
 
 三类 KV cache 分别表达三个不同生命周期：
 
-- `kv_active_rank_01~08`：当前请求/会话的 KV cache；
-- `kv_next_rank_01~08`：下一批请求生成的新 KV cache，用于制造热点迁移；
-- `kv_prefix_rank_01~08`：共享前缀、多轮对话或分支推理中可复用的旧 KV cache。
+- `kv_active_rank_01~20`：当前请求/会话的 KV cache；
+- `kv_next_rank_01~20`：下一批请求生成的新 KV cache，用于制造热点迁移；
+- `kv_prefix_rank_01~20`：共享前缀、多轮对话或分支推理中可复用的旧 KV cache。
 
-每类 KV cache 都按 8 个等容量 rank 切分。每个 rank 为 5 GiB，可看作 1280 个 4 MiB object；每类 KV cache 合计 40 GiB，即 10240 个 4 MiB object。这样可以在保持总容量 120 GiB 的同时，让每一类 KV cache 都有完整的偏斜访问长尾。
+每类 KV cache 都按 20 个等容量 rank 切分。每个 rank 有 100 个 20 MiB 文件，容量约 1.95 GiB；按 4 MiB object 估算，每个 rank 可看作 500 个 object，每类 KV cache 合计 10000 个 object。这样可以在保持总容量约 117.19 GiB 的同时，让每一类 KV cache 都有更细的偏斜访问长尾。
 
-KV cache 访问偏斜采用 Zipf(alpha=0.99)。alpha=0.99 是 YCSB 常用 Zipfian 参数，表达“少量对象访问更多，但长尾对象仍会被访问”。脚本先按每类 10240 个 4 MiB object 计算 Zipf(0.99)，再聚合到 8 个等容量 rank。聚合后的 rank 访问占比约为 `78.0% / 7.3% / 4.3% / 3.1% / 2.4% / 1.9% / 1.6% / 1.4%`，vdbench 中整数化为 `79/7/4/3/2/2/2/1`。
+KV cache 访问偏斜采用 Zipf(alpha=0.99)。alpha=0.99 是 YCSB 常用 Zipfian 参数，表达“少量对象访问更多，但长尾对象仍会被访问”。脚本先按每类 10000 个 4 MiB object 计算 Zipf(0.99)，再聚合到 20 个等容量 rank。聚合后的 rank 访问占比约为 `68.4% / 7.2% / 4.3% / 3.0% / 2.4% / 1.9% / 1.6% ...`，vdbench 中整数化为 `68/7/4/3/2/2/1×14`。
 
 这个容量和权重不是 PagedAttention 或 MLPerf 给出的实测热 KV cache 比例；它是用 PagedAttention 的 KV cache 生命周期语义，结合 YCSB Zipfian 分布构造的冷热识别执行模型。
 
@@ -94,16 +94,16 @@ prefill_active
 
 | 阶段 | 读/写 | 访问数据 | 目的 |
 |---|---|---|---|
-| `prefill_active` | 写 | 全部 `kv_active_rank_01~08` | 当前请求 prefill 生成 KV cache |
-| `decode_active` | 读 | 全部 `kv_active_rank_01~08` | decode 持续读取当前 KV cache |
-| `prefill_next` | 写 | 全部 `kv_next_rank_01~08` | 下一批请求 prefill，热点迁移目标写入 |
-| `decode_next` | 读 | 全部 `kv_next_rank_01~08` | decode 读取下一批 KV cache，观察热点迁移 |
-| `prefix_reuse_primary` | 读 | 全部 `kv_prefix_rank_01~08` | 共享前缀/多轮对话复用旧 KV cache |
-| `prefix_reuse_shifted` | 读 | 全部 `kv_prefix_rank_01~08` | prefix 热点 rank 旋转，观察旧 KV cache 热点变化 |
+| `prefill_active` | 写 | 全部 `kv_active_rank_01~20` | 当前请求 prefill 生成 KV cache |
+| `decode_active` | 读 | 全部 `kv_active_rank_01~20` | decode 持续读取当前 KV cache |
+| `prefill_next` | 写 | 全部 `kv_next_rank_01~20` | 下一批请求 prefill，`kv_next_rank_01` 为最高权重热点 |
+| `decode_next` | 读 | 全部 `kv_next_rank_01~20` | decode 读取下一批 KV cache，`kv_next_rank_01` 保持最高权重热点 |
+| `prefix_reuse_primary` | 读 | 全部 `kv_prefix_rank_01~20` | 共享前缀/多轮对话复用旧 KV cache |
+| `prefix_reuse_shifted` | 读 | 全部 `kv_prefix_rank_01~20` | prefix 热点 rank 旋转，观察旧 KV cache 热点变化 |
 
 ### 阶段由来
 
-`prefill_active` 和 `prefill_next` 来自 LLM serving 的 prefill 过程：新请求会生成 KV cache，因此在存储侧表达为写入。这里拆成 active/next 两组，是为了让热点从当前请求迁移到下一批请求。
+`prefill_active` 和 `prefill_next` 来自 LLM serving 的 prefill 过程：新请求会生成 KV cache，因此在存储侧表达为写入。这里拆成 active/next 两组，是为了让热点从当前请求迁移到下一批请求。为保持真值清晰，active 和 next 两个数据池内部都让 rank 01 承担最高 Zipf 权重，只改变数据池，不额外改变 rank 编号。
 
 `decode_active` 和 `decode_next` 来自 autoregressive decode：生成 token 时会持续使用已有 KV cache，因此在存储侧表达为读取。decode 阶段使用随机读，是为了表示不同请求、不同 block/rank 的 cache 访问，而不是单个大文件顺序扫描。
 
@@ -114,7 +114,7 @@ prefill 阶段使用顺序写；decode 和 prefix reuse 阶段使用随机读。
 ## 可调参数
 
 ```bash
-ANCHOR=/mnt/cephfs/ai_inference_kvcache_vdbench_v1 THREADS=8 FORMAT_THREADS=4 PHASE_SECONDS=100 FWD_RATE=1000 KV_READ_XFER_SIZE=1m KV_WRITE_XFER_SIZE=4m ./render_config.sh all
+ANCHOR=/mnt/cephfs/ai_inference_kvcache_vdbench_v1 THREADS=8 FORMAT_THREADS=4 PHASE_SECONDS=100 FWD_RATE=max KV_READ_XFER_SIZE=1m KV_WRITE_XFER_SIZE=4m ./render_config.sh all
 ```
 
 默认 `THREADS=8`，允许多线程。单节点 SN350 上如果 Ceph 出现 backfill、recovery 或 slow ops，应先停止测试，等 `ceph -s` 恢复 `active+clean` 后再运行。

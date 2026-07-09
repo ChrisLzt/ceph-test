@@ -11,8 +11,8 @@ AI 训练/推理当前使用 Zipfian rank 表达访问偏斜；Zipf alpha=0.99 �
 | 大数据 | `bigdata_mapreduce`<br>`_vdbench_v1` | vdbench | 约 117.19 GiB | 10 min |
 | 图计算 | `graph_graphchi`<br>`_vdbench_v1` | vdbench | 约 112.50 GiB | 10 min |
 | HPC | `hpc_wrf`<br>`_ior_v1` | IOR | 约 112.00 GiB | 约 10 min |
-| AI 训练 | `ai_training_checkpoint`<br>`_vdbench_v1` | vdbench | 约 112.00 GiB | 10 min |
-| AI 推理 | `ai_inference_kvcache`<br>`_vdbench_v1` | vdbench | 约 120.00 GiB | 10 min |
+| AI 训练 | `ai_training_checkpoint`<br>`_vdbench_v1` | vdbench | 约 113.28 GiB | 10 min |
+| AI 推理 | `ai_inference_kvcache`<br>`_vdbench_v1` | vdbench | 约 117.19 GiB | 10 min |
 
 固定热点目录只作为诊断负载使用，不计入 5 类正式负载。
 
@@ -163,17 +163,17 @@ WRF 运行涉及输入文件、边界文件、restart/checkpoint 文件和 histo
 
 Meta DSI 描述大规模训练会反复读取、过滤数据，并存在热门 features/samples。MLPerf Storage checkpointing / DLIO 提供 checkpoint write/read/recovery 的存储语义。v1 将训练数据读取和 checkpoint 生命周期组合成阶段化 vdbench 负载。训练数据不再划分为完全不访问的冷池，而是切成等容量 rank，用 Zipfian 权重表达访问偏斜。
 
-数据构造上，96 GiB 训练数据可看作 24576 个 4 MiB object。先按 object 级 Zipf(alpha=0.99) 计算访问概率，再聚合到 8 个等容量 rank，得到 `80/7/4/3/2/2/1/1`。checkpoint 作为训练状态文件单独建模，不参与样本 Zipfian 分布。
+数据构造上，训练数据由 20 个等容量 rank 组成，每个 rank 为 250 个 20 MiB 文件。按 4 MiB object 估算，训练数据约为 25000 个 object。先按 object 级 Zipf(alpha=0.99) 计算访问概率，再聚合到 20 个等容量 rank，得到 `69/6/4/3/2/2/1×14`。checkpoint 作为训练状态文件单独建模，不参与样本 Zipfian 分布。
 
 ### 测试数据分布
 
 | 数据池 | 文件数 | 单文件大小 | 容量 | 作用 |
 |---|---:|---:|---:|---|
-| `dataset_rank`<br>`_01~08` | 8 × 12 | 1 GiB | 96 GiB | 训练数据 rank，全部参与读取 |
-| `checkpoint`<br>`_current` | 8 | 1 GiB | 8 GiB | 当前 checkpoint，先写后读 |
-| `checkpoint`<br>`_old` | 8 | 1 GiB | 8 GiB | 旧 checkpoint，恢复阶段复热 |
+| `dataset_rank`<br>`_01~20` | 20 × 250 | 20 MiB | 约 97.66 GiB | 训练数据 rank，全部参与读取 |
+| `checkpoint`<br>`_current` | 400 | 20 MiB | 约 7.81 GiB | 当前 checkpoint，先写后读 |
+| `checkpoint`<br>`_old` | 400 | 20 MiB | 约 7.81 GiB | 旧 checkpoint，恢复阶段复热 |
 
-数据读取阶段按 4 MiB object 计算 Zipf(alpha=0.99)，再聚合到 8 个 dataset rank，整数化权重为 `80/7/4/3/2/2/1/1`。这是执行模型，不是论文实测比例。
+数据读取阶段按 4 MiB object 计算 Zipf(alpha=0.99)，再聚合到 20 个 dataset rank，整数化权重为 `69/6/4/3/2/2/1×14`。这是执行模型，不是论文实测比例。
 
 ### 测试阶段
 
@@ -188,7 +188,7 @@ Meta DSI 描述大规模训练会反复读取、过滤数据，并存在热门 f
 | `checkpoint_read_current` | 读 | `checkpoint_current` | 当前 checkpoint 写后校验/加载/近期恢复 |
 | `recovery_read_old_checkpoint` | 读 | `checkpoint_old` | 旧 checkpoint 复热 |
 
-每个 dataset 阶段都会访问全部 8 个 rank，只是访问权重不同。checkpoint 阶段来自 MLPerf Storage/DLIO 的 checkpoint 语义，保持顺序读写，表示训练状态文件生命周期。
+每个 dataset 阶段都会访问全部 20 个 rank，只是访问权重不同。checkpoint 阶段来自 MLPerf Storage/DLIO 的 checkpoint 语义，保持顺序读写，表示训练状态文件生命周期。
 
 ### 适用范围与限制
 
@@ -208,17 +208,17 @@ Meta DSI 描述大规模训练会反复读取、过滤数据，并存在热门 f
 
 LLM 推理中，prefill 会生成 KV cache，decode 阶段会持续读取已有 KV cache。多轮对话、共享前缀或分支推理会复用旧 KV cache。v1 将这些行为映射为 KV cache 文件池的写入、读取、热点迁移和复热，并用 Zipfian rank 表达偏斜访问。
 
-数据构造上，active/next/prefix 三类 KV cache 各 40 GiB，每类可看作 10240 个 4 MiB object。先按 object 级 Zipf(alpha=0.99) 计算访问概率，再聚合到每类 8 个等容量 rank，得到 `79/7/4/3/2/2/2/1`。三类 KV cache 分别对应当前会话、下一批会话和可复用 prefix。
+数据构造上，active/next/prefix 三类 KV cache 各约 39.06 GiB，每类包含 20 个 rank，每个 rank 为 100 个 20 MiB 文件。按 4 MiB object 估算，每类 KV cache 约为 10000 个 object。先按 object 级 Zipf(alpha=0.99) 计算访问概率，再聚合到每类 20 个等容量 rank，得到 `68/7/4/3/2/2/1×14`。三类 KV cache 分别对应当前会话、下一批会话和可复用 prefix。
 
 ### 测试数据分布
 
 | 数据池 | 文件数 | 单文件大小 | 容量 | 作用 |
 |---|---:|---:|---:|---|
-| `kv_active_rank`<br>`_01~08` | 8 × 5 | 1 GiB | 40 GiB | 当前请求/会话 KV cache |
-| `kv_next_rank`<br>`_01~08` | 8 × 5 | 1 GiB | 40 GiB | 下一批请求 KV cache |
-| `kv_prefix_rank`<br>`_01~08` | 8 × 5 | 1 GiB | 40 GiB | 可复用 prefix KV cache |
+| `kv_active_rank`<br>`_01~20` | 20 × 100 | 20 MiB | 约 39.06 GiB | 当前请求/会话 KV cache |
+| `kv_next_rank`<br>`_01~20` | 20 × 100 | 20 MiB | 约 39.06 GiB | 下一批请求 KV cache |
+| `kv_prefix_rank`<br>`_01~20` | 20 × 100 | 20 MiB | 约 39.06 GiB | 可复用 prefix KV cache |
 
-每类 KV cache 都按 8 个等容量 rank 切分。相关阶段按 4 MiB object 计算 Zipf(alpha=0.99)，再聚合到 8 个 rank，整数化权重为 `79/7/4/3/2/2/2/1`。
+每类 KV cache 都按 20 个等容量 rank 切分。相关阶段按 4 MiB object 计算 Zipf(alpha=0.99)，再聚合到 20 个 rank，整数化权重为 `68/7/4/3/2/2/1×14`。
 
 ### 测试阶段
 
@@ -228,8 +228,8 @@ LLM 推理中，prefill 会生成 KV cache，decode 阶段会持续读取已有 
 |---|---|---|---|
 | `prefill_active` | 写 | 全部 `kv_active_rank` | 当前请求 prefill 生成 KV cache |
 | `decode_active` | 读 | 全部 `kv_active_rank` | decode 持续读取当前 KV cache |
-| `prefill_next` | 写 | 全部 `kv_next_rank` | 下一批请求 prefill 生成新 KV cache |
-| `decode_next` | 读 | 全部 `kv_next_rank` | decode 读取新 KV cache，观察热点迁移 |
+| `prefill_next` | 写 | 全部 `kv_next_rank` | 下一批请求 prefill，`kv_next_rank_01` 为最高权重热点 |
+| `decode_next` | 读 | 全部 `kv_next_rank` | decode 读取新 KV cache，`kv_next_rank_01` 保持最高权重热点 |
 | `prefix_reuse_primary` | 读 | 全部 `kv_prefix_rank` | 共享前缀/多轮对话复用旧 KV cache |
 | `prefix_reuse_shifted` | 读 | 全部 `kv_prefix_rank` | prefix 内部热点 rank 旋转 |
 

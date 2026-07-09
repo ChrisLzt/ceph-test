@@ -98,7 +98,7 @@ VDBENCH_HOME=/home/chris/PDSL/vdbench \
 REMOTE_USER=chris \
 HOST1=s52.servers.hustpdsl.cn \
 PHASE_SECONDS=150 \
-FWD_RATE=1000 \
+FWD_RATE=max \
 ./render_config.sh
 ```
 
@@ -150,14 +150,14 @@ FWD_RATE=1000 \
 
 每个阶段应足够长，使系统至少完成若干次识别判断；具体倍数作为测试设计参数记录。若无法取得内部周期，先使用当前 10 分钟统一窗口，再做多个阶段时长的 sensitivity test。
 
-`FWD_RATE` 也不能直接设为 `max`。先在单独环境测最大 metadata/data rate，再选择不会长期排队的固定速率；Vdbench 使用 `abort_failed_skew=2` 检查实际 skew 偏差。
+当前默认 `FWD_RATE=max`，用于观察冷热识别模块在不人为限速时对性能的影响。若目标是做识别准确性或阶段间 skew 的稳定对比，可显式设置固定正整数速率，例如 `FWD_RATE=1000`；Vdbench 使用 `abort_failed_skew=2` 检查实际 skew 偏差。
 
 ## 8. 验收
 
 负载符合度：
 
 - Vdbench `skew.html` 中各 FWD 的实际 share 与目标相差不超过 2 个百分点。
-- 阶段切换时总 `fwdrate` 保持不变。
+- 各阶段均使用 `fwdrate=max`，不人为限制总操作速率；如需严格比较阶段间 skew，可改用固定正整数 `FWD_RATE`。
 - 正式配置中不存在 `pool_05`/`fsd_inactive`，所有测试数据池均在阶段内被访问。
 - 每阶段无 I/O 或数据校验错误。
 

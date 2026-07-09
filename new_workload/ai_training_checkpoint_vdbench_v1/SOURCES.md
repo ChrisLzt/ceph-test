@@ -19,7 +19,7 @@
 | 论文/系统现象 | vdbench 映射 |
 |---|---|
 | 训练反复读取数据集 | `dataset_epoch_01~03` |
-| 热门 features/samples 被更频繁使用 | 对 `dataset_rank_01~08` 施加 Zipfian skew |
+| 热门 features/samples 被更频繁使用 | 对 `dataset_rank_01~20` 施加 Zipfian skew |
 | 热点随训练阶段变化 | 每个 epoch 旋转 Zipfian rank 顺序 |
 
 ## 2. MLPerf Storage checkpointing / DLIO
@@ -52,6 +52,6 @@
 - 目录名不使用 `mlperf`，因为这里不运行官方 MLPerf Storage closed/open 流程；
 - `THREADS`、`xfersize`、容量缩放是执行参数，不是论文参数；
 - Meta DSI 论文说明存在热门 features/samples 和训练数据反复读取，但没有给出“热数据占总容量 X%、承担总访问 Y%”这种可直接落地的固定比例；
-- 当前 Zipfian 权重采用 YCSB 常用 alpha=0.99。脚本按 4 MiB object 计算 Zipf(0.99)，再聚合到 8 个等容量 dataset rank，整数化为 `80/7/4/3/2/2/1/1`；后续可由公开 trace 提取结果替换；
+- 当前 Zipfian 权重采用 YCSB 常用 alpha=0.99。脚本按 4 MiB object 计算 Zipf(0.99)，再聚合到 20 个等容量 dataset rank，整数化为 `69/6/4/3/2/2/1×14`；后续可由公开 trace 提取结果替换；
 - MLPerf Storage checkpointing 给出 checkpoint 写/读/恢复语义，但它不是冷热分布论文；
 - 热/冷判断由测试者根据阶段语义和 Ceph 观测结果自行判断，不在脚本中生成真值表。

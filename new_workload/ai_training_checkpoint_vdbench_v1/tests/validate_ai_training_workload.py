@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ZIPFIAN_WEIGHTS = [80, 7, 4, 3, 2, 2, 1, 1]
+ZIPFIAN_WEIGHTS = [69, 6, 4, 3, 2, 2] + [1] * 14
 
 
 def fail(message: str) -> None:
@@ -105,7 +105,7 @@ def validate_docs() -> None:
         "DLIO",
         "vdbench",
         "Zipfian",
-        "dataset_rank_01~08",
+        "dataset_rank_01~20",
         "/mnt/cephfs/ai_training_checkpoint_vdbench_v1",
     ]:
         if marker not in combined:
@@ -138,16 +138,16 @@ def validate_vdbench_configs() -> None:
 
     fsds = parse_fsds(prepare)
     expected = {
-        **{f"fsd_dataset_rank_{i:02d}": (12, 1.0) for i in range(1, 9)},
-        "fsd_checkpoint_current": (8, 1.0),
-        "fsd_checkpoint_old": (8, 1.0),
+        **{f"fsd_dataset_rank_{i:02d}": (250, 20 / 1024) for i in range(1, 21)},
+        "fsd_checkpoint_current": (400, 20 / 1024),
+        "fsd_checkpoint_old": (400, 20 / 1024),
     }
     if fsds != expected:
         fail(f"unexpected FSD layout: {fsds}")
     total_gib = sum(files * size_gib for files, size_gib in fsds.values())
     print(f"Total prepared capacity: {total_gib:.2f} GiB")
-    if total_gib != 112.0:
-        fail("total prepared capacity should be 112 GiB")
+    if abs(total_gib - 113.28125) > 0.0001:
+        fail("total prepared capacity should be about 113.28 GiB")
 
     if "format=(clean,only)" not in prepare or "format=(restart,only)" not in prepare:
         fail("prepare config must contain clean/create format RDs")
@@ -172,15 +172,15 @@ def validate_vdbench_configs() -> None:
         fwd_lines = parse_fwd_lines(content)
         for rd in expected_rds[:3]:
             fwds = rd_fwd_names(content, rd)
-            if len(fwds) != 8:
-                fail(f"{name} {rd} should access all eight dataset ranks")
+            if len(fwds) != 20:
+                fail(f"{name} {rd} should access all twenty dataset ranks")
             skews = [skew_of(fwd_lines[fwd]) for fwd in fwds]
             if skews != ZIPFIAN_WEIGHTS:
                 fail(f"{name} {rd} should use Zipfian weights {ZIPFIAN_WEIGHTS}, got {skews}")
             ranks = sorted(set(re.findall(r"fsd_dataset_rank_([0-9]{2})", "\n".join(fwd_lines[fwd] for fwd in fwds))))
-            if ranks != [f"{i:02d}" for i in range(1, 9)]:
+            if ranks != [f"{i:02d}" for i in range(1, 21)]:
                 fail(f"{name} {rd} should touch all dataset ranks, got {ranks}")
-        for rank in range(1, 9):
+        for rank in range(1, 21):
             if f"fsd=fsd_dataset_rank_{rank:02d}" not in content:
                 fail(f"{name} should access dataset rank {rank:02d}")
         if "fsd=fsd_checkpoint_current,operation=write" not in content:

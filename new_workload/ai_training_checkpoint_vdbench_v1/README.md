@@ -27,21 +27,21 @@
 /mnt/cephfs/ai_training_checkpoint_vdbench_v1/
 ```
 
-默认容量为 112 GiB：
+默认容量约为 113.28 GiB：
 
 | 数据集 | 文件数 | 单文件大小 | 容量 | 作用 |
 |---|---:|---:|---:|---|
-| `dataset_rank_01~08` | 8 × 12 | 1 GiB | 96 GiB | 训练数据 rank，正式阶段全部参与 Zipfian 读取 |
-| `checkpoint_current` | 8 | 1 GiB | 8 GiB | 当前 checkpoint，先写后读 |
-| `checkpoint_old` | 8 | 1 GiB | 8 GiB | 旧 checkpoint，恢复阶段复热 |
+| `dataset_rank_01~20` | 20 × 250 | 20 MiB | 约 97.66 GiB | 训练数据 rank，正式阶段全部参与 Zipfian 读取 |
+| `checkpoint_current` | 400 | 20 MiB | 约 7.81 GiB | 当前 checkpoint，先写后读 |
+| `checkpoint_old` | 400 | 20 MiB | 约 7.81 GiB | 旧 checkpoint，恢复阶段复热 |
 
 ### 数据构造由来
 
-`dataset_rank_01~08` 表示训练数据集被切成 8 个等容量 rank。这样做的目的不是模拟真实文件名，而是让 vdbench 能对同一类训练数据施加可控访问偏斜。每个 rank 为 12 GiB，可看作 3072 个 4 MiB object；8 个 rank 合计 96 GiB，即 24576 个 4 MiB object。
+`dataset_rank_01~20` 表示训练数据集被切成 20 个等容量 rank。这样做的目的不是模拟真实文件名，而是让 vdbench 能对同一类训练数据施加可控访问偏斜。每个 rank 有 250 个 20 MiB 文件，容量约 4.88 GiB；按 4 MiB object 估算，每个 rank 可看作 1250 个 object，20 个 rank 合计 25000 个 object。
 
-训练数据访问偏斜采用 Zipf(alpha=0.99)。alpha=0.99 是 YCSB 常用 Zipfian 参数，表达“少量对象访问更多，但长尾对象仍会被访问”。脚本先按 24576 个 4 MiB object 计算 Zipf(0.99)，再聚合到 8 个等容量 rank。聚合后的 rank 访问占比约为 `79.7% / 6.7% / 4.0% / 2.8% / 2.2% / 1.8% / 1.5% / 1.3%`，vdbench 中整数化为 `80/7/4/3/2/2/1/1`。
+训练数据访问偏斜采用 Zipf(alpha=0.99)。alpha=0.99 是 YCSB 常用 Zipfian 参数，表达“少量对象访问更多，但长尾对象仍会被访问”。脚本先按 25000 个 4 MiB object 计算 Zipf(0.99)，再聚合到 20 个等容量 rank。聚合后的 rank 访问占比约为 `70.9% / 6.7% / 3.9% / 2.8% / 2.2% / 1.8% / 1.5% ...`，vdbench 中整数化为 `69/6/4/3/2/2/1×14`。
 
-`checkpoint_current` 和 `checkpoint_old` 是训练状态文件，不参与 Zipfian 训练样本分布。每组 8 GiB 是当前单节点 100～120 GiB 测试预算下的缩放值，用于保留 checkpoint 写入、近期读取和旧 checkpoint 恢复这三个状态文件行为。
+`checkpoint_current` 和 `checkpoint_old` 是训练状态文件，不参与 Zipfian 训练样本分布。每组 400 个 20 MiB 文件，容量约 7.81 GiB，是当前单节点 100～120 GiB 测试预算下的缩放值，用于保留 checkpoint 写入、近期读取和旧 checkpoint 恢复这三个状态文件行为。
 
 这个容量和权重不是 Meta DSI 或 MLPerf 给出的实测热数据比例；它是用 Meta DSI 的“训练数据反复读取且存在访问偏斜”语义，结合 YCSB Zipfian 分布构造的冷热识别执行模型。
 
@@ -85,9 +85,9 @@ dataset_epoch_01
 
 | 阶段 | 读/写 | 访问数据 | 目的 |
 |---|---|---|---|
-| `dataset_epoch_01` | 读 | 全部 `dataset_rank_01~08` | 160s；rank 01 为最高权重，模拟首轮训练数据热点 |
-| `dataset_epoch_02` | 读 | 全部 `dataset_rank_01~08` | 160s；Zipfian 权重旋转到 rank 02，模拟热点迁移 |
-| `dataset_epoch_03` | 读 | 全部 `dataset_rank_01~08` | 160s；Zipfian 权重旋转到 rank 03，继续制造时序变化 |
+| `dataset_epoch_01` | 读 | 全部 `dataset_rank_01~20` | 160s；rank 01 为最高权重，模拟首轮训练数据热点 |
+| `dataset_epoch_02` | 读 | 全部 `dataset_rank_01~20` | 160s；Zipfian 权重旋转到 rank 02，模拟热点迁移 |
+| `dataset_epoch_03` | 读 | 全部 `dataset_rank_01~20` | 160s；Zipfian 权重旋转到 rank 03，继续制造时序变化 |
 | `checkpoint_write_current` | 写 | `checkpoint_current` | 40s；模拟训练过程写出当前 checkpoint |
 | `checkpoint_read_current` | 读 | `checkpoint_current` | 40s；模拟 checkpoint 写后校验、加载或近期恢复读取 |
 | `recovery_read_old_checkpoint` | 读 | `checkpoint_old` | 40s；模拟从旧 checkpoint 恢复，旧状态文件复热 |
@@ -103,7 +103,7 @@ dataset_epoch_01
 ## 可调参数
 
 ```bash
-ANCHOR=/mnt/cephfs/ai_training_checkpoint_vdbench_v1 THREADS=8 FORMAT_THREADS=4 DATASET_PHASE_SECONDS=160 CHECKPOINT_PHASE_SECONDS=40 FWD_RATE=1000 READ_XFER_SIZE=1m CHECKPOINT_XFER_SIZE=4m ./render_config.sh all
+ANCHOR=/mnt/cephfs/ai_training_checkpoint_vdbench_v1 THREADS=8 FORMAT_THREADS=4 DATASET_PHASE_SECONDS=160 CHECKPOINT_PHASE_SECONDS=40 FWD_RATE=max READ_XFER_SIZE=1m CHECKPOINT_XFER_SIZE=4m ./render_config.sh all
 ```
 
 默认 `THREADS=8`，允许多线程。单节点 SN350 上如果 Ceph 出现 backfill、recovery 或 slow ops，应先停止测试，等 `ceph -s` 恢复 `active+clean` 后再运行。

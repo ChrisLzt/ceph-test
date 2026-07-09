@@ -30,7 +30,7 @@
 - `fileio=sequential`
 - `fileselect=random`
 - `threads=16`
-- `fwdrate=1000`
+- `fwdrate=max`
 - 四个阶段各 150 秒，总时长 10 分钟
 
 ## 运行

@@ -39,7 +39,7 @@ fwd=rh_b,fsd=fsd_b,operation=read,fileio=sequential,fileselect=random,xfersize=1
 fwd=rh_c,fsd=fsd_c,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=1
 fwd=rh_bg,fsd=fsd_bg,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=13
 
-rd=hot_a,fwd=(ha_a,ha_b,ha_c,ha_bg),fwdrate=1000,elapsed=150,interval=1
-rd=hot_b,fwd=(hb_a,hb_b,hb_c,hb_bg),fwdrate=1000,elapsed=150,interval=1
-rd=hot_c,fwd=(hc_a,hc_b,hc_c,hc_bg),fwdrate=1000,elapsed=150,interval=1
-rd=reheat_a,fwd=(rh_a,rh_b,rh_c,rh_bg),fwdrate=1000,elapsed=150,interval=1
+rd=hot_a,fwd=(ha_a,ha_b,ha_c,ha_bg),fwdrate=max,elapsed=150,interval=1
+rd=hot_b,fwd=(hb_a,hb_b,hb_c,hb_bg),fwdrate=max,elapsed=150,interval=1
+rd=hot_c,fwd=(hc_a,hc_b,hc_c,hc_bg),fwdrate=max,elapsed=150,interval=1
+rd=reheat_a,fwd=(rh_a,rh_b,rh_c,rh_bg),fwdrate=max,elapsed=150,interval=1

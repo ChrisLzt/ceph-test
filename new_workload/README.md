@@ -11,10 +11,10 @@
 | 大数据 | [bigdata_mapreduce_vdbench_v1](bigdata_mapreduce_vdbench_v1/README.md) | Yahoo Hadoop/MapReduce 生产 trace | vdbench | 约 117.19 GiB | `/mnt/cephfs/bigdata_mapreduce_vdbench_v1` |
 | 图计算 | [graph_graphchi_vdbench_v1](graph_graphchi_vdbench_v1/README.md) | GraphChi OSDI 2012 PSW | vdbench | 约 112.50 GiB | `/mnt/cephfs/graph_graphchi_vdbench_v1` |
 | HPC | [hpc_wrf_ior_v1](hpc_wrf_ior_v1/README.md) | WRF checkpoint/restart/history 语义 | IOR | 约 112.00 GiB | `/mnt/cephfs/hpc_wrf_ior_v1` |
-| AI 训练 | [ai_training_checkpoint_vdbench_v1](ai_training_checkpoint_vdbench_v1/README.md) | Meta DSI ISCA 2022 + MLPerf Storage checkpointing | vdbench | 约 112.00 GiB | `/mnt/cephfs/ai_training_checkpoint_vdbench_v1` |
-| AI 推理 | [ai_inference_kvcache_vdbench_v1](ai_inference_kvcache_vdbench_v1/README.md) | vLLM/PagedAttention SOSP 2023 + MLPerf Storage KV Cache | vdbench | 约 120.00 GiB | `/mnt/cephfs/ai_inference_kvcache_vdbench_v1` |
+| AI 训练 | [ai_training_checkpoint_vdbench_v1](ai_training_checkpoint_vdbench_v1/README.md) | Meta DSI ISCA 2022 + MLPerf Storage checkpointing | vdbench | 约 113.28 GiB | `/mnt/cephfs/ai_training_checkpoint_vdbench_v1` |
+| AI 推理 | [ai_inference_kvcache_vdbench_v1](ai_inference_kvcache_vdbench_v1/README.md) | vLLM/PagedAttention SOSP 2023 + MLPerf Storage KV Cache | vdbench | 约 117.19 GiB | `/mnt/cephfs/ai_inference_kvcache_vdbench_v1` |
 
-合计默认容量约 573.69 GiB，符合当前单节点 CephFS 约 600 GiB 测试预算。
+合计默认容量约 572.16 GiB，符合当前单节点 CephFS 约 600 GiB 测试预算。
 
 `graph_graphchi_fixed_hot_vdbench_v1` 和 `bigdata_fixed_hot_vdbench_v1` 是诊断负载，不计入 5 类正式负载。它们复用已有数据，用于排查热点迁移、固定热点等单一因素，不作为默认测试集合。
 
@@ -97,7 +97,7 @@ dataset epoch reads
 -> recovery read old checkpoint
 ```
 
-- `dataset_rank_01~08` 全部参与训练数据读取。
+- `dataset_rank_01~20` 全部参与训练数据读取。
 - 每个 dataset 阶段使用 Zipfian 权重，少量 rank 更热，但没有全程不访问的训练数据池。
 - `checkpoint_current` 写后读，成为 checkpoint 热点。
 - `checkpoint_old` 在 recovery 阶段复热。

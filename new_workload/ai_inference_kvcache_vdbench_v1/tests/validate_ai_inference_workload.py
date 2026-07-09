@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ZIPFIAN_WEIGHTS = [79, 7, 4, 3, 2, 2, 2, 1]
+ZIPFIAN_WEIGHTS = [68, 7, 4, 3, 2, 2] + [1] * 14
 
 
 def fail(message: str) -> None:
@@ -108,7 +108,7 @@ def validate_docs() -> None:
         "MLPerf Storage",
         "vdbench",
         "Zipfian",
-        "kv_active_rank_01~08",
+        "kv_active_rank_01~20",
         "/mnt/cephfs/ai_inference_kvcache_vdbench_v1",
     ]:
         if marker not in combined:
@@ -140,16 +140,16 @@ def validate_vdbench_configs() -> None:
 
     fsds = parse_fsds(prepare)
     expected = {
-        **{f"fsd_kv_active_rank_{i:02d}": (5, 1.0) for i in range(1, 9)},
-        **{f"fsd_kv_next_rank_{i:02d}": (5, 1.0) for i in range(1, 9)},
-        **{f"fsd_kv_prefix_rank_{i:02d}": (5, 1.0) for i in range(1, 9)},
+        **{f"fsd_kv_active_rank_{i:02d}": (100, 20 / 1024) for i in range(1, 21)},
+        **{f"fsd_kv_next_rank_{i:02d}": (100, 20 / 1024) for i in range(1, 21)},
+        **{f"fsd_kv_prefix_rank_{i:02d}": (100, 20 / 1024) for i in range(1, 21)},
     }
     if fsds != expected:
         fail(f"unexpected FSD layout: {fsds}")
     total_gib = sum(files * size_gib for files, size_gib in fsds.values())
     print(f"Total prepared capacity: {total_gib:.2f} GiB")
-    if total_gib != 120.0:
-        fail("total prepared capacity should be 120 GiB")
+    if abs(total_gib - 117.1875) > 0.0001:
+        fail("total prepared capacity should be about 117.19 GiB")
 
     if "format=(clean,only)" not in prepare or "format=(restart,only)" not in prepare:
         fail("prepare config must contain clean/create format RDs")
@@ -165,6 +165,14 @@ def validate_vdbench_configs() -> None:
         "prefix_reuse_primary": ("fsd_kv_prefix_rank", "read"),
         "prefix_reuse_shifted": ("fsd_kv_prefix_rank", "read"),
     }
+    expected_first_hot = {
+        "prefill_active": "r01",
+        "decode_active": "r01",
+        "prefill_next": "r01",
+        "decode_next": "r01",
+        "prefix_reuse_primary": "r01",
+        "prefix_reuse_shifted": "r02",
+    }
     for content, name in [(run, "run template"), (rendered_run, "rendered run")]:
         if "format=" in content or "prepare_clean" in content or "prepare_create" in content:
             fail(f"{name} must not contain prepare/format directives")
@@ -173,19 +181,21 @@ def validate_vdbench_configs() -> None:
             if f"rd={rd}" not in content:
                 fail(f"{name} missing {rd}")
             fwds = rd_fwd_names(content, rd)
-            if len(fwds) != 8:
-                fail(f"{name} {rd} should access all eight ranks")
+            if len(fwds) != 20:
+                fail(f"{name} {rd} should access all twenty ranks")
+            if not fwds[0].endswith(expected_first_hot[rd]):
+                fail(f"{name} {rd} should place the highest Zipfian weight on {expected_first_hot[rd]}, got {fwds[0]}")
             skews = [skew_of(fwd_lines[fwd]) for fwd in fwds]
             if skews != ZIPFIAN_WEIGHTS:
                 fail(f"{name} {rd} should use Zipfian weights {ZIPFIAN_WEIGHTS}, got {skews}")
             lines = "\n".join(fwd_lines[fwd] for fwd in fwds)
             ranks = sorted(set(re.findall(rf"{fsd_prefix}_([0-9]{{2}})", lines)))
-            if ranks != [f"{i:02d}" for i in range(1, 9)]:
+            if ranks != [f"{i:02d}" for i in range(1, 21)]:
                 fail(f"{name} {rd} should touch all ranks for {fsd_prefix}, got {ranks}")
             if any(f"operation={operation}" not in fwd_lines[fwd] for fwd in fwds):
                 fail(f"{name} {rd} should be operation={operation}")
         for prefix in ["fsd_kv_active_rank", "fsd_kv_next_rank", "fsd_kv_prefix_rank"]:
-            for rank in range(1, 9):
+            for rank in range(1, 21):
                 if f"fsd={prefix}_{rank:02d}" not in content:
                     fail(f"{name} should access {prefix}_{rank:02d}")
 

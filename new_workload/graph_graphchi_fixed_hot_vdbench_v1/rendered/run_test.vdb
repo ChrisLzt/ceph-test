@@ -56,11 +56,11 @@ fwd=fixed_i7_s1,fsd=fsd_s1,operation=read,fileio=sequential,fileselect=random,xf
 fwd=fixed_i7_s2,fsd=fsd_s2,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=6
 fwd=fixed_i7_s3,fsd=fsd_s3,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=6
 
-rd=fixed_i0,fwd=(fixed_i0_s0,fixed_i0_s1,fixed_i0_s2,fixed_i0_s3),fwdrate=1000,elapsed=75,interval=1
-rd=fixed_i1,fwd=(fixed_i1_s0,fixed_i1_s1,fixed_i1_s2,fixed_i1_s3),fwdrate=1000,elapsed=75,interval=1
-rd=fixed_i2,fwd=(fixed_i2_s0,fixed_i2_s1,fixed_i2_s2,fixed_i2_s3),fwdrate=1000,elapsed=75,interval=1
-rd=fixed_i3,fwd=(fixed_i3_s0,fixed_i3_s1,fixed_i3_s2,fixed_i3_s3),fwdrate=1000,elapsed=75,interval=1
-rd=fixed_i4,fwd=(fixed_i4_s0,fixed_i4_s1,fixed_i4_s2,fixed_i4_s3),fwdrate=1000,elapsed=75,interval=1
-rd=fixed_i5,fwd=(fixed_i5_s0,fixed_i5_s1,fixed_i5_s2,fixed_i5_s3),fwdrate=1000,elapsed=75,interval=1
-rd=fixed_i6,fwd=(fixed_i6_s0,fixed_i6_s1,fixed_i6_s2,fixed_i6_s3),fwdrate=1000,elapsed=75,interval=1
-rd=fixed_i7,fwd=(fixed_i7_s0,fixed_i7_s1,fixed_i7_s2,fixed_i7_s3),fwdrate=1000,elapsed=75,interval=1
+rd=fixed_i0,fwd=(fixed_i0_s0,fixed_i0_s1,fixed_i0_s2,fixed_i0_s3),fwdrate=max,elapsed=75,interval=1
+rd=fixed_i1,fwd=(fixed_i1_s0,fixed_i1_s1,fixed_i1_s2,fixed_i1_s3),fwdrate=max,elapsed=75,interval=1
+rd=fixed_i2,fwd=(fixed_i2_s0,fixed_i2_s1,fixed_i2_s2,fixed_i2_s3),fwdrate=max,elapsed=75,interval=1
+rd=fixed_i3,fwd=(fixed_i3_s0,fixed_i3_s1,fixed_i3_s2,fixed_i3_s3),fwdrate=max,elapsed=75,interval=1
+rd=fixed_i4,fwd=(fixed_i4_s0,fixed_i4_s1,fixed_i4_s2,fixed_i4_s3),fwdrate=max,elapsed=75,interval=1
+rd=fixed_i5,fwd=(fixed_i5_s0,fixed_i5_s1,fixed_i5_s2,fixed_i5_s3),fwdrate=max,elapsed=75,interval=1
+rd=fixed_i6,fwd=(fixed_i6_s0,fixed_i6_s1,fixed_i6_s2,fixed_i6_s3),fwdrate=max,elapsed=75,interval=1
+rd=fixed_i7,fwd=(fixed_i7_s0,fixed_i7_s1,fixed_i7_s2,fixed_i7_s3),fwdrate=max,elapsed=75,interval=1

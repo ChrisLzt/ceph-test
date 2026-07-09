@@ -19,18 +19,23 @@ remote_user=${REMOTE_USER:-chris}
 host1=${HOST1:-s52.servers.hustpdsl.cn}
 dataset_phase_seconds=${DATASET_PHASE_SECONDS:-160}
 checkpoint_phase_seconds=${CHECKPOINT_PHASE_SECONDS:-40}
-fwd_rate=${FWD_RATE:-1000}
+fwd_rate=${FWD_RATE:-max}
 threads=${THREADS:-8}
 format_threads=${FORMAT_THREADS:-4}
 read_xfer_size=${READ_XFER_SIZE:-1m}
 checkpoint_xfer_size=${CHECKPOINT_XFER_SIZE:-4m}
 
-for value in "$dataset_phase_seconds" "$checkpoint_phase_seconds" "$fwd_rate" "$threads" "$format_threads"; do
+for value in "$dataset_phase_seconds" "$checkpoint_phase_seconds" "$threads" "$format_threads"; do
     [[ "$value" =~ ^[1-9][0-9]*$ ]] || {
         echo "Numeric parameters must be positive integers: $value" >&2
         exit 2
     }
 done
+
+[[ "$fwd_rate" == "max" || "$fwd_rate" =~ ^[1-9][0-9]*$ ]] || {
+    echo "FWD_RATE must be a positive integer or max: $fwd_rate" >&2
+    exit 2
+}
 
 for value in "$read_xfer_size" "$checkpoint_xfer_size"; do
     [[ "$value" =~ ^[1-9][0-9]*[kKmMgG]$ ]] || {

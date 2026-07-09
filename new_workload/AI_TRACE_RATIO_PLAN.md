@@ -38,34 +38,34 @@
 
 训练数据容量：
 
-- `dataset_rank_01~08`：8 个等容量 rank；
-- 每个 rank 12 GiB；
-- 合计 96 GiB；
-- 按 4 MiB object 估算，共 24576 个 object。
+- `dataset_rank_01~20`：20 个等容量 rank；
+- 每个 rank 为 250 个 20 MiB 文件，容量约 4.88 GiB；
+- 合计约 97.66 GiB；
+- 按 4 MiB object 估算，共 25000 个 object。
 
 生成权重：
 
-- 先按 24576 个 object 计算 Zipf(alpha=0.99)；
-- 再聚合到 8 个等容量 rank；
-- 聚合访问占比约为 `79.7% / 6.7% / 4.0% / 2.8% / 2.2% / 1.8% / 1.5% / 1.3%`；
-- vdbench 中整数化为 `80/7/4/3/2/2/1/1`。
+- 先按 25000 个 object 计算 Zipf(alpha=0.99)；
+- 再聚合到 20 个等容量 rank；
+- 聚合访问占比约为 `70.9% / 6.7% / 3.9% / 2.8% / 2.2% / 1.8% / 1.5% ...`；
+- vdbench 中整数化为 `69/6/4/3/2/2/1×14`。
 
 ### AI 推理
 
 KV cache 容量：
 
-- `kv_active_rank_01~08`：40 GiB；
-- `kv_next_rank_01~08`：40 GiB；
-- `kv_prefix_rank_01~08`：40 GiB；
-- 每类 KV cache 8 个 rank，每个 rank 5 GiB；
-- 每类按 4 MiB object 估算，共 10240 个 object。
+- `kv_active_rank_01~20`：约 39.06 GiB；
+- `kv_next_rank_01~20`：约 39.06 GiB；
+- `kv_prefix_rank_01~20`：约 39.06 GiB；
+- 每类 KV cache 20 个 rank，每个 rank 为 100 个 20 MiB 文件，容量约 1.95 GiB；
+- 每类按 4 MiB object 估算，共 10000 个 object。
 
 生成权重：
 
-- 先按每类 10240 个 object 计算 Zipf(alpha=0.99)；
-- 再聚合到 8 个等容量 rank；
-- 聚合访问占比约为 `78.0% / 7.3% / 4.3% / 3.1% / 2.4% / 1.9% / 1.6% / 1.4%`；
-- vdbench 中整数化为 `79/7/4/3/2/2/2/1`。
+- 先按每类 10000 个 object 计算 Zipf(alpha=0.99)；
+- 再聚合到 20 个等容量 rank；
+- 聚合访问占比约为 `68.4% / 7.2% / 4.3% / 3.0% / 2.4% / 1.9% / 1.6% ...`；
+- vdbench 中整数化为 `68/7/4/3/2/2/1×14`。
 
 ## 3. 推荐的 trace 提取路线
 
