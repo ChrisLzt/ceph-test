@@ -3,6 +3,7 @@
 * - vLLM/PagedAttention, SOSP 2023: prefill writes/generates KV cache; decode repeatedly consumes KV cache; KV blocks can be reused across related requests.
 * - MLPerf Storage KV Cache: storage benchmark category for KV-cache I/O behavior.
 * This file only creates the CephFS dataset. Do not use for repeated measurement runs.
+* KV cache ranks are equal-capacity shards used by the run profile to express Zipfian access skew.
 
 data_errors=1
 create_anchors=yes
@@ -12,15 +13,55 @@ hd=default,vdbench=/home/chris/PDSL/vdbench,user=chris,shell=ssh
 hd=hd1,system=s52.servers.hustpdsl.cn
 
 fsd=default,depth=1,width=1,shared=yes,openflags=o_direct
-fsd=fsd_kv_active,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_active,files=32,size=1g
-fsd=fsd_kv_prefix_reuse,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_prefix_reuse,files=32,size=1g
-fsd=fsd_kv_next,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_next,files=32,size=1g
-fsd=fsd_kv_cold,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_cold,files=16,size=1g
+fsd=fsd_kv_active_rank_01,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_active_rank_01,files=5,size=1g
+fsd=fsd_kv_active_rank_02,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_active_rank_02,files=5,size=1g
+fsd=fsd_kv_active_rank_03,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_active_rank_03,files=5,size=1g
+fsd=fsd_kv_active_rank_04,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_active_rank_04,files=5,size=1g
+fsd=fsd_kv_active_rank_05,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_active_rank_05,files=5,size=1g
+fsd=fsd_kv_active_rank_06,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_active_rank_06,files=5,size=1g
+fsd=fsd_kv_active_rank_07,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_active_rank_07,files=5,size=1g
+fsd=fsd_kv_active_rank_08,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_active_rank_08,files=5,size=1g
+fsd=fsd_kv_next_rank_01,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_next_rank_01,files=5,size=1g
+fsd=fsd_kv_next_rank_02,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_next_rank_02,files=5,size=1g
+fsd=fsd_kv_next_rank_03,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_next_rank_03,files=5,size=1g
+fsd=fsd_kv_next_rank_04,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_next_rank_04,files=5,size=1g
+fsd=fsd_kv_next_rank_05,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_next_rank_05,files=5,size=1g
+fsd=fsd_kv_next_rank_06,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_next_rank_06,files=5,size=1g
+fsd=fsd_kv_next_rank_07,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_next_rank_07,files=5,size=1g
+fsd=fsd_kv_next_rank_08,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_next_rank_08,files=5,size=1g
+fsd=fsd_kv_prefix_rank_01,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_prefix_rank_01,files=5,size=1g
+fsd=fsd_kv_prefix_rank_02,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_prefix_rank_02,files=5,size=1g
+fsd=fsd_kv_prefix_rank_03,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_prefix_rank_03,files=5,size=1g
+fsd=fsd_kv_prefix_rank_04,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_prefix_rank_04,files=5,size=1g
+fsd=fsd_kv_prefix_rank_05,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_prefix_rank_05,files=5,size=1g
+fsd=fsd_kv_prefix_rank_06,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_prefix_rank_06,files=5,size=1g
+fsd=fsd_kv_prefix_rank_07,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_prefix_rank_07,files=5,size=1g
+fsd=fsd_kv_prefix_rank_08,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_prefix_rank_08,files=5,size=1g
 
-fwd=prep_kv_active,fsd=fsd_kv_active,operation=read,threads=4
-fwd=prep_kv_prefix_reuse,fsd=fsd_kv_prefix_reuse,operation=read,threads=4
-fwd=prep_kv_next,fsd=fsd_kv_next,operation=read,threads=4
-fwd=prep_kv_cold,fsd=fsd_kv_cold,operation=read,threads=4
+fwd=prep_kv_active_rank_01,fsd=fsd_kv_active_rank_01,operation=read,threads=4
+fwd=prep_kv_active_rank_02,fsd=fsd_kv_active_rank_02,operation=read,threads=4
+fwd=prep_kv_active_rank_03,fsd=fsd_kv_active_rank_03,operation=read,threads=4
+fwd=prep_kv_active_rank_04,fsd=fsd_kv_active_rank_04,operation=read,threads=4
+fwd=prep_kv_active_rank_05,fsd=fsd_kv_active_rank_05,operation=read,threads=4
+fwd=prep_kv_active_rank_06,fsd=fsd_kv_active_rank_06,operation=read,threads=4
+fwd=prep_kv_active_rank_07,fsd=fsd_kv_active_rank_07,operation=read,threads=4
+fwd=prep_kv_active_rank_08,fsd=fsd_kv_active_rank_08,operation=read,threads=4
+fwd=prep_kv_next_rank_01,fsd=fsd_kv_next_rank_01,operation=read,threads=4
+fwd=prep_kv_next_rank_02,fsd=fsd_kv_next_rank_02,operation=read,threads=4
+fwd=prep_kv_next_rank_03,fsd=fsd_kv_next_rank_03,operation=read,threads=4
+fwd=prep_kv_next_rank_04,fsd=fsd_kv_next_rank_04,operation=read,threads=4
+fwd=prep_kv_next_rank_05,fsd=fsd_kv_next_rank_05,operation=read,threads=4
+fwd=prep_kv_next_rank_06,fsd=fsd_kv_next_rank_06,operation=read,threads=4
+fwd=prep_kv_next_rank_07,fsd=fsd_kv_next_rank_07,operation=read,threads=4
+fwd=prep_kv_next_rank_08,fsd=fsd_kv_next_rank_08,operation=read,threads=4
+fwd=prep_kv_prefix_rank_01,fsd=fsd_kv_prefix_rank_01,operation=read,threads=4
+fwd=prep_kv_prefix_rank_02,fsd=fsd_kv_prefix_rank_02,operation=read,threads=4
+fwd=prep_kv_prefix_rank_03,fsd=fsd_kv_prefix_rank_03,operation=read,threads=4
+fwd=prep_kv_prefix_rank_04,fsd=fsd_kv_prefix_rank_04,operation=read,threads=4
+fwd=prep_kv_prefix_rank_05,fsd=fsd_kv_prefix_rank_05,operation=read,threads=4
+fwd=prep_kv_prefix_rank_06,fsd=fsd_kv_prefix_rank_06,operation=read,threads=4
+fwd=prep_kv_prefix_rank_07,fsd=fsd_kv_prefix_rank_07,operation=read,threads=4
+fwd=prep_kv_prefix_rank_08,fsd=fsd_kv_prefix_rank_08,operation=read,threads=4
 
-rd=prepare_clean,fwd=(prep_kv_active,prep_kv_prefix_reuse,prep_kv_next,prep_kv_cold),format=(clean,only),fwdrate=max
-rd=prepare_create,fwd=(prep_kv_active,prep_kv_prefix_reuse,prep_kv_next,prep_kv_cold),format=(restart,only),fwdrate=max
+rd=prepare_clean,fwd=(prep_kv_active_rank_01,prep_kv_active_rank_02,prep_kv_active_rank_03,prep_kv_active_rank_04,prep_kv_active_rank_05,prep_kv_active_rank_06,prep_kv_active_rank_07,prep_kv_active_rank_08,prep_kv_next_rank_01,prep_kv_next_rank_02,prep_kv_next_rank_03,prep_kv_next_rank_04,prep_kv_next_rank_05,prep_kv_next_rank_06,prep_kv_next_rank_07,prep_kv_next_rank_08,prep_kv_prefix_rank_01,prep_kv_prefix_rank_02,prep_kv_prefix_rank_03,prep_kv_prefix_rank_04,prep_kv_prefix_rank_05,prep_kv_prefix_rank_06,prep_kv_prefix_rank_07,prep_kv_prefix_rank_08),format=(clean,only),fwdrate=max
+rd=prepare_create,fwd=(prep_kv_active_rank_01,prep_kv_active_rank_02,prep_kv_active_rank_03,prep_kv_active_rank_04,prep_kv_active_rank_05,prep_kv_active_rank_06,prep_kv_active_rank_07,prep_kv_active_rank_08,prep_kv_next_rank_01,prep_kv_next_rank_02,prep_kv_next_rank_03,prep_kv_next_rank_04,prep_kv_next_rank_05,prep_kv_next_rank_06,prep_kv_next_rank_07,prep_kv_next_rank_08,prep_kv_prefix_rank_01,prep_kv_prefix_rank_02,prep_kv_prefix_rank_03,prep_kv_prefix_rank_04,prep_kv_prefix_rank_05,prep_kv_prefix_rank_06,prep_kv_prefix_rank_07,prep_kv_prefix_rank_08),format=(restart,only),fwdrate=max

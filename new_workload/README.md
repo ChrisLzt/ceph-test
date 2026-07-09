@@ -12,9 +12,11 @@
 | 图计算 | [graph_graphchi_vdbench_v1](graph_graphchi_vdbench_v1/README.md) | GraphChi OSDI 2012 PSW | vdbench | 约 112.50 GiB | `/mnt/cephfs/graph_graphchi_vdbench_v1` |
 | HPC | [hpc_wrf_ior_v1](hpc_wrf_ior_v1/README.md) | WRF checkpoint/restart/history 语义 | IOR | 约 112.00 GiB | `/mnt/cephfs/hpc_wrf_ior_v1` |
 | AI 训练 | [ai_training_checkpoint_vdbench_v1](ai_training_checkpoint_vdbench_v1/README.md) | Meta DSI ISCA 2022 + MLPerf Storage checkpointing | vdbench | 约 112.00 GiB | `/mnt/cephfs/ai_training_checkpoint_vdbench_v1` |
-| AI 推理 | [ai_inference_kvcache_vdbench_v1](ai_inference_kvcache_vdbench_v1/README.md) | vLLM/PagedAttention SOSP 2023 + MLPerf Storage KV Cache | vdbench | 约 112.00 GiB | `/mnt/cephfs/ai_inference_kvcache_vdbench_v1` |
+| AI 推理 | [ai_inference_kvcache_vdbench_v1](ai_inference_kvcache_vdbench_v1/README.md) | vLLM/PagedAttention SOSP 2023 + MLPerf Storage KV Cache | vdbench | 约 120.00 GiB | `/mnt/cephfs/ai_inference_kvcache_vdbench_v1` |
 
-合计默认容量约 565.69 GiB，符合当前单节点 CephFS 约 600 GiB 测试预算。
+合计默认容量约 573.69 GiB，符合当前单节点 CephFS 约 600 GiB 测试预算。
+
+`graph_graphchi_fixed_hot_vdbench_v1` 和 `bigdata_fixed_hot_vdbench_v1` 是诊断负载，不计入 5 类正式负载。它们复用已有数据，用于排查热点迁移、固定热点等单一因素，不作为默认测试集合。
 
 ## 目录约定
 
@@ -62,7 +64,7 @@ hot_a -> hot_b -> hot_c -> reheat_a
 
 - `pool_01/pool_02/pool_03` 轮流成为热点。
 - `pool_04` 是活跃背景数据。
-- `pool_05` 全程不访问，作为 inactive 冷数据。
+- 当前版本不再保留全程不访问的 `pool_05`；原 inactive/cold 容量已按论文原始比例分配给可访问数据池。
 
 ### 图计算
 
@@ -74,6 +76,7 @@ iter1_i0 -> iter1_i1 -> iter1_i2 -> iter1_i3
 - 当前 interval 对应 shard 是 memory-shard，成为热点。
 - 热点随 GraphChi execution interval 迁移。
 - 第二轮迭代让旧 shard 复热。
+- `graph_graphchi_fixed_hot_vdbench_v1` 固定 `shard_00` 为热点，用于判断 accuracy 下降是否主要来自热点迁移。
 
 ### HPC
 
@@ -89,15 +92,15 @@ startup read -> checkpoint write/read -> history write/read -> recovery read old
 ### AI 训练
 
 ```text
-epoch read hot/warm dataset
--> write/read current checkpoint
+dataset epoch reads
+-> checkpoint write/read
 -> recovery read old checkpoint
 ```
 
-- `dataset_hot` 和 `dataset_warm` 模拟训练数据读取，其中 `dataset_hot` 是主要热点。
+- `dataset_rank_01~08` 全部参与训练数据读取。
+- 每个 dataset 阶段使用 Zipfian 权重，少量 rank 更热，但没有全程不访问的训练数据池。
 - `checkpoint_current` 写后读，成为 checkpoint 热点。
 - `checkpoint_old` 在 recovery 阶段复热。
-- `dataset_cold` 保持冷却。
 
 ### AI 推理
 
@@ -109,5 +112,5 @@ prefill write current -> decode read current
 
 - `kv_active` 是当前会话 KV。
 - `kv_next` 是下一批会话 KV，热点迁移。
-- `kv_prefix_reuse` 是旧 KV reuse 复热。
-- `kv_cold` 保持冷却。
+- `kv_prefix_rank` 是 prefix reuse KV，支持旧 KV 复热。
+- active/next/prefix 三类 KV 都按 rank 切分并使用 Zipfian 权重，没有全程不访问的 KV 数据池。

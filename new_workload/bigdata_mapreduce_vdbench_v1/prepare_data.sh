@@ -13,6 +13,11 @@ output_dir=${OUTPUT_DIR:-output/prepare_data}
 mkdir -p "$anchor"
 echo "Ensured data anchor: $anchor"
 
+if [[ -d "$anchor/pool_05" ]]; then
+  echo "Removing stale inactive pool directory: $anchor/pool_05"
+  rm -rf -- "$anchor/pool_05"
+fi
+
 "$vdbench_home/vdbench" \
   -f rendered/prepare_data.vdb \
   -o "$output_dir"

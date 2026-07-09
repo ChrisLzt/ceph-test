@@ -21,10 +21,10 @@ Cristina L. Abad, Nathan Roberts, Yi Lu, Roy H. Campbell, “A Storage-Centric A
 | 论文观测 | 位置 | v1 映射 | 偏差/说明 |
 |---|---|---|---|
 | PROD：年龄不超过 1 天的文件贡献 85.41% accesses | §IV-B/I4 | 当前年轻热点池获得 85% operation | 从 85.41% 向下取整；accesses 是 open 次数，不是实测 read bytes |
-| PROD：年龄不超过 1 天的文件占 2.21% bytes | §IV-B/I4 | 当前年轻热点池占 2% bytes | 为保持整数文件数和相同单文件大小，从 2.21% 向下取整 |
+| PROD：年龄不超过 1 天的文件占 2.21% bytes | §IV-B/I4 | 三个候选热点池各取 2.21% 的原始容量窗口；去除 0 访问 cold 池后归一化为约 4.09%，最终工程取整为 4% | 4% 是把论文 cold 容量移除后重新归一化并取整的结果，不是论文原始观测 |
 | R&D：年龄不超过 1 天的文件贡献 78.91% accesses、占 1.87% bytes | §IV-B/I4 | 未作为默认 profile | 后续可增加 R&D temporal-locality profile，不能与 PROD 参数混用 |
-| inactive storage 占 51%～52% 文件 | §IV-A/I1 | 未保留；统一 12 MiB 后 inactive 文件数 = 44.00% | 当前版本按容量占比优先，且要求所有 FSD 单文件大小一致 |
-| inactive storage 占 42%～46% bytes | §IV-A/I1 | 4,400/10,000 = 44.00% bytes 全程不访问 | 使用区间中间值附近；因统一文件大小，文件数比例等于容量比例 |
+| inactive storage 占 51%～52% 文件 | §IV-A/I1 | 不再单独造 0 访问池 | 当前要求所有测试数据都被访问，因此不直接复现 inactive 文件数 |
+| inactive storage 占 42%～46% bytes | §IV-A/I1 | 使用 PROD 口径的 46% 作为 cold 容量；当前把该 46% 按 2.21:2.21:2.21:47.37 分给 A/B/C/背景池 | 论文只给范围；由于访问侧使用 PROD 的 85.41%，容量侧也采用 PROD 侧的 46% |
 | file population 高 churn、静态 popularity 模型不足 | §IV-A/I2、§VI | A→B→C→A 热点迁移 | 迁移顺序和阶段时长是工程扩展 |
 | file size 与 popularity 没有强相关 | §IV-E/I7 | 所有对象池文件统一为 12 MiB | individual size 不是生产分布；用于单节点 100～120 GiB 测试预算 |
 
@@ -45,7 +45,7 @@ Cristina L. Abad, Nathan Roberts, Yi Lu, Roy H. Campbell, “A Storage-Centric A
 - PROD：15.03% 文件只访问 1 次，68.40% 最多 5 次，80.98% 最多 10 次。
 - R&D：23.66% 文件只访问 1 次，84.25% 最多 5 次，90.08% 最多 10 次。
 
-v1 不使用聚合 top-open share 作为默认热点强度，也没有生成完整 power-law/低频分布。
+v1 不使用聚合 top-open share 作为默认热点强度，也没有生成完整 power-law/低频分布。当前 400/400/400/8800 文件数来自论文 PROD 原始容量模型 2.21/2.21/2.21/47.37/46 去除 0 访问 cold 池后的重分配，并取整为 4/4/4/88。
 
 ### Age at access（AOA）
 
@@ -99,7 +99,7 @@ Oracle Vdbench User Guide 定义了本负载使用的机制：
 - 所有大数据 workload 都符合 2%/85%。
 - 论文观测到了 2% 容量承载 85% read bytes。
 - Yahoo! trace 的文件大小是 12 MiB。
-- 本容量优先版本保留了 Yahoo! inactive 文件数 51%～52%。
+- 当前版本保留了单独的 Yahoo! inactive 文件池，或复现了 Yahoo! inactive 文件数 51%～52%。
 - Yahoo! HDFS 使用 1 MiB data request。
 - 固定阶段时长等于原 trace 的热点迁移周期。
 - data proxy 等价于真实 MapReduce 数据扫描。

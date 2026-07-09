@@ -17,14 +17,15 @@ anchor=${ANCHOR:-/mnt/cephfs/ai_training_checkpoint_vdbench_v1}
 vdbench_home=${VDBENCH_HOME:-/home/chris/PDSL/vdbench}
 remote_user=${REMOTE_USER:-chris}
 host1=${HOST1:-s52.servers.hustpdsl.cn}
-phase_seconds=${PHASE_SECONDS:-120}
+dataset_phase_seconds=${DATASET_PHASE_SECONDS:-160}
+checkpoint_phase_seconds=${CHECKPOINT_PHASE_SECONDS:-40}
 fwd_rate=${FWD_RATE:-1000}
 threads=${THREADS:-8}
 format_threads=${FORMAT_THREADS:-4}
 read_xfer_size=${READ_XFER_SIZE:-1m}
 checkpoint_xfer_size=${CHECKPOINT_XFER_SIZE:-4m}
 
-for value in "$phase_seconds" "$fwd_rate" "$threads" "$format_threads"; do
+for value in "$dataset_phase_seconds" "$checkpoint_phase_seconds" "$fwd_rate" "$threads" "$format_threads"; do
     [[ "$value" =~ ^[1-9][0-9]*$ ]] || {
         echo "Numeric parameters must be positive integers: $value" >&2
         exit 2
@@ -49,7 +50,8 @@ render_one() {
         -e "s|@VDBENCH_HOME@|$vdbench_home|g" \
         -e "s|@REMOTE_USER@|$remote_user|g" \
         -e "s|@HOST1@|$host1|g" \
-        -e "s|@PHASE_SECONDS@|$phase_seconds|g" \
+        -e "s|@DATASET_PHASE_SECONDS@|$dataset_phase_seconds|g" \
+        -e "s|@CHECKPOINT_PHASE_SECONDS@|$checkpoint_phase_seconds|g" \
         -e "s|@FWD_RATE@|$fwd_rate|g" \
         -e "s|@THREADS@|$threads|g" \
         -e "s|@FORMAT_THREADS@|$format_threads|g" \
@@ -78,4 +80,4 @@ case "$profile" in
         ;;
 esac
 
-echo "Profile: $profile; phase=${phase_seconds}s; fwdrate=$fwd_rate; threads=$threads; anchor=$anchor"
+echo "Profile: $profile; dataset_phase=${dataset_phase_seconds}s; checkpoint_phase=${checkpoint_phase_seconds}s; fwdrate=$fwd_rate; threads=$threads; anchor=$anchor"

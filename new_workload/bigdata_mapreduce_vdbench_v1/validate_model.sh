@@ -40,39 +40,37 @@ for match in fsd_re.finditer(prepare_text):
         raise SystemExit(f"FAIL: unsupported size unit: {unit}")
     fsds.append((match.group("name"), int(match.group("files")), size_mib))
 
-if len(fsds) != 5:
-    raise SystemExit(f"FAIL: expected 5 FSD pools, got {len(fsds)}")
+if len(fsds) != 4:
+    raise SystemExit(f"FAIL: expected 4 FSD pools after redistributing inactive capacity, got {len(fsds)}")
 
 total_mib = sum(files * size_mib for _, files, size_mib in fsds)
-inactive = [row for row in fsds if row[0] == "fsd_inactive"]
-if len(inactive) != 1:
-    raise SystemExit("FAIL: fsd_inactive missing")
-inactive_mib = inactive[0][1] * inactive[0][2]
-inactive_files = inactive[0][1]
 total_files = sum(files for _, files, _ in fsds)
 
 print(f"Total files: {total_files}")
 print(f"Total capacity: {total_mib / 1024:.2f} GiB")
-print(f"Inactive: {inactive_files / total_files * 100:.2f}% files, {inactive_mib / total_mib * 100:.2f}% bytes")
 
 total_gib = total_mib / 1024
 if not (100 <= total_gib <= 120):
     raise SystemExit("FAIL: total capacity should stay within the 100-120 GiB single-workload budget")
 expected_files = {
-    "fsd_a": 200,
-    "fsd_b": 200,
-    "fsd_c": 200,
-    "fsd_bg": 5000,
-    "fsd_inactive": 4400,
+    "fsd_a": 400,
+    "fsd_b": 400,
+    "fsd_c": 400,
+    "fsd_bg": 8800,
 }
 actual_files = {name: files for name, files, _ in fsds}
 if actual_files != expected_files:
-    raise SystemExit(f"FAIL: FSD file counts should keep capacity-first 2/2/2/50/44 ratio, got {actual_files}")
-inactive_byte_pct = inactive_mib / total_mib * 100
-if not (42 <= inactive_byte_pct <= 46):
-    raise SystemExit("FAIL: inactive byte percentage is outside paper range [42,46]")
-if abs((inactive_mib / total_mib * 100) - (inactive_files / total_files * 100)) > 0.001:
-    raise SystemExit("FAIL: equal-size FSDs should make inactive byte percentage equal inactive file percentage")
+    raise SystemExit(f"FAIL: FSD file counts should round paper-derived 4.09/4.09/4.09/87.72 ratio to 400/400/400/8800, got {actual_files}")
+expected_ratio = {
+    "fsd_a": 4.00,
+    "fsd_b": 4.00,
+    "fsd_c": 4.00,
+    "fsd_bg": 88.00,
+}
+for name, expected_pct in expected_ratio.items():
+    actual_pct = actual_files[name] / total_files * 100
+    if abs(actual_pct - expected_pct) > 0.01:
+        raise SystemExit(f"FAIL: {name} capacity ratio {actual_pct:.2f}% != expected {expected_pct:.2f}%")
 sizes = {size_mib for _, _, size_mib in fsds}
 if len(sizes) != 1:
     raise SystemExit(f"FAIL: all FSD file sizes should be identical, got {sorted(sizes)}")
@@ -120,6 +118,12 @@ for path in [run_template, run_rendered]:
     for forbidden in ["rd=reference_control", "fwd=ctl_a", "fwd=ctl_b", "fwd=ctl_c", "fwd=ctl_bg"]:
         if forbidden in content:
             raise SystemExit(f"FAIL: removed control phase remains in {path}: {forbidden}")
+
+for path in [prepare_template, run_template, prepare_rendered, run_rendered]:
+    content = path.read_text(encoding="utf-8")
+    for forbidden in ["fsd_inactive", "prep_inactive", "pool_05"]:
+        if forbidden in content:
+            raise SystemExit(f"FAIL: inactive pool remains in active config {path}: {forbidden}")
 
 elapsed_values = re.findall(r"elapsed=([0-9]+)", run_rendered.read_text(encoding="utf-8"))
 if elapsed_values != ["150"] * 4:

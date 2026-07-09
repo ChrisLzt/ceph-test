@@ -1,6 +1,8 @@
 * AI training checkpoint vdbench v1 - run only
-* Runs hot/cold identification phases against an existing dataset.
+* Runs Zipfian-skewed training dataset reads plus checkpoint lifecycle phases.
 * This file intentionally contains no Vdbench formatting RD.
+* Dataset rank weights aggregate 4MiB-object Zipf(alpha=0.99) into eight equal-capacity ranks:
+* 80/7/4/3/2/2/1/1.
 * Transfer sizes and thread counts are execution parameters, not claimed as paper constants.
 
 data_errors=1
@@ -11,20 +13,51 @@ hd=default,vdbench=@VDBENCH_HOME@,user=@REMOTE_USER@,shell=ssh
 hd=hd1,system=@HOST1@
 
 fsd=default,depth=1,width=1,shared=yes,openflags=o_direct
-fsd=fsd_dataset_hot,anchor=@ANCHOR@/dataset_hot,files=32,size=1g
-fsd=fsd_dataset_warm,anchor=@ANCHOR@/dataset_warm,files=24,size=1g
-fsd=fsd_dataset_cold,anchor=@ANCHOR@/dataset_cold,files=32,size=1g
-fsd=fsd_checkpoint_current,anchor=@ANCHOR@/checkpoint_current,files=12,size=1g
-fsd=fsd_checkpoint_old,anchor=@ANCHOR@/checkpoint_old,files=12,size=1g
+fsd=fsd_dataset_rank_01,anchor=@ANCHOR@/dataset_rank_01,files=12,size=1g
+fsd=fsd_dataset_rank_02,anchor=@ANCHOR@/dataset_rank_02,files=12,size=1g
+fsd=fsd_dataset_rank_03,anchor=@ANCHOR@/dataset_rank_03,files=12,size=1g
+fsd=fsd_dataset_rank_04,anchor=@ANCHOR@/dataset_rank_04,files=12,size=1g
+fsd=fsd_dataset_rank_05,anchor=@ANCHOR@/dataset_rank_05,files=12,size=1g
+fsd=fsd_dataset_rank_06,anchor=@ANCHOR@/dataset_rank_06,files=12,size=1g
+fsd=fsd_dataset_rank_07,anchor=@ANCHOR@/dataset_rank_07,files=12,size=1g
+fsd=fsd_dataset_rank_08,anchor=@ANCHOR@/dataset_rank_08,files=12,size=1g
+fsd=fsd_checkpoint_current,anchor=@ANCHOR@/checkpoint_current,files=8,size=1g
+fsd=fsd_checkpoint_old,anchor=@ANCHOR@/checkpoint_old,files=8,size=1g
 
-fwd=epoch_hot_dataset,fsd=fsd_dataset_hot,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@
-fwd=epoch_warm_dataset,fsd=fsd_dataset_warm,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@
+fwd=dataset_epoch_01_r01,fsd=fsd_dataset_rank_01,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=80
+fwd=dataset_epoch_01_r02,fsd=fsd_dataset_rank_02,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=7
+fwd=dataset_epoch_01_r03,fsd=fsd_dataset_rank_03,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=4
+fwd=dataset_epoch_01_r04,fsd=fsd_dataset_rank_04,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=3
+fwd=dataset_epoch_01_r05,fsd=fsd_dataset_rank_05,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=2
+fwd=dataset_epoch_01_r06,fsd=fsd_dataset_rank_06,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=2
+fwd=dataset_epoch_01_r07,fsd=fsd_dataset_rank_07,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=1
+fwd=dataset_epoch_01_r08,fsd=fsd_dataset_rank_08,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=1
+
+fwd=dataset_epoch_02_r02,fsd=fsd_dataset_rank_02,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=80
+fwd=dataset_epoch_02_r03,fsd=fsd_dataset_rank_03,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=7
+fwd=dataset_epoch_02_r04,fsd=fsd_dataset_rank_04,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=4
+fwd=dataset_epoch_02_r05,fsd=fsd_dataset_rank_05,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=3
+fwd=dataset_epoch_02_r06,fsd=fsd_dataset_rank_06,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=2
+fwd=dataset_epoch_02_r07,fsd=fsd_dataset_rank_07,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=2
+fwd=dataset_epoch_02_r08,fsd=fsd_dataset_rank_08,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=1
+fwd=dataset_epoch_02_r01,fsd=fsd_dataset_rank_01,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=1
+
+fwd=dataset_epoch_03_r03,fsd=fsd_dataset_rank_03,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=80
+fwd=dataset_epoch_03_r04,fsd=fsd_dataset_rank_04,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=7
+fwd=dataset_epoch_03_r05,fsd=fsd_dataset_rank_05,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=4
+fwd=dataset_epoch_03_r06,fsd=fsd_dataset_rank_06,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=3
+fwd=dataset_epoch_03_r07,fsd=fsd_dataset_rank_07,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=2
+fwd=dataset_epoch_03_r08,fsd=fsd_dataset_rank_08,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=2
+fwd=dataset_epoch_03_r01,fsd=fsd_dataset_rank_01,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=1
+fwd=dataset_epoch_03_r02,fsd=fsd_dataset_rank_02,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=1
+
 fwd=checkpoint_write_current,fsd=fsd_checkpoint_current,operation=write,fileio=sequential,fileselect=random,xfersize=@CHECKPOINT_XFER_SIZE@,threads=@THREADS@
 fwd=checkpoint_read_current,fsd=fsd_checkpoint_current,operation=read,fileio=sequential,fileselect=random,xfersize=@CHECKPOINT_XFER_SIZE@,threads=@THREADS@
 fwd=recovery_read_old_checkpoint,fsd=fsd_checkpoint_old,operation=read,fileio=sequential,fileselect=random,xfersize=@CHECKPOINT_XFER_SIZE@,threads=@THREADS@
 
-rd=epoch_read_hot_dataset,fwd=epoch_hot_dataset,fwdrate=@FWD_RATE@,elapsed=@PHASE_SECONDS@,interval=1
-rd=epoch_read_warm_dataset,fwd=epoch_warm_dataset,fwdrate=@FWD_RATE@,elapsed=@PHASE_SECONDS@,interval=1
-rd=checkpoint_write_current,fwd=checkpoint_write_current,fwdrate=@FWD_RATE@,elapsed=@PHASE_SECONDS@,interval=1
-rd=checkpoint_read_current,fwd=checkpoint_read_current,fwdrate=@FWD_RATE@,elapsed=@PHASE_SECONDS@,interval=1
-rd=recovery_read_old_checkpoint,fwd=recovery_read_old_checkpoint,fwdrate=@FWD_RATE@,elapsed=@PHASE_SECONDS@,interval=1
+rd=dataset_epoch_01,fwd=(dataset_epoch_01_r01,dataset_epoch_01_r02,dataset_epoch_01_r03,dataset_epoch_01_r04,dataset_epoch_01_r05,dataset_epoch_01_r06,dataset_epoch_01_r07,dataset_epoch_01_r08),fwdrate=@FWD_RATE@,elapsed=@DATASET_PHASE_SECONDS@,interval=1
+rd=dataset_epoch_02,fwd=(dataset_epoch_02_r02,dataset_epoch_02_r03,dataset_epoch_02_r04,dataset_epoch_02_r05,dataset_epoch_02_r06,dataset_epoch_02_r07,dataset_epoch_02_r08,dataset_epoch_02_r01),fwdrate=@FWD_RATE@,elapsed=@DATASET_PHASE_SECONDS@,interval=1
+rd=dataset_epoch_03,fwd=(dataset_epoch_03_r03,dataset_epoch_03_r04,dataset_epoch_03_r05,dataset_epoch_03_r06,dataset_epoch_03_r07,dataset_epoch_03_r08,dataset_epoch_03_r01,dataset_epoch_03_r02),fwdrate=@FWD_RATE@,elapsed=@DATASET_PHASE_SECONDS@,interval=1
+rd=checkpoint_write_current,fwd=checkpoint_write_current,fwdrate=@FWD_RATE@,elapsed=@CHECKPOINT_PHASE_SECONDS@,interval=1
+rd=checkpoint_read_current,fwd=checkpoint_read_current,fwdrate=@FWD_RATE@,elapsed=@CHECKPOINT_PHASE_SECONDS@,interval=1
+rd=recovery_read_old_checkpoint,fwd=recovery_read_old_checkpoint,fwdrate=@FWD_RATE@,elapsed=@CHECKPOINT_PHASE_SECONDS@,interval=1

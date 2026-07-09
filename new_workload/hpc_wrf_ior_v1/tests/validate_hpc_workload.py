@@ -85,8 +85,12 @@ def validate_rendered() -> None:
 
     if 'PHASE_SECONDS="75"' not in run:
         fail("rendered run should default to 75s per IOR phase for a roughly 10min test")
+    if 'IOR_ITERATIONS="4"' not in run:
+        fail("rendered run should repeat every IOR phase four times by default")
     if run.count('-D "$PHASE_SECONDS"') != 2:
         fail("rendered run should apply IOR stonewalling to both read and write helpers")
+    if run.count('-i "$IOR_ITERATIONS"') != 2:
+        fail("rendered run should repeat every IOR phase enough times to outlive the HP evaluation window")
 
     for marker in ["ground_truth.csv", "/mnt/cephfs/new_workload"]:
         if marker in readme or marker in sources:

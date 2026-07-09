@@ -129,7 +129,7 @@ PHASE_SECONDS=75 \
 5. `history_hot_read`：读取刚写出的 history/output；
 6. `recovery_reheat_read`：读取旧 checkpoint，观察复热。
 
-默认正式测试包含 8 次 IOR 阶段调用，每阶段通过 IOR `-D 75` 设置 stonewalling 时间上限，总时长约 10 分钟。由于 IOR 的 `-D` 是阶段内停止条件，实际总时长会包含命令启动和收尾开销，因此会略高于 10 分钟；各阶段实际读写量也会随当时 CephFS 性能变化。
+默认正式测试包含 8 次 IOR 阶段调用，每阶段通过 IOR `-D 75` 设置 stonewalling 时间上限，并通过 `IOR_ITERATIONS=4` 重复完整 I/O。这样可以产生足够多的 HP 评估样本，避免测试结束时大部分 I/O 仍停留在 evaluation queue 中。实际总时长会包含命令启动和收尾开销，因此会略高于 10 分钟；各阶段实际读写量也会随当时 CephFS 性能变化。
 
 ## 7. 当前环境注意事项
 

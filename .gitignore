@@ -3,6 +3,7 @@
 **/out/
 **/logs/
 **/hp_status/
+**/hp_runs/
 
 # Generated caches
 **/__pycache__/
@@ -15,5 +16,5 @@
 *.tmp
 *.pid
 *.log
+*.zip
 ~$*
-

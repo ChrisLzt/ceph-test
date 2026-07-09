@@ -3,8 +3,8 @@ import re
 import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
+ZIPFIAN_WEIGHTS = [79, 7, 4, 3, 2, 2, 2, 1]
 
 
 def fail(message: str) -> None:
@@ -50,6 +50,29 @@ def parse_fsds(text: str) -> dict[str, tuple[int, float]]:
     return fsds
 
 
+def parse_fwd_lines(text: str) -> dict[str, str]:
+    result: dict[str, str] = {}
+    for line in text.splitlines():
+        if line.startswith("fwd="):
+            name = line.split(",", 1)[0].split("=", 1)[1]
+            result[name] = line
+    return result
+
+
+def rd_fwd_names(text: str, rd_name: str) -> list[str]:
+    match = re.search(rf"^rd={re.escape(rd_name)},fwd=\(([^)]*)\),", text, re.M)
+    if not match:
+        fail(f"missing RD with fwd list: {rd_name}")
+    return [item.strip() for item in match.group(1).split(",") if item.strip()]
+
+
+def skew_of(line: str) -> int:
+    match = re.search(r",skew=([0-9]+)(?:,|$)", line)
+    if not match:
+        fail(f"missing skew in fwd line: {line}")
+    return int(match.group(1))
+
+
 def validate_files() -> None:
     for path in [
         "README.md",
@@ -81,8 +104,11 @@ def validate_docs() -> None:
         "KV cache",
         "prefill",
         "decode",
+        "prefix reuse",
         "MLPerf Storage",
         "vdbench",
+        "Zipfian",
+        "kv_active_rank_01~08",
         "/mnt/cephfs/ai_inference_kvcache_vdbench_v1",
     ]:
         if marker not in combined:
@@ -92,6 +118,9 @@ def validate_docs() -> None:
         "/mnt/cephfs/new_workload",
         "ground_truth.csv",
         "Python file backend proxy",
+        "kv_cold_01~02",
+        "80/20",
+        "长期不访问",
     ]:
         if stale in combined:
             fail(f"docs contain stale marker: {stale}")
@@ -111,45 +140,65 @@ def validate_vdbench_configs() -> None:
 
     fsds = parse_fsds(prepare)
     expected = {
-        "fsd_kv_active": (32, 1.0),
-        "fsd_kv_prefix_reuse": (32, 1.0),
-        "fsd_kv_next": (32, 1.0),
-        "fsd_kv_cold": (16, 1.0),
+        **{f"fsd_kv_active_rank_{i:02d}": (5, 1.0) for i in range(1, 9)},
+        **{f"fsd_kv_next_rank_{i:02d}": (5, 1.0) for i in range(1, 9)},
+        **{f"fsd_kv_prefix_rank_{i:02d}": (5, 1.0) for i in range(1, 9)},
     }
     if fsds != expected:
         fail(f"unexpected FSD layout: {fsds}")
     total_gib = sum(files * size_gib for files, size_gib in fsds.values())
     print(f"Total prepared capacity: {total_gib:.2f} GiB")
-    if not (100 <= total_gib <= 120):
-        fail("total prepared capacity should stay within 100-120 GiB")
+    if total_gib != 120.0:
+        fail("total prepared capacity should be 120 GiB")
 
     if "format=(clean,only)" not in prepare or "format=(restart,only)" not in prepare:
         fail("prepare config must contain clean/create format RDs")
+    for stale in ["kv_cold", "kv_active_01", "kv_next_01", "kv_prefix_reuse_01"]:
+        if stale in prepare or stale in run or stale in rendered_run:
+            fail(f"stale KV-cache name remains: {stale}")
+
+    expected_rds = {
+        "prefill_active": ("fsd_kv_active_rank", "write"),
+        "decode_active": ("fsd_kv_active_rank", "read"),
+        "prefill_next": ("fsd_kv_next_rank", "write"),
+        "decode_next": ("fsd_kv_next_rank", "read"),
+        "prefix_reuse_primary": ("fsd_kv_prefix_rank", "read"),
+        "prefix_reuse_shifted": ("fsd_kv_prefix_rank", "read"),
+    }
     for content, name in [(run, "run template"), (rendered_run, "rendered run")]:
         if "format=" in content or "prepare_clean" in content or "prepare_create" in content:
             fail(f"{name} must not contain prepare/format directives")
-        for rd in [
-            "rd=prefill_write_active",
-            "rd=decode_read_active",
-            "rd=prefill_write_next",
-            "rd=decode_read_next",
-            "rd=prefix_reuse_read_old",
-        ]:
-            if rd not in content:
+        fwd_lines = parse_fwd_lines(content)
+        for rd, (fsd_prefix, operation) in expected_rds.items():
+            if f"rd={rd}" not in content:
                 fail(f"{name} missing {rd}")
-        if "fsd_kv_cold" not in content or re.search(r"fwd=.*fsd=fsd_kv_cold", content):
-            fail(f"{name} should define kv_cold but not access it during run")
+            fwds = rd_fwd_names(content, rd)
+            if len(fwds) != 8:
+                fail(f"{name} {rd} should access all eight ranks")
+            skews = [skew_of(fwd_lines[fwd]) for fwd in fwds]
+            if skews != ZIPFIAN_WEIGHTS:
+                fail(f"{name} {rd} should use Zipfian weights {ZIPFIAN_WEIGHTS}, got {skews}")
+            lines = "\n".join(fwd_lines[fwd] for fwd in fwds)
+            ranks = sorted(set(re.findall(rf"{fsd_prefix}_([0-9]{{2}})", lines)))
+            if ranks != [f"{i:02d}" for i in range(1, 9)]:
+                fail(f"{name} {rd} should touch all ranks for {fsd_prefix}, got {ranks}")
+            if any(f"operation={operation}" not in fwd_lines[fwd] for fwd in fwds):
+                fail(f"{name} {rd} should be operation={operation}")
+        for prefix in ["fsd_kv_active_rank", "fsd_kv_next_rank", "fsd_kv_prefix_rank"]:
+            for rank in range(1, 9):
+                if f"fsd={prefix}_{rank:02d}" not in content:
+                    fail(f"{name} should access {prefix}_{rank:02d}")
 
     elapsed_values = re.findall(r"elapsed=([0-9]+)", rendered_run)
-    if elapsed_values != ["120"] * 5:
-        fail(f"rendered run should contain five 120s phases for a 10min test, got {elapsed_values}")
+    if elapsed_values != ["100"] * 6:
+        fail(f"rendered run should contain six 100s phases for a 10min test, got {elapsed_values}")
 
 
 def main() -> None:
     validate_files()
     validate_docs()
     validate_vdbench_configs()
-    print("PASS: AI inference KV-cache vdbench workload is internally consistent.")
+    print("PASS: AI inference KV-cache vdbench Zipfian workload is internally consistent.")
 
 
 if __name__ == "__main__":

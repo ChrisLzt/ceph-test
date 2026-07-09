@@ -27,8 +27,9 @@ block_size=${BLOCK_SIZE:-4g}
 transfer_size=${TRANSFER_SIZE:-1m}
 segment_count=${SEGMENT_COUNT:-1}
 phase_seconds=${PHASE_SECONDS:-75}
+ior_iterations=${IOR_ITERATIONS:-4}
 
-for value in "$np" "$segment_count" "$phase_seconds"; do
+for value in "$np" "$segment_count" "$phase_seconds" "$ior_iterations"; do
     [[ "$value" =~ ^[1-9][0-9]*$ ]] || {
         echo "Numeric parameters must be positive integers: $value" >&2
         exit 2
@@ -60,6 +61,7 @@ render_one() {
         -e "s|@TRANSFER_SIZE@|$transfer_size|g" \
         -e "s|@SEGMENT_COUNT@|$segment_count|g" \
         -e "s|@PHASE_SECONDS@|$phase_seconds|g" \
+        -e "s|@IOR_ITERATIONS@|$ior_iterations|g" \
         "$template" > "$output"
 
     if grep -q '@[A-Z_][A-Z_]*@' "$output"; then
@@ -83,4 +85,4 @@ case "$profile" in
         ;;
 esac
 
-echo "Profile: $profile; np=$np; block=$block_size; transfer=$transfer_size; phase=${phase_seconds}s; anchor=$anchor"
+echo "Profile: $profile; np=$np; block=$block_size; transfer=$transfer_size; phase=${phase_seconds}s; ior_iterations=$ior_iterations; anchor=$anchor"

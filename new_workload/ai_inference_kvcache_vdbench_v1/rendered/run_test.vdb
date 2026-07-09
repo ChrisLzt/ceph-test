@@ -1,6 +1,8 @@
 * AI inference KV-cache vdbench v1 - run only
-* Runs hot/cold identification phases against an existing dataset.
+* Runs Zipfian-skewed KV-cache prefill, decode, and prefix-reuse phases.
 * This file intentionally contains no Vdbench formatting RD.
+* KV rank weights aggregate 4MiB-object Zipf(alpha=0.99) into eight equal-capacity ranks:
+* 79/7/4/3/2/2/2/1.
 * Transfer sizes and thread counts are execution parameters, not claimed as paper constants.
 
 data_errors=1
@@ -11,19 +13,88 @@ hd=default,vdbench=/home/chris/PDSL/vdbench,user=chris,shell=ssh
 hd=hd1,system=s52.servers.hustpdsl.cn
 
 fsd=default,depth=1,width=1,shared=yes,openflags=o_direct
-fsd=fsd_kv_active,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_active,files=32,size=1g
-fsd=fsd_kv_prefix_reuse,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_prefix_reuse,files=32,size=1g
-fsd=fsd_kv_next,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_next,files=32,size=1g
-fsd=fsd_kv_cold,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_cold,files=16,size=1g
+fsd=fsd_kv_active_rank_01,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_active_rank_01,files=5,size=1g
+fsd=fsd_kv_active_rank_02,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_active_rank_02,files=5,size=1g
+fsd=fsd_kv_active_rank_03,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_active_rank_03,files=5,size=1g
+fsd=fsd_kv_active_rank_04,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_active_rank_04,files=5,size=1g
+fsd=fsd_kv_active_rank_05,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_active_rank_05,files=5,size=1g
+fsd=fsd_kv_active_rank_06,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_active_rank_06,files=5,size=1g
+fsd=fsd_kv_active_rank_07,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_active_rank_07,files=5,size=1g
+fsd=fsd_kv_active_rank_08,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_active_rank_08,files=5,size=1g
+fsd=fsd_kv_next_rank_01,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_next_rank_01,files=5,size=1g
+fsd=fsd_kv_next_rank_02,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_next_rank_02,files=5,size=1g
+fsd=fsd_kv_next_rank_03,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_next_rank_03,files=5,size=1g
+fsd=fsd_kv_next_rank_04,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_next_rank_04,files=5,size=1g
+fsd=fsd_kv_next_rank_05,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_next_rank_05,files=5,size=1g
+fsd=fsd_kv_next_rank_06,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_next_rank_06,files=5,size=1g
+fsd=fsd_kv_next_rank_07,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_next_rank_07,files=5,size=1g
+fsd=fsd_kv_next_rank_08,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_next_rank_08,files=5,size=1g
+fsd=fsd_kv_prefix_rank_01,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_prefix_rank_01,files=5,size=1g
+fsd=fsd_kv_prefix_rank_02,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_prefix_rank_02,files=5,size=1g
+fsd=fsd_kv_prefix_rank_03,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_prefix_rank_03,files=5,size=1g
+fsd=fsd_kv_prefix_rank_04,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_prefix_rank_04,files=5,size=1g
+fsd=fsd_kv_prefix_rank_05,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_prefix_rank_05,files=5,size=1g
+fsd=fsd_kv_prefix_rank_06,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_prefix_rank_06,files=5,size=1g
+fsd=fsd_kv_prefix_rank_07,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_prefix_rank_07,files=5,size=1g
+fsd=fsd_kv_prefix_rank_08,anchor=/mnt/cephfs/ai_inference_kvcache_vdbench_v1/kv_prefix_rank_08,files=5,size=1g
 
-fwd=prefill_write_active,fsd=fsd_kv_active,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8
-fwd=decode_read_active,fsd=fsd_kv_active,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8
-fwd=prefill_write_next,fsd=fsd_kv_next,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8
-fwd=decode_read_next,fsd=fsd_kv_next,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8
-fwd=prefix_reuse_read_old,fsd=fsd_kv_prefix_reuse,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8
+fwd=prefill_active_r01,fsd=fsd_kv_active_rank_01,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8,skew=79
+fwd=prefill_active_r02,fsd=fsd_kv_active_rank_02,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8,skew=7
+fwd=prefill_active_r03,fsd=fsd_kv_active_rank_03,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8,skew=4
+fwd=prefill_active_r04,fsd=fsd_kv_active_rank_04,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8,skew=3
+fwd=prefill_active_r05,fsd=fsd_kv_active_rank_05,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8,skew=2
+fwd=prefill_active_r06,fsd=fsd_kv_active_rank_06,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8,skew=2
+fwd=prefill_active_r07,fsd=fsd_kv_active_rank_07,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8,skew=2
+fwd=prefill_active_r08,fsd=fsd_kv_active_rank_08,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8,skew=1
 
-rd=prefill_write_active,fwd=prefill_write_active,fwdrate=1000,elapsed=120,interval=1
-rd=decode_read_active,fwd=decode_read_active,fwdrate=1000,elapsed=120,interval=1
-rd=prefill_write_next,fwd=prefill_write_next,fwdrate=1000,elapsed=120,interval=1
-rd=decode_read_next,fwd=decode_read_next,fwdrate=1000,elapsed=120,interval=1
-rd=prefix_reuse_read_old,fwd=prefix_reuse_read_old,fwdrate=1000,elapsed=120,interval=1
+fwd=decode_active_r01,fsd=fsd_kv_active_rank_01,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=79
+fwd=decode_active_r02,fsd=fsd_kv_active_rank_02,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=7
+fwd=decode_active_r03,fsd=fsd_kv_active_rank_03,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=4
+fwd=decode_active_r04,fsd=fsd_kv_active_rank_04,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=3
+fwd=decode_active_r05,fsd=fsd_kv_active_rank_05,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=2
+fwd=decode_active_r06,fsd=fsd_kv_active_rank_06,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=2
+fwd=decode_active_r07,fsd=fsd_kv_active_rank_07,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=2
+fwd=decode_active_r08,fsd=fsd_kv_active_rank_08,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=1
+
+fwd=prefill_next_r02,fsd=fsd_kv_next_rank_02,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8,skew=79
+fwd=prefill_next_r03,fsd=fsd_kv_next_rank_03,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8,skew=7
+fwd=prefill_next_r04,fsd=fsd_kv_next_rank_04,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8,skew=4
+fwd=prefill_next_r05,fsd=fsd_kv_next_rank_05,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8,skew=3
+fwd=prefill_next_r06,fsd=fsd_kv_next_rank_06,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8,skew=2
+fwd=prefill_next_r07,fsd=fsd_kv_next_rank_07,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8,skew=2
+fwd=prefill_next_r08,fsd=fsd_kv_next_rank_08,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8,skew=2
+fwd=prefill_next_r01,fsd=fsd_kv_next_rank_01,operation=write,fileio=sequential,fileselect=random,xfersize=4m,threads=8,skew=1
+
+fwd=decode_next_r02,fsd=fsd_kv_next_rank_02,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=79
+fwd=decode_next_r03,fsd=fsd_kv_next_rank_03,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=7
+fwd=decode_next_r04,fsd=fsd_kv_next_rank_04,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=4
+fwd=decode_next_r05,fsd=fsd_kv_next_rank_05,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=3
+fwd=decode_next_r06,fsd=fsd_kv_next_rank_06,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=2
+fwd=decode_next_r07,fsd=fsd_kv_next_rank_07,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=2
+fwd=decode_next_r08,fsd=fsd_kv_next_rank_08,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=2
+fwd=decode_next_r01,fsd=fsd_kv_next_rank_01,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=1
+
+fwd=prefix_reuse_primary_r01,fsd=fsd_kv_prefix_rank_01,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=79
+fwd=prefix_reuse_primary_r02,fsd=fsd_kv_prefix_rank_02,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=7
+fwd=prefix_reuse_primary_r03,fsd=fsd_kv_prefix_rank_03,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=4
+fwd=prefix_reuse_primary_r04,fsd=fsd_kv_prefix_rank_04,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=3
+fwd=prefix_reuse_primary_r05,fsd=fsd_kv_prefix_rank_05,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=2
+fwd=prefix_reuse_primary_r06,fsd=fsd_kv_prefix_rank_06,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=2
+fwd=prefix_reuse_primary_r07,fsd=fsd_kv_prefix_rank_07,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=2
+fwd=prefix_reuse_primary_r08,fsd=fsd_kv_prefix_rank_08,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=1
+
+fwd=prefix_reuse_shifted_r02,fsd=fsd_kv_prefix_rank_02,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=79
+fwd=prefix_reuse_shifted_r03,fsd=fsd_kv_prefix_rank_03,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=7
+fwd=prefix_reuse_shifted_r04,fsd=fsd_kv_prefix_rank_04,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=4
+fwd=prefix_reuse_shifted_r05,fsd=fsd_kv_prefix_rank_05,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=3
+fwd=prefix_reuse_shifted_r06,fsd=fsd_kv_prefix_rank_06,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=2
+fwd=prefix_reuse_shifted_r07,fsd=fsd_kv_prefix_rank_07,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=2
+fwd=prefix_reuse_shifted_r08,fsd=fsd_kv_prefix_rank_08,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=2
+fwd=prefix_reuse_shifted_r01,fsd=fsd_kv_prefix_rank_01,operation=read,fileio=random,fileselect=random,xfersize=1m,threads=8,skew=1
+
+rd=prefill_active,fwd=(prefill_active_r01,prefill_active_r02,prefill_active_r03,prefill_active_r04,prefill_active_r05,prefill_active_r06,prefill_active_r07,prefill_active_r08),fwdrate=1000,elapsed=100,interval=1
+rd=decode_active,fwd=(decode_active_r01,decode_active_r02,decode_active_r03,decode_active_r04,decode_active_r05,decode_active_r06,decode_active_r07,decode_active_r08),fwdrate=1000,elapsed=100,interval=1
+rd=prefill_next,fwd=(prefill_next_r02,prefill_next_r03,prefill_next_r04,prefill_next_r05,prefill_next_r06,prefill_next_r07,prefill_next_r08,prefill_next_r01),fwdrate=1000,elapsed=100,interval=1
+rd=decode_next,fwd=(decode_next_r02,decode_next_r03,decode_next_r04,decode_next_r05,decode_next_r06,decode_next_r07,decode_next_r08,decode_next_r01),fwdrate=1000,elapsed=100,interval=1
+rd=prefix_reuse_primary,fwd=(prefix_reuse_primary_r01,prefix_reuse_primary_r02,prefix_reuse_primary_r03,prefix_reuse_primary_r04,prefix_reuse_primary_r05,prefix_reuse_primary_r06,prefix_reuse_primary_r07,prefix_reuse_primary_r08),fwdrate=1000,elapsed=100,interval=1
+rd=prefix_reuse_shifted,fwd=(prefix_reuse_shifted_r02,prefix_reuse_shifted_r03,prefix_reuse_shifted_r04,prefix_reuse_shifted_r05,prefix_reuse_shifted_r06,prefix_reuse_shifted_r07,prefix_reuse_shifted_r08,prefix_reuse_shifted_r01),fwdrate=1000,elapsed=100,interval=1

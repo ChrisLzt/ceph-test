@@ -2,6 +2,8 @@
 
 本文档简要说明 5 类 CephFS 冷热识别负载的来源、设计逻辑、测试数据分布、测试阶段和适用范围与限制。当前目标不是复现原生应用性能，也不是提交标准 benchmark 成绩，而是在负载特征合理、来源可追溯的前提下，构造可观察的冷热变化。
 
+AI 训练/推理当前使用 Zipfian rank 表达访问偏斜；Zipf alpha=0.99 采用 YCSB 常用参数，但该权重仍是执行模型，不是论文实测比例。后续 trace 提取方案见 [AI_TRACE_RATIO_PLAN.md](AI_TRACE_RATIO_PLAN.md)。
+
 ## 总览
 
 | 类型 | 目录 | 工具 | 默认容量 | 默认时间 |
@@ -10,7 +12,9 @@
 | 图计算 | `graph_graphchi`<br>`_vdbench_v1` | vdbench | 约 112.50 GiB | 10 min |
 | HPC | `hpc_wrf`<br>`_ior_v1` | IOR | 约 112.00 GiB | 约 10 min |
 | AI 训练 | `ai_training_checkpoint`<br>`_vdbench_v1` | vdbench | 约 112.00 GiB | 10 min |
-| AI 推理 | `ai_inference_kvcache`<br>`_vdbench_v1` | vdbench | 约 112.00 GiB | 10 min |
+| AI 推理 | `ai_inference_kvcache`<br>`_vdbench_v1` | vdbench | 约 120.00 GiB | 10 min |
+
+固定热点目录只作为诊断负载使用，不计入 5 类正式负载。
 
 ## 1. 大数据：MapReduce 文件冷热负载
 
@@ -21,17 +25,18 @@
 
 ### 设计逻辑
 
-论文给出了 MapReduce 文件 popularity、temporal locality、inactive storage 等观测。v1 使用论文中 temporal-locality 的容量/访问关系构造文件池热点：少量年轻/活跃文件池获得主要访问，背景文件池维持低热度，inactive 文件池全程不访问。
+论文给出了 MapReduce 文件 popularity、temporal locality、inactive storage 等观测。v1 使用论文中 temporal-locality 的容量/访问关系构造文件池热点：少量年轻/活跃文件池获得主要访问，背景文件池维持低热度。为避免出现全程 0 访问数据，当前版本把旧 cold/inactive 池容量按原活跃池比例分配给三个候选热点池和背景池。
 
 ### 测试数据分布
 
 | 数据池 | 文件数 | 单文件大小 | 容量 | 作用 |
 |---|---:|---:|---:|---|
-| `pool_01` | 200 | 12 MiB | 约 2.34 GiB | 轮转热点 A |
-| `pool_02` | 200 | 12 MiB | 约 2.34 GiB | 轮转热点 B |
-| `pool_03` | 200 | 12 MiB | 约 2.34 GiB | 轮转热点 C |
-| `pool_04` | 5000 | 12 MiB | 约 58.59 GiB | 活跃背景数据 |
-| `pool_05` | 4400 | 12 MiB | 约 51.56 GiB | inactive 冷数据 |
+| `pool_01` | 400 | 12 MiB | 约 4.69 GiB | 轮转热点 A |
+| `pool_02` | 400 | 12 MiB | 约 4.69 GiB | 轮转热点 B |
+| `pool_03` | 400 | 12 MiB | 约 4.69 GiB | 轮转热点 C |
+| `pool_04` | 8800 | 12 MiB | 约 103.13 GiB | 活跃背景数据 |
+
+按论文 PROD 原始容量数值计算：A/B/C 各使用 1 天内年轻文件的 2.21% bytes，cold 使用 inactive bytes 的 46%，背景池为剩余 47.37%。将 46% cold 容量按 2.21:2.21:2.21:47.37 分配给前四池后，新容量比例约为 4.09%/4.09%/4.09%/87.72%；最终取整为 4%/4%/4%/88%。
 
 ### 测试阶段
 
@@ -44,7 +49,7 @@
 | `hot_c` | 读 | `pool_01~04` | 1% / 1% / 85% / 13% | 热点迁移到 `pool_03` |
 | `reheat_a` | 读 | `pool_01~04` | 85% / 1% / 1% / 13% | `pool_01` 复热 |
 
-`pool_05` 在全部正式测试阶段不读写，作为 inactive 冷数据对照。
+当前版本不存在 `pool_05`；全部正式测试数据池都会被访问。
 
 ### 适用范围与限制
 
@@ -88,7 +93,7 @@ GraphChi 的 Parallel Sliding Windows 会把图划分为 shard/interval。当前
 | `iter2_i2` | 读 | `shard_00~03` | 6% / 6% / 75% / 13% | interval 2 复热 |
 | `iter2_i3` | 读 | `shard_00~03` | 13% / 6% / 6% / 75% | interval 3 复热 |
 
-图计算负载没有手工指定热点比例；这些分布由 generated graph 经 GraphChi PSW 规则计算后写入 vdbench 配置。
+图计算负载没有手工指定热点比例；这些分布由 generated graph 经 GraphChi PSW 规则计算后写入 vdbench 配置。`graph_graphchi_fixed_hot_vdbench_v1` 复用同一数据集，但固定 `shard_00` 为 75% 热点，作为排查 GraphChi accuracy 是否受热点迁移影响的对照负载。
 
 ### 适用范围与限制
 
@@ -125,7 +130,7 @@ WRF 运行涉及输入文件、边界文件、restart/checkpoint 文件和 histo
 
 ### 测试阶段
 
-默认 8 次 IOR 阶段调用，每阶段通过 IOR `-D 75` 控制，总正式测试时间约 10 分钟。IOR 需要额外启动/收尾开销，因此实际墙钟时间可能略高。
+默认 8 次 IOR 阶段调用，每阶段通过 IOR `-D 75` 控制，并使用 `IOR_ITERATIONS=4` 产生足够多的 HP 评估样本。IOR 需要额外启动/收尾开销，因此实际墙钟时间可能略高。
 
 | 阶段 | 读/写 | 访问数据 | 目的 |
 |---|---|---|---|
@@ -156,38 +161,41 @@ WRF 运行涉及输入文件、边界文件、restart/checkpoint 文件和 histo
 
 ### 设计逻辑
 
-Meta DSI 描述大规模训练会反复读取、过滤数据，并存在热门 features/samples。MLPerf Storage checkpointing / DLIO 提供 checkpoint write/read/recovery 的存储语义。v1 将训练数据读取和 checkpoint 生命周期组合成阶段化 vdbench 负载。
+Meta DSI 描述大规模训练会反复读取、过滤数据，并存在热门 features/samples。MLPerf Storage checkpointing / DLIO 提供 checkpoint write/read/recovery 的存储语义。v1 将训练数据读取和 checkpoint 生命周期组合成阶段化 vdbench 负载。训练数据不再划分为完全不访问的冷池，而是切成等容量 rank，用 Zipfian 权重表达访问偏斜。
+
+数据构造上，96 GiB 训练数据可看作 24576 个 4 MiB object。先按 object 级 Zipf(alpha=0.99) 计算访问概率，再聚合到 8 个等容量 rank，得到 `80/7/4/3/2/2/1/1`。checkpoint 作为训练状态文件单独建模，不参与样本 Zipfian 分布。
 
 ### 测试数据分布
 
 | 数据池 | 文件数 | 单文件大小 | 容量 | 作用 |
 |---|---:|---:|---:|---|
-| `dataset_hot` | 32 | 1 GiB | 32 GiB | 训练阶段主要读取的数据 |
-| `dataset_warm` | 24 | 1 GiB | 24 GiB | 较低热度训练数据 |
-| `dataset_cold` | 32 | 1 GiB | 32 GiB | 不访问的冷训练数据 |
-| `checkpoint`<br>`_current` | 12 | 1 GiB | 12 GiB | 当前 checkpoint，写后读 |
-| `checkpoint`<br>`_old` | 12 | 1 GiB | 12 GiB | 旧 checkpoint，恢复阶段复热 |
+| `dataset_rank`<br>`_01~08` | 8 × 12 | 1 GiB | 96 GiB | 训练数据 rank，全部参与读取 |
+| `checkpoint`<br>`_current` | 8 | 1 GiB | 8 GiB | 当前 checkpoint，先写后读 |
+| `checkpoint`<br>`_old` | 8 | 1 GiB | 8 GiB | 旧 checkpoint，恢复阶段复热 |
+
+数据读取阶段按 4 MiB object 计算 Zipf(alpha=0.99)，再聚合到 8 个 dataset rank，整数化权重为 `80/7/4/3/2/2/1/1`。这是执行模型，不是论文实测比例。
 
 ### 测试阶段
 
-默认 5 个阶段各 120 秒，总正式测试时间 10 分钟。
+默认 6 个阶段，总正式测试时间 10 分钟：3 个 dataset 阶段各 160 秒，3 个 checkpoint 阶段各 40 秒。
 
 | 阶段 | 读/写 | 访问数据 | 目的 |
 |---|---|---|---|
-| `read_hot_data` | 读 | `dataset_hot` | 主要训练数据反复读取 |
-| `read_warm_data` | 读 | `dataset_warm` | 较低热度训练数据读取 |
-| `write_ckpt` | 写 | `checkpoint_current` | 写当前 checkpoint |
-| `read_ckpt` | 读 | `checkpoint_current` | 当前 checkpoint 写后读取 |
-| `recover_old_ckpt` | 读 | `checkpoint_old` | 旧 checkpoint 复热 |
+| `dataset_epoch_01` | 读 | 全部 `dataset_rank` | rank 01 最高权重，模拟首轮训练数据热点 |
+| `dataset_epoch_02` | 读 | 全部 `dataset_rank` | rank 02 最高权重，模拟训练数据热点迁移 |
+| `dataset_epoch_03` | 读 | 全部 `dataset_rank` | rank 03 最高权重，继续制造时序变化 |
+| `checkpoint_write_current` | 写 | `checkpoint_current` | 写当前 checkpoint |
+| `checkpoint_read_current` | 读 | `checkpoint_current` | 当前 checkpoint 写后校验/加载/近期恢复 |
+| `recovery_read_old_checkpoint` | 读 | `checkpoint_old` | 旧 checkpoint 复热 |
 
-`dataset_cold` 在正式测试阶段不读写，作为冷训练数据对照。
+每个 dataset 阶段都会访问全部 8 个 rank，只是访问权重不同。checkpoint 阶段来自 MLPerf Storage/DLIO 的 checkpoint 语义，保持顺序读写，表示训练状态文件生命周期。
 
 ### 适用范围与限制
 
 - 不运行真实模型训练。
 - 不评价 GPU/训练吞吐。
 - 论文和 MLPerf 提供读写语义，但没有给出可直接落地的热数据容量占比和访问占比。
-- 容量分布是当前单节点实验预算下的缩放参数，不是论文固定比例。
+- Zipfian 权重和容量缩放是当前单节点实验参数，后续可由公开 trace 提取结果替换。
 
 ## 5. AI 推理：LLM KV cache 负载
 
@@ -198,34 +206,38 @@ Meta DSI 描述大规模训练会反复读取、过滤数据，并存在热门 f
 
 ### 设计逻辑
 
-LLM 推理中，prefill 会生成 KV cache，decode 阶段会持续读取已有 KV cache。多轮对话、共享前缀或分支推理会复用旧 KV cache。v1 将这些行为映射为 KV cache 文件池的写入、读取、热点迁移和复热。
+LLM 推理中，prefill 会生成 KV cache，decode 阶段会持续读取已有 KV cache。多轮对话、共享前缀或分支推理会复用旧 KV cache。v1 将这些行为映射为 KV cache 文件池的写入、读取、热点迁移和复热，并用 Zipfian rank 表达偏斜访问。
+
+数据构造上，active/next/prefix 三类 KV cache 各 40 GiB，每类可看作 10240 个 4 MiB object。先按 object 级 Zipf(alpha=0.99) 计算访问概率，再聚合到每类 8 个等容量 rank，得到 `79/7/4/3/2/2/2/1`。三类 KV cache 分别对应当前会话、下一批会话和可复用 prefix。
 
 ### 测试数据分布
 
 | 数据池 | 文件数 | 单文件大小 | 容量 | 作用 |
 |---|---:|---:|---:|---|
-| `kv_active` | 32 | 1 GiB | 32 GiB | 当前请求/会话 KV cache |
-| `kv_prefix`<br>`_reuse` | 32 | 1 GiB | 32 GiB | 旧 KV cache，prefix reuse 阶段复热 |
-| `kv_next` | 32 | 1 GiB | 32 GiB | 下一批请求 KV cache |
-| `kv_cold` | 16 | 1 GiB | 16 GiB | 不访问的冷 KV cache |
+| `kv_active_rank`<br>`_01~08` | 8 × 5 | 1 GiB | 40 GiB | 当前请求/会话 KV cache |
+| `kv_next_rank`<br>`_01~08` | 8 × 5 | 1 GiB | 40 GiB | 下一批请求 KV cache |
+| `kv_prefix_rank`<br>`_01~08` | 8 × 5 | 1 GiB | 40 GiB | 可复用 prefix KV cache |
+
+每类 KV cache 都按 8 个等容量 rank 切分。相关阶段按 4 MiB object 计算 Zipf(alpha=0.99)，再聚合到 8 个 rank，整数化权重为 `79/7/4/3/2/2/2/1`。
 
 ### 测试阶段
 
-默认 5 个阶段各 120 秒，总正式测试时间 10 分钟。
+默认 6 个阶段各 100 秒，总正式测试时间 10 分钟。
 
 | 阶段 | 读/写 | 访问数据 | 目的 |
 |---|---|---|---|
-| `write_active` | 写 | `kv_active` | prefill 写当前 KV cache |
-| `read_active` | 读 | `kv_active` | decode 读取当前 KV cache |
-| `write_next` | 写 | `kv_next` | prefill 写下一批 KV cache |
-| `read_next` | 读 | `kv_next` | 热点迁移到新 KV cache |
-| `reuse_prefix` | 读 | `kv_prefix_reuse` | 旧 KV cache 复热 |
+| `prefill_active` | 写 | 全部 `kv_active_rank` | 当前请求 prefill 生成 KV cache |
+| `decode_active` | 读 | 全部 `kv_active_rank` | decode 持续读取当前 KV cache |
+| `prefill_next` | 写 | 全部 `kv_next_rank` | 下一批请求 prefill 生成新 KV cache |
+| `decode_next` | 读 | 全部 `kv_next_rank` | decode 读取新 KV cache，观察热点迁移 |
+| `prefix_reuse_primary` | 读 | 全部 `kv_prefix_rank` | 共享前缀/多轮对话复用旧 KV cache |
+| `prefix_reuse_shifted` | 读 | 全部 `kv_prefix_rank` | prefix 内部热点 rank 旋转 |
 
-`kv_cold` 在正式测试阶段不读写，作为冷 KV cache 对照。
+prefill 阶段使用顺序写；decode 和 prefix reuse 阶段使用随机读。所有数据池都会在正式测试阶段被访问，不设置全程不访问的数据池。
 
 ### 适用范围与限制
 
 - 不运行真实 LLM。
 - 不评价 token 生成速度。
 - PagedAttention 支撑 KV cache 行为模型，但没有给出热 KV cache 的固定容量/访问比例。
-- 容量分布是当前单节点实验预算下的缩放参数，不是论文固定比例。
+- Zipfian 权重和容量缩放是当前单节点实验参数，后续可由公开 trace 提取结果替换。

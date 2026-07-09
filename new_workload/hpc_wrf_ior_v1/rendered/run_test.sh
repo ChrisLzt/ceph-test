@@ -13,6 +13,7 @@ BLOCK_SIZE="4g"
 TRANSFER_SIZE="1m"
 SEGMENT_COUNT="1"
 PHASE_SECONDS="75"
+IOR_ITERATIONS="4"
 OUTPUT_DIR="${OUTPUT_DIR:-output/run_test}"
 
 mkdir -p "$ANCHOR/input" "$ANCHOR/restart" "$ANCHOR/checkpoint" "$ANCHOR/history" "$OUTPUT_DIR"
@@ -29,7 +30,7 @@ run_ior_read() {
         -t "$TRANSFER_SIZE" \
         -s "$SEGMENT_COUNT" \
         -D "$PHASE_SECONDS" \
-        -i 1 \
+        -i "$IOR_ITERATIONS" \
         2>&1 | tee "$log"
 }
 
@@ -45,7 +46,7 @@ run_ior_write() {
         -t "$TRANSFER_SIZE" \
         -s "$SEGMENT_COUNT" \
         -D "$PHASE_SECONDS" \
-        -i 1 \
+        -i "$IOR_ITERATIONS" \
         2>&1 | tee "$log"
 }
 

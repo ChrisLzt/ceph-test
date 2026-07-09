@@ -14,11 +14,10 @@ hd=default,vdbench=/home/chris/PDSL/vdbench,user=chris,shell=ssh
 hd=hd1,system=s52.servers.hustpdsl.cn
 
 fsd=default,depth=1,width=1,shared=yes,openflags=o_direct
-fsd=fsd_a,anchor=/mnt/cephfs/bigdata_mapreduce_vdbench_v1/pool_01,files=200,size=12m
-fsd=fsd_b,anchor=/mnt/cephfs/bigdata_mapreduce_vdbench_v1/pool_02,files=200,size=12m
-fsd=fsd_c,anchor=/mnt/cephfs/bigdata_mapreduce_vdbench_v1/pool_03,files=200,size=12m
-fsd=fsd_bg,anchor=/mnt/cephfs/bigdata_mapreduce_vdbench_v1/pool_04,files=5000,size=12m
-fsd=fsd_inactive,anchor=/mnt/cephfs/bigdata_mapreduce_vdbench_v1/pool_05,files=4400,size=12m
+fsd=fsd_a,anchor=/mnt/cephfs/bigdata_mapreduce_vdbench_v1/pool_01,files=400,size=12m
+fsd=fsd_b,anchor=/mnt/cephfs/bigdata_mapreduce_vdbench_v1/pool_02,files=400,size=12m
+fsd=fsd_c,anchor=/mnt/cephfs/bigdata_mapreduce_vdbench_v1/pool_03,files=400,size=12m
+fsd=fsd_bg,anchor=/mnt/cephfs/bigdata_mapreduce_vdbench_v1/pool_04,files=8800,size=12m
 
 fwd=ha_a,fsd=fsd_a,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=85
 fwd=ha_b,fsd=fsd_b,operation=read,fileio=sequential,fileselect=random,xfersize=1m,threads=16,skew=1
