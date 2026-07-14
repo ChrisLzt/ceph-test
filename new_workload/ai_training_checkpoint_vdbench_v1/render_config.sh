@@ -19,11 +19,10 @@ remote_user=${REMOTE_USER:-chris}
 host1=${HOST1:-s52.servers.hustpdsl.cn}
 dataset_phase_seconds=${DATASET_PHASE_SECONDS:-160}
 checkpoint_phase_seconds=${CHECKPOINT_PHASE_SECONDS:-40}
-fwd_rate=${FWD_RATE:-max}
+fwd_rate=${FWD_RATE:-1000}
 threads=${THREADS:-8}
 format_threads=${FORMAT_THREADS:-4}
-read_xfer_size=${READ_XFER_SIZE:-1m}
-checkpoint_xfer_size=${CHECKPOINT_XFER_SIZE:-4m}
+read_xfer_size=${READ_XFER_SIZE:-4m}
 
 for value in "$dataset_phase_seconds" "$checkpoint_phase_seconds" "$threads" "$format_threads"; do
     [[ "$value" =~ ^[1-9][0-9]*$ ]] || {
@@ -37,7 +36,7 @@ done
     exit 2
 }
 
-for value in "$read_xfer_size" "$checkpoint_xfer_size"; do
+for value in "$read_xfer_size"; do
     [[ "$value" =~ ^[1-9][0-9]*[kKmMgG]$ ]] || {
         echo "Transfer sizes must look like 128k, 1m, or 4m: $value" >&2
         exit 2
@@ -61,7 +60,6 @@ render_one() {
         -e "s|@THREADS@|$threads|g" \
         -e "s|@FORMAT_THREADS@|$format_threads|g" \
         -e "s|@READ_XFER_SIZE@|$read_xfer_size|g" \
-        -e "s|@CHECKPOINT_XFER_SIZE@|$checkpoint_xfer_size|g" \
         "$template" > "$output"
 
     if grep -q '@[A-Z_][A-Z_]*@' "$output"; then

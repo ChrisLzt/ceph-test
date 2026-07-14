@@ -1,6 +1,10 @@
-# AI 负载冷热比例 trace 提取方案
+# AI 负载冷热比例 trace 提取方案（未来研究）
 
-本文档记录 AI 训练/推理负载中“热数据容量占比、访问占比”的后续来源方案。
+本文档记录 AI 训练/推理负载中“热数据容量占比、访问占比”的后续替换方案，
+不是当前脚本的执行说明。当前参数以两个负载目录中的 README 和渲染配置为准。
+下文列出的容量和权重只对应 `new_workload` 单节点版本；750 GiB SYSU 版本的
+当前参数见 [`../SYSU_workload/README.md`](../SYSU_workload/README.md)，但未来
+获得 trace 后应由同一提取流程分别重新聚合两种容量布局。
 
 当前 AI 训练和 AI 推理脚本没有使用旧版 `hot/warm/cold` 或 80/20 固定热点模型，而是使用 Zipf(alpha=0.99) rank 模型：
 
@@ -101,7 +105,7 @@ KV cache 容量：
 
 如果没有真实推理请求 trace，AI 推理负载保持“语义驱动 + Zipf 偏斜模型”：
 
-- prefill 写新 KV cache；
+- prefill 读取造数据阶段预生成的 KV cache；
 - decode 读当前 KV cache；
 - 下一批请求产生热点迁移；
 - prefix reuse 复热旧 KV cache；
@@ -120,7 +124,7 @@ trace_profile.py
 ```text
 --trace PATH
 --mode criteo-categorical | sample-id | prefix-id | custom-csv
---rank-count 8
+--rank-count 20
 --object-size 4m
 --output ratios.csv
 ```

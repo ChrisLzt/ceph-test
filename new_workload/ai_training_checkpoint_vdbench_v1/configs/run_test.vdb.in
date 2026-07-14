@@ -99,13 +99,13 @@ fwd=dataset_epoch_03_r20,fsd=fsd_dataset_rank_20,operation=read,fileio=random,fi
 fwd=dataset_epoch_03_r01,fsd=fsd_dataset_rank_01,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=1
 fwd=dataset_epoch_03_r02,fsd=fsd_dataset_rank_02,operation=read,fileio=random,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@,skew=1
 
-fwd=checkpoint_write_current,fsd=fsd_checkpoint_current,operation=write,fileio=sequential,fileselect=random,xfersize=@CHECKPOINT_XFER_SIZE@,threads=@THREADS@
-fwd=checkpoint_read_current,fsd=fsd_checkpoint_current,operation=read,fileio=sequential,fileselect=random,xfersize=@CHECKPOINT_XFER_SIZE@,threads=@THREADS@
-fwd=recovery_read_old_checkpoint,fsd=fsd_checkpoint_old,operation=read,fileio=sequential,fileselect=random,xfersize=@CHECKPOINT_XFER_SIZE@,threads=@THREADS@
+fwd=checkpoint_read_current_first,fsd=fsd_checkpoint_current,operation=read,fileio=sequential,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@
+fwd=checkpoint_read_current_second,fsd=fsd_checkpoint_current,operation=read,fileio=sequential,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@
+fwd=recovery_read_old_checkpoint,fsd=fsd_checkpoint_old,operation=read,fileio=sequential,fileselect=random,xfersize=@READ_XFER_SIZE@,threads=@THREADS@
 
 rd=dataset_epoch_01,fwd=(dataset_epoch_01_r01,dataset_epoch_01_r02,dataset_epoch_01_r03,dataset_epoch_01_r04,dataset_epoch_01_r05,dataset_epoch_01_r06,dataset_epoch_01_r07,dataset_epoch_01_r08,dataset_epoch_01_r09,dataset_epoch_01_r10,dataset_epoch_01_r11,dataset_epoch_01_r12,dataset_epoch_01_r13,dataset_epoch_01_r14,dataset_epoch_01_r15,dataset_epoch_01_r16,dataset_epoch_01_r17,dataset_epoch_01_r18,dataset_epoch_01_r19,dataset_epoch_01_r20),fwdrate=@FWD_RATE@,elapsed=@DATASET_PHASE_SECONDS@,interval=1
 rd=dataset_epoch_02,fwd=(dataset_epoch_02_r02,dataset_epoch_02_r03,dataset_epoch_02_r04,dataset_epoch_02_r05,dataset_epoch_02_r06,dataset_epoch_02_r07,dataset_epoch_02_r08,dataset_epoch_02_r09,dataset_epoch_02_r10,dataset_epoch_02_r11,dataset_epoch_02_r12,dataset_epoch_02_r13,dataset_epoch_02_r14,dataset_epoch_02_r15,dataset_epoch_02_r16,dataset_epoch_02_r17,dataset_epoch_02_r18,dataset_epoch_02_r19,dataset_epoch_02_r20,dataset_epoch_02_r01),fwdrate=@FWD_RATE@,elapsed=@DATASET_PHASE_SECONDS@,interval=1
 rd=dataset_epoch_03,fwd=(dataset_epoch_03_r03,dataset_epoch_03_r04,dataset_epoch_03_r05,dataset_epoch_03_r06,dataset_epoch_03_r07,dataset_epoch_03_r08,dataset_epoch_03_r09,dataset_epoch_03_r10,dataset_epoch_03_r11,dataset_epoch_03_r12,dataset_epoch_03_r13,dataset_epoch_03_r14,dataset_epoch_03_r15,dataset_epoch_03_r16,dataset_epoch_03_r17,dataset_epoch_03_r18,dataset_epoch_03_r19,dataset_epoch_03_r20,dataset_epoch_03_r01,dataset_epoch_03_r02),fwdrate=@FWD_RATE@,elapsed=@DATASET_PHASE_SECONDS@,interval=1
-rd=checkpoint_write_current,fwd=checkpoint_write_current,fwdrate=@FWD_RATE@,elapsed=@CHECKPOINT_PHASE_SECONDS@,interval=1
-rd=checkpoint_read_current,fwd=checkpoint_read_current,fwdrate=@FWD_RATE@,elapsed=@CHECKPOINT_PHASE_SECONDS@,interval=1
+rd=checkpoint_read_current_first,fwd=checkpoint_read_current_first,fwdrate=@FWD_RATE@,elapsed=@CHECKPOINT_PHASE_SECONDS@,interval=1
+rd=checkpoint_read_current_second,fwd=checkpoint_read_current_second,fwdrate=@FWD_RATE@,elapsed=@CHECKPOINT_PHASE_SECONDS@,interval=1
 rd=recovery_read_old_checkpoint,fwd=recovery_read_old_checkpoint,fwdrate=@FWD_RATE@,elapsed=@CHECKPOINT_PHASE_SECONDS@,interval=1

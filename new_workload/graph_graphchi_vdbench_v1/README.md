@@ -7,7 +7,8 @@
 - 当前 GraphChi execution interval 对应的 memory-shard 升温；
 - sliding shards 产生由图结构决定的背景访问；
 - interval 轮换后热点迁移；
-- 下一轮迭代中旧 shard 复热。
+- 第一轮依次覆盖全部 4 个 shard；
+- 第二轮重新处理 interval 0，观察 shard_00 复热。
 
 它不运行 GraphChi 程序，而是使用 GraphChi 论文中的 Parallel Sliding Windows 访问规则，把一张确定性 generated graph 转换成 vdbench workload。
 
@@ -60,7 +61,8 @@ skew(p, s)
 |---|---:|
 | intervals | 4 |
 | vertices_per_interval | 128 |
-| iterations | 2 |
+| iterations | 1 |
+| reheat_interval | 0 |
 | files_per_shard | 1800 |
 | file_size | 16 MiB |
 | 总容量 | 约 112.50 GiB |
@@ -89,7 +91,7 @@ cd /home/chris/ceph-test/new_workload/graph_graphchi_vdbench_v1
 默认生成两个独立配置：
 
 - `rendered/prepare_data.vdb`：只包含 `prepare_clean` 和 `prepare_create`。
-- `rendered/run_test.vdb`：只包含 `iter1_i0` 到 `iter2_i3` 正式阶段；不包含任何 `format=`。
+- `rendered/run_test.vdb`：包含 `iter1_i0` 到 `iter1_i3`，以及 `iter2_i0` 复热阶段；不包含任何 `format=`。
 
 也可以只渲染其中一个：
 
@@ -105,19 +107,20 @@ ANCHOR=/mnt/cephfs/graph_graphchi_vdbench_v1 \
 VDBENCH_HOME=/home/chris/PDSL/vdbench \
 REMOTE_USER=chris \
 HOST1=s52.servers.hustpdsl.cn \
-PHASE_SECONDS=75 \
-FWD_RATE=max \
+PHASE_SECONDS=120 \
+FWD_RATE=1000 \
 THREADS=16 \
 FILES_PER_SHARD=1800 \
 FILE_SIZE=16m \
-XFER_SIZE=1m \
+XFER_SIZE=4m \
 INTERVALS=4 \
 VERTICES_PER_INTERVAL=128 \
-ITERATIONS=2 \
+ITERATIONS=1 \
+REHEAT_INTERVAL=0 \
 ./render_config.sh
 ```
 
-默认数据路径为 `/mnt/cephfs/graph_graphchi_vdbench_v1`，不再添加 `new_workload/` 中间层。默认 Vdbench 目录为 `/home/chris/PDSL/vdbench`，默认只使用当前单节点 `s52.servers.hustpdsl.cn`。
+默认数据路径为 `/mnt/cephfs/graph_graphchi_vdbench_v1`，不再添加 `new_workload/` 中间层。默认 Vdbench 目录为 `/home/chris/PDSL/vdbench`，默认只使用当前单节点 `s52.servers.hustpdsl.cn`。准确率测试默认固定 `FWD_RATE=1000`；只有单独测峰值性能时才显式使用 `FWD_RATE=max`。
 
 ## 6. 执行
 
@@ -141,7 +144,15 @@ ITERATIONS=2 \
 ./run_test.sh
 ```
 
-`run_test.sh` 会渲染并执行 `rendered/run_test.vdb`。该配置没有 `format=`，不会执行 clean/create，不会重新造数据。默认正式测试包含 8 个阶段，每阶段 `PHASE_SECONDS=75`，总时长约 10 分钟。
+`run_test.sh` 会渲染并执行 `rendered/run_test.vdb`。该配置没有 `format=`，不会执行 clean/create，不会重新造数据。默认先执行一轮完整 GraphChi interval 序列，再执行第二轮 interval 0，共 5 个阶段，每阶段 `PHASE_SECONDS=120`，总时长约 10 分钟。
+
+默认阶段顺序为：
+
+```text
+iter1_i0 -> iter1_i1 -> iter1_i2 -> iter1_i3 -> iter2_i0
+```
+
+最后一个阶段沿用同一张图和同一套 PSW 比例，使第一阶段的主热点 `shard_00` 在经历三个其他 interval 后复热。GraphChi 论文支持算法按多轮迭代再次从 interval 0 开始；只截取第二轮的第一个 interval，是为了在 10 分钟预算内同时观察一次完整迁移和一次复热，并非论文规定的固定阶段数。
 
 ## 7. 验收
 
@@ -157,7 +168,8 @@ ITERATIONS=2 \
 
 - 每个 `iterX_iY` 中，`shard_Y` 是 memory-shard，通常应是该阶段主要热点；
 - 其他被访问 shard 是 sliding-shard，热度由边分布决定；
-- 第二轮迭代用于观察旧 shard 复热；
+- 前 4 个阶段依次观察 `shard_00` 到 `shard_03` 的热点迁移；
+- `iter2_i0` 观察 `shard_00` 复热；
 - 记录 time-to-promote、time-to-demote、time-to-reheat、迁移字节和 P95/P99 时延。
 
 ## 8. 已知边界

@@ -24,15 +24,16 @@ anchor=${ANCHOR:-/mnt/cephfs/graph_graphchi_vdbench_v1}
 vdbench_home=${VDBENCH_HOME:-/home/chris/PDSL/vdbench}
 remote_user=${REMOTE_USER:-chris}
 host1=${HOST1:-s52.servers.hustpdsl.cn}
-phase_seconds=${PHASE_SECONDS:-75}
-fwd_rate=${FWD_RATE:-max}
+phase_seconds=${PHASE_SECONDS:-120}
+fwd_rate=${FWD_RATE:-1000}
 threads=${THREADS:-16}
 files_per_shard=${FILES_PER_SHARD:-1800}
 file_size=${FILE_SIZE:-16m}
-xfer_size=${XFER_SIZE:-1m}
+xfer_size=${XFER_SIZE:-4m}
 intervals=${INTERVALS:-4}
 vertices_per_interval=${VERTICES_PER_INTERVAL:-128}
-iterations=${ITERATIONS:-2}
+iterations=${ITERATIONS:-1}
+reheat_interval=${REHEAT_INTERVAL:-0}
 
 for value in "$phase_seconds" "$threads" "$files_per_shard" "$intervals" "$vertices_per_interval" "$iterations"; do
     [[ "$value" =~ ^[1-9][0-9]*$ ]] || {
@@ -40,6 +41,11 @@ for value in "$phase_seconds" "$threads" "$files_per_shard" "$intervals" "$verti
         exit 2
     }
 done
+
+[[ "$reheat_interval" =~ ^[0-9]+$ ]] && (( reheat_interval < intervals )) || {
+    echo "REHEAT_INTERVAL must be an integer in [0, INTERVALS): $reheat_interval" >&2
+    exit 2
+}
 
 [[ "$fwd_rate" == "max" || "$fwd_rate" =~ ^[1-9][0-9]*$ ]] || {
     echo "FWD_RATE must be a positive integer or max: $fwd_rate" >&2
@@ -73,7 +79,8 @@ python3 scripts/derive_profile.py \
     --run-template configs/run_test.vdb.in \
     --intervals "$intervals" \
     --vertices-per-interval "$vertices_per_interval" \
-    --iterations "$iterations" >/dev/null
+    --iterations "$iterations" \
+    --reheat-interval "$reheat_interval" >/dev/null
 
 render_one() {
     local template=$1
@@ -112,4 +119,4 @@ case "$profile" in
         ;;
 esac
 
-echo "Profile: $profile; edge_file=$edge_file; phase=${phase_seconds}s; fwdrate=$fwd_rate; anchor=$anchor"
+echo "Profile: $profile; edge_file=$edge_file; phase=${phase_seconds}s; reheat_interval=$reheat_interval; fwdrate=$fwd_rate; anchor=$anchor"

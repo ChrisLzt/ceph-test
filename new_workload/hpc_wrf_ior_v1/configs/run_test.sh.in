@@ -13,10 +13,9 @@ BLOCK_SIZE="@BLOCK_SIZE@"
 TRANSFER_SIZE="@TRANSFER_SIZE@"
 SEGMENT_COUNT="@SEGMENT_COUNT@"
 PHASE_SECONDS="@PHASE_SECONDS@"
-IOR_ITERATIONS="@IOR_ITERATIONS@"
 OUTPUT_DIR="${OUTPUT_DIR:-output/run_test}"
 
-mkdir -p "$ANCHOR/input" "$ANCHOR/restart" "$ANCHOR/checkpoint" "$ANCHOR/history" "$OUTPUT_DIR"
+mkdir -p "$ANCHOR/startup" "$ANCHOR/checkpoint" "$ANCHOR/history" "$OUTPUT_DIR"
 
 run_ior_read() {
     local phase=$1
@@ -24,40 +23,19 @@ run_ior_read() {
     local log="$OUTPUT_DIR/${phase}.log"
     echo "== $phase read $target =="
     "$MPI_RUN" -np "$NP" "$IOR_BIN" \
-        -a "$API" -F -r -k -C \
+        -a "$API" --posix.odirect -F -r -k -C \
         -o "$target" \
         -b "$BLOCK_SIZE" \
         -t "$TRANSFER_SIZE" \
         -s "$SEGMENT_COUNT" \
+        -i 1 \
         -D "$PHASE_SECONDS" \
-        -i "$IOR_ITERATIONS" \
+        -O "minTimeDuration=$PHASE_SECONDS" \
+        -O stoneWallingWearOut=0 \
         2>&1 | tee "$log"
 }
 
-run_ior_write() {
-    local phase=$1
-    local target=$2
-    local log="$OUTPUT_DIR/${phase}.log"
-    echo "== $phase write $target =="
-    "$MPI_RUN" -np "$NP" "$IOR_BIN" \
-        -a "$API" -F -w -k -e -C \
-        -o "$target" \
-        -b "$BLOCK_SIZE" \
-        -t "$TRANSFER_SIZE" \
-        -s "$SEGMENT_COUNT" \
-        -D "$PHASE_SECONDS" \
-        -i "$IOR_ITERATIONS" \
-        2>&1 | tee "$log"
-}
-
-run_ior_read startup_read_wrfinput "$ANCHOR/input/wrfinput_d01"
-run_ior_read startup_read_wrfbdy "$ANCHOR/input/wrfbdy_d01"
-run_ior_read startup_read_restart "$ANCHOR/restart/wrfrst_initial"
-
-run_ior_write checkpoint_write_current "$ANCHOR/checkpoint/wrfrst_current"
-run_ior_read checkpoint_hot_read_current "$ANCHOR/checkpoint/wrfrst_current"
-
-run_ior_write history_write_current "$ANCHOR/history/wrfout_current"
-run_ior_read history_hot_read_current "$ANCHOR/history/wrfout_current"
-
-run_ior_read recovery_reheat_read_old_checkpoint "$ANCHOR/checkpoint/wrfrst_old"
+run_ior_read startup_read "$ANCHOR/startup/wrf_state"
+run_ior_read checkpoint_read "$ANCHOR/checkpoint/wrfrst_current"
+run_ior_read history_read "$ANCHOR/history/wrfout_current"
+run_ior_read checkpoint_reheat "$ANCHOR/checkpoint/wrfrst_current"

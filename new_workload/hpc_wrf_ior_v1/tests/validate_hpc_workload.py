@@ -55,8 +55,9 @@ def validate_rendered() -> None:
             "/usr/mpi/gcc/openmpi-4.1.9a1/bin/mpirun",
             "API=\"POSIX\"",
             "-a \"$API\"",
+            "--posix.odirect",
             "-F",
-            "BLOCK_SIZE=\"4g\"",
+            "BLOCK_SIZE=\"9g\"",
             "TRANSFER_SIZE=\"1m\"",
             "tee \"$log\"",
         ]:
@@ -65,32 +66,53 @@ def validate_rendered() -> None:
         if "/mnt/cephfs/new_workload" in text:
             fail(f"rendered {name} script still uses old new_workload path")
 
-    if "-r" in prepare:
+    if re.search(r"(?:^|\s)-r(?:\s|$)", prepare):
         fail("prepare script should not contain read phases")
-    if prepare.count("run_ior_write prepare_") != 7:
-        fail("prepare script should create seven WRF semantic file bases")
+    if prepare.count("run_ior_write prepare_") != 3:
+        fail("prepare script should create three WRF semantic file bases")
+
+    expected_calls = [
+        'run_ior_read startup_read "$ANCHOR/startup/wrf_state"',
+        'run_ior_read checkpoint_read "$ANCHOR/checkpoint/wrfrst_current"',
+        'run_ior_read history_read "$ANCHOR/history/wrfout_current"',
+        'run_ior_read checkpoint_reheat "$ANCHOR/checkpoint/wrfrst_current"',
+    ]
+    for call in expected_calls:
+        if call not in run:
+            fail(f"run script missing phase call: {call}")
+
+    if run.count("run_ior_read ") != 4:
+        fail("rendered run should contain exactly four read phases")
+    if "run_ior_write" in run or re.search(r"(?:^|\s)-w(?:\s|$)", run):
+        fail("formal run must be read-only")
+
+    for stale in ["wrfinput_d01", "wrfbdy_d01", "wrfrst_initial", "wrfrst_old", "wrfout_old"]:
+        if stale in run:
+            fail(f"formal run contains stale dataset: {stale}")
+
+    for cleanup in [
+        'rm -rf -- "$ANCHOR/input" "$ANCHOR/restart"',
+        'rm -f -- "$ANCHOR/checkpoint"/wrfrst_old* "$ANCHOR/history"/wrfout_old*',
+    ]:
+        if cleanup not in prepare:
+            fail(f"prepare script missing legacy cleanup: {cleanup}")
 
     for marker in [
-        "startup_read_wrfinput",
-        "startup_read_wrfbdy",
-        "startup_read_restart",
-        "checkpoint_write_current",
-        "checkpoint_hot_read_current",
-        "history_write_current",
-        "history_hot_read_current",
-        "recovery_reheat_read_old_checkpoint",
+        'PHASE_SECONDS="150"',
+        "--posix.odirect",
+        "-i 1",
+        '-D "$PHASE_SECONDS"',
+        '-O "minTimeDuration=$PHASE_SECONDS"',
+        "-O stoneWallingWearOut=0",
     ]:
         if marker not in run:
-            fail(f"run script missing phase: {marker}")
-
-    if 'PHASE_SECONDS="75"' not in run:
-        fail("rendered run should default to 75s per IOR phase for a roughly 10min test")
-    if 'IOR_ITERATIONS="4"' not in run:
-        fail("rendered run should repeat every IOR phase four times by default")
-    if run.count('-D "$PHASE_SECONDS"') != 2:
-        fail("rendered run should apply IOR stonewalling to both read and write helpers")
-    if run.count('-i "$IOR_ITERATIONS"') != 2:
-        fail("rendered run should repeat every IOR phase enough times to outlive the HP evaluation window")
+            fail(f"rendered run missing timing/direct-I/O marker: {marker}")
+    if "IOR_ITERATIONS=" in run:
+        fail("rendered run should not use repetition-count timing")
+    if run.count("--posix.odirect") != 1:
+        fail("rendered run should use direct I/O in its read helper")
+    if prepare.count("--posix.odirect") != 1:
+        fail("rendered prepare should use direct I/O for dataset writes")
 
     for marker in ["ground_truth.csv", "/mnt/cephfs/new_workload"]:
         if marker in readme or marker in sources:
@@ -120,11 +142,11 @@ def validate_capacity() -> None:
     np = int(np_match.group("np"))
     block_gib = parse_size_to_gib(block_match.group("block"))
     segments = int(segment_match.group("segments"))
-    file_bases = 7
+    file_bases = 3
     total_gib = np * block_gib * segments * file_bases
     print(f"Total prepared capacity: {total_gib:.2f} GiB")
-    if not (100 <= total_gib <= 120):
-        fail("total prepared capacity should stay within 100-120 GiB")
+    if total_gib != 108:
+        fail(f"total prepared capacity should be exactly 108 GiB, got {total_gib:.2f}")
 
 
 def main() -> None:

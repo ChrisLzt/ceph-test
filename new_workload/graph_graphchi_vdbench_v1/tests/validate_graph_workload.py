@@ -64,41 +64,54 @@ def integer_percentages(counts: list[int]) -> list[int]:
     return pct
 
 
-def calculate_expected_rows(edges: list[tuple[int, int]], intervals: int, vertices_per_interval: int, iterations: int) -> list[dict[str, str]]:
+def calculate_expected_rows(
+    edges: list[tuple[int, int]],
+    intervals: int,
+    vertices_per_interval: int,
+    iterations: int,
+    reheat_interval: int | None = None,
+) -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
     edge_bytes = 16
-    for iteration in range(1, iterations + 1):
-        for interval in range(intervals):
-            phase = f"iter{iteration}_i{interval}"
-            counts = [0 for _ in range(intervals)]
-            roles = ["not_accessed" for _ in range(intervals)]
+    phase_sequence = [
+        (iteration, interval)
+        for iteration in range(1, iterations + 1)
+        for interval in range(intervals)
+    ]
+    if reheat_interval is not None:
+        phase_sequence.append((iterations + 1, reheat_interval))
 
-            for src, dst in edges:
-                src_i = interval_of(src, vertices_per_interval)
-                dst_i = interval_of(dst, vertices_per_interval)
-                if src_i < 0 or src_i >= intervals or dst_i < 0 or dst_i >= intervals:
-                    fail(f"edge ({src}, {dst}) is outside configured intervals")
-                if dst_i == interval:
-                    counts[interval] += 1
-                    roles[interval] = "memory_shard"
-                elif src_i == interval:
-                    counts[dst_i] += 1
-                    roles[dst_i] = "sliding_shard"
+    for iteration, interval in phase_sequence:
+        phase = f"iter{iteration}_i{interval}"
+        counts = [0 for _ in range(intervals)]
+        roles = ["not_accessed" for _ in range(intervals)]
 
-            pct = integer_percentages(counts)
-            for shard, count in enumerate(counts):
-                rows.append(
-                    {
-                        "phase": phase,
-                        "iteration": str(iteration),
-                        "interval": str(interval),
-                        "object_id": f"shard_{shard:02d}",
-                        "role": roles[shard],
-                        "read_edges": str(count),
-                        "read_bytes": str(count * edge_bytes),
-                        "target_ops_pct": str(pct[shard]),
-                    }
-                )
+        for src, dst in edges:
+            src_i = interval_of(src, vertices_per_interval)
+            dst_i = interval_of(dst, vertices_per_interval)
+            if src_i < 0 or src_i >= intervals or dst_i < 0 or dst_i >= intervals:
+                fail(f"edge ({src}, {dst}) is outside configured intervals")
+            if dst_i == interval:
+                counts[interval] += 1
+                roles[interval] = "memory_shard"
+            elif src_i == interval:
+                counts[dst_i] += 1
+                roles[dst_i] = "sliding_shard"
+
+        pct = integer_percentages(counts)
+        for shard, count in enumerate(counts):
+            rows.append(
+                {
+                    "phase": phase,
+                    "iteration": str(iteration),
+                    "interval": str(interval),
+                    "object_id": f"shard_{shard:02d}",
+                    "role": roles[shard],
+                    "read_edges": str(count),
+                    "read_bytes": str(count * edge_bytes),
+                    "target_ops_pct": str(pct[shard]),
+                }
+            )
     return rows
 
 
@@ -145,6 +158,9 @@ def validate_templates(rows: list[dict[str, str]]) -> None:
     for text, name in [(run_template, "configs/run_test.vdb.in"), (run_rendered, "rendered/run_test.vdb")]:
         if "format=" in text or "prepare_clean" in text or "prepare_create" in text:
             fail(f"run-only config contains prepare/format directive: {name}")
+        for forbidden_phase in ["iter2_i1", "iter2_i2", "iter2_i3"]:
+            if forbidden_phase in text:
+                fail(f"run-only config contains unexpected second-iteration phase {forbidden_phase}: {name}")
 
     for row in rows:
         phase = row["phase"]
@@ -173,9 +189,14 @@ def validate_templates(rows: list[dict[str, str]]) -> None:
         if "/mnt/cephfs/new_workload" in text:
             fail(f"{name} still uses old new_workload data path")
 
+    phase_names = re.findall(r"(?m)^rd=([^,]+)", run_rendered)
+    expected_phases = ["iter1_i0", "iter1_i1", "iter1_i2", "iter1_i3", "iter2_i0"]
+    if phase_names != expected_phases:
+        fail(f"rendered run phases should be {expected_phases}, got {phase_names}")
+
     elapsed_values = re.findall(r"elapsed=([0-9]+)", run_rendered)
-    if elapsed_values != ["75"] * 8:
-        fail(f"rendered run should contain eight 75s phases for a 10min test, got {elapsed_values}")
+    if elapsed_values != ["120"] * 5:
+        fail(f"rendered run should contain five 120s phases for a 10min test, got {elapsed_values}")
 
 
 def validate_capacity() -> None:
@@ -204,6 +225,9 @@ def validate_docs() -> None:
         "readFully",
         "readNextWindow",
         "derive_profile.py",
+        "5 个阶段",
+        "120",
+        "shard_00 复热",
     ]:
         if marker not in readme:
             fail(f"README.md missing workflow marker: {marker}")
@@ -257,7 +281,13 @@ def main() -> None:
     forbid_file("configs/graphchi_shard_windows.vdb.in")
     forbid_file("rendered/graphchi_shard_windows.vdb")
     edges = read_edges(require_file("datasets/smoke_edges.tsv"))
-    rows = calculate_expected_rows(edges, intervals=4, vertices_per_interval=128, iterations=2)
+    rows = calculate_expected_rows(
+        edges,
+        intervals=4,
+        vertices_per_interval=128,
+        iterations=1,
+        reheat_interval=0,
+    )
     validate_expected_rows(rows)
     validate_templates(rows)
     validate_capacity()

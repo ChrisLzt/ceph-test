@@ -2,7 +2,7 @@
 
 ## 1. 用途
 
-本负载用于验证存储系统能否根据文件访问热度识别小容量热点、跟踪热点迁移，并将长期未访问的数据保持在冷层。
+本负载用于验证存储系统能否根据文件访问热度识别小容量热点、跟踪热点迁移，并区分低频背景数据。当前版本不保留全程不访问的数据池。
 
 这是一个**来源驱动的新负载**，不继承旧随机文件测试中的 400 KiB 文件、90/10 读写比或 128 KiB 请求。首版只实现公开论文能够直接支持、且适合做冷热识别的三个特征：
 
@@ -22,7 +22,7 @@
 
 - DOI：<https://doi.org/10.1109/IISWC.2012.6402909>
 - 作者公开全文：<https://assured-cloud-computing.illinois.edu/files/2014/03/A-Storage-Centric-Analysis-of-MapReduce-Workloads-File-Popularity-Temporal-Locality-and-Arrival-Patterns.pdf>
-- Vdbench 官方下载及 5.04.06 User Guide：<https://www.oracle.com/downloads/server-storage/vdbench-downloads.html>
+- Vdbench 官方下载与 User Guide：<https://www.oracle.com/downloads/server-storage/vdbench-downloads.html>
 
 ## 3. 模型
 
@@ -65,9 +65,9 @@
 
 ## 4. data profile
 
-[configs/prepare_data.vdb.in](configs/prepare_data.vdb.in) 只负责创建测试数据集，[configs/run_test.vdb.in](configs/run_test.vdb.in) 只负责正式冷热阶段。正式阶段对对象池做 1 MiB 顺序读取，用于让 CephFS/OSD 数据路径产生可观测热度。论文给出了按访问次数统计的 temporal-locality 容量关系，但没有记录实际读取字节数或请求大小，因此：
+[configs/prepare_data.vdb.in](configs/prepare_data.vdb.in) 只负责创建测试数据集，[configs/run_test.vdb.in](configs/run_test.vdb.in) 只负责正式冷热阶段。正式阶段对对象池做 4 MiB 顺序读取，使一次对齐请求对应一个 CephFS object。论文给出了按访问次数统计的 temporal-locality 容量关系，但没有记录实际读取字节数或请求大小，因此：
 
-- 1 MiB transfer size 是工程参数，不是论文结论。
+- 4 MiB transfer size 是工程参数，不是论文结论。
 - data proxy 结果不能标为论文原始 I/O 分布。
 - 更改 transfer size 会改变字节热度和性能结果。
 
@@ -98,7 +98,7 @@ VDBENCH_HOME=/home/chris/PDSL/vdbench \
 REMOTE_USER=chris \
 HOST1=s52.servers.hustpdsl.cn \
 PHASE_SECONDS=150 \
-FWD_RATE=max \
+FWD_RATE=1000 \
 ./render_config.sh
 ```
 
@@ -150,14 +150,14 @@ FWD_RATE=max \
 
 每个阶段应足够长，使系统至少完成若干次识别判断；具体倍数作为测试设计参数记录。若无法取得内部周期，先使用当前 10 分钟统一窗口，再做多个阶段时长的 sensitivity test。
 
-当前默认 `FWD_RATE=max`，用于观察冷热识别模块在不人为限速时对性能的影响。若目标是做识别准确性或阶段间 skew 的稳定对比，可显式设置固定正整数速率，例如 `FWD_RATE=1000`；Vdbench 使用 `abort_failed_skew=2` 检查实际 skew 偏差。
+当前默认 `FWD_RATE=1000`，用于维持识别准确性实验中各阶段的样本量和 skew 稳定性；Vdbench 使用 `abort_failed_skew=2` 检查实际 skew 偏差。只有在测试冷热识别模块对最大吞吐的影响时，才显式设置 `FWD_RATE=max`。
 
 ## 8. 验收
 
 负载符合度：
 
 - Vdbench `skew.html` 中各 FWD 的实际 share 与目标相差不超过 2 个百分点。
-- 各阶段均使用 `fwdrate=max`，不人为限制总操作速率；如需严格比较阶段间 skew，可改用固定正整数 `FWD_RATE`。
+- 准确率测试默认使用 `fwdrate=1000`，保证不同算法 profile 的 I/O 样本量可比；仅在单独测试最大吞吐时显式设置 `FWD_RATE=max`。
 - 正式配置中不存在 `pool_05`/`fsd_inactive`，所有测试数据池均在阶段内被访问。
 - 每阶段无 I/O 或数据校验错误。
 

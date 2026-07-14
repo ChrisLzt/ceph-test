@@ -129,6 +129,10 @@ elapsed_values = re.findall(r"elapsed=([0-9]+)", run_rendered.read_text(encoding
 if elapsed_values != ["150"] * 4:
     raise SystemExit(f"FAIL: rendered run should contain four 150s phases for a 10min test, got {elapsed_values}")
 
+rate_values = re.findall(r"fwdrate=([^,]+)", run_rendered.read_text(encoding="utf-8"))
+if rate_values != ["1000"] * 4:
+    raise SystemExit(f"FAIL: accuracy runs require four fwdrate=1000 phases, got {rate_values}")
+
 if Path("rendered/data_heat_proxy.vdb").exists():
     raise SystemExit("FAIL: stale combined rendered/data_heat_proxy.vdb should not exist; use prepare_data.vdb or run_test.vdb")
 if Path("configs/data_heat_proxy.vdb.in").exists():

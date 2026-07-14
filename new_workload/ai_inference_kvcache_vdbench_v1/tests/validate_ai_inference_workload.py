@@ -158,9 +158,9 @@ def validate_vdbench_configs() -> None:
             fail(f"stale KV-cache name remains: {stale}")
 
     expected_rds = {
-        "prefill_active": ("fsd_kv_active_rank", "write"),
+        "prefill_active": ("fsd_kv_active_rank", "read"),
         "decode_active": ("fsd_kv_active_rank", "read"),
-        "prefill_next": ("fsd_kv_next_rank", "write"),
+        "prefill_next": ("fsd_kv_next_rank", "read"),
         "decode_next": ("fsd_kv_next_rank", "read"),
         "prefix_reuse_primary": ("fsd_kv_prefix_rank", "read"),
         "prefix_reuse_shifted": ("fsd_kv_prefix_rank", "read"),
@@ -176,6 +176,8 @@ def validate_vdbench_configs() -> None:
     for content, name in [(run, "run template"), (rendered_run, "rendered run")]:
         if "format=" in content or "prepare_clean" in content or "prepare_create" in content:
             fail(f"{name} must not contain prepare/format directives")
+        if "operation=write" in content:
+            fail(f"{name} should contain read operations only")
         fwd_lines = parse_fwd_lines(content)
         for rd, (fsd_prefix, operation) in expected_rds.items():
             if f"rd={rd}" not in content:
@@ -194,6 +196,12 @@ def validate_vdbench_configs() -> None:
                 fail(f"{name} {rd} should touch all ranks for {fsd_prefix}, got {ranks}")
             if any(f"operation={operation}" not in fwd_lines[fwd] for fwd in fwds):
                 fail(f"{name} {rd} should be operation={operation}")
+            if any(
+                "xfersize=4m" not in fwd_lines[fwd]
+                and "xfersize=@KV_READ_XFER_SIZE@" not in fwd_lines[fwd]
+                for fwd in fwds
+            ):
+                fail(f"{name} {rd} should use the 4 MiB read transfer size")
         for prefix in ["fsd_kv_active_rank", "fsd_kv_next_rank", "fsd_kv_prefix_rank"]:
             for rank in range(1, 21):
                 if f"fsd={prefix}_{rank:02d}" not in content:

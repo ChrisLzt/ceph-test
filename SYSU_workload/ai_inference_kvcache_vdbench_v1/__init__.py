@@ -1,0 +1,1 @@
+"""SYSU AI inference workload."""

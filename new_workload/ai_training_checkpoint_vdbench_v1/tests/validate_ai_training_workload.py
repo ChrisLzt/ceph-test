@@ -162,8 +162,8 @@ def validate_vdbench_configs() -> None:
             "dataset_epoch_01",
             "dataset_epoch_02",
             "dataset_epoch_03",
-            "checkpoint_write_current",
-            "checkpoint_read_current",
+            "checkpoint_read_current_first",
+            "checkpoint_read_current_second",
             "recovery_read_old_checkpoint",
         ]
         for rd in expected_rds:
@@ -183,12 +183,15 @@ def validate_vdbench_configs() -> None:
         for rank in range(1, 21):
             if f"fsd=fsd_dataset_rank_{rank:02d}" not in content:
                 fail(f"{name} should access dataset rank {rank:02d}")
-        if "fsd=fsd_checkpoint_current,operation=write" not in content:
-            fail(f"{name} missing current checkpoint write")
+        if "operation=write" in content:
+            fail(f"{name} should contain read operations only")
         if "fsd=fsd_checkpoint_current,operation=read" not in content:
             fail(f"{name} missing current checkpoint read")
         if "fsd=fsd_checkpoint_old,operation=read" not in content:
             fail(f"{name} missing old checkpoint recovery read")
+        for line in fwd_lines.values():
+            if "xfersize=4m" not in line and "xfersize=@READ_XFER_SIZE@" not in line:
+                fail(f"{name} should use the 4 MiB read transfer size for every FWD")
 
     elapsed_values = re.findall(r"elapsed=([0-9]+)", rendered_run)
     expected_elapsed = ["160", "160", "160", "40", "40", "40"]

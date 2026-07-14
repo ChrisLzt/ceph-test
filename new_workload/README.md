@@ -1,60 +1,48 @@
-# 冷热识别负载总览
+# 单节点冷热识别负载
 
-本目录保存 5 类来源驱动的冷热识别测试负载。当前目标不是复现原生应用性能，而是在符合负载特性的前提下，用通用工具构造可观察、可重复的冷热变化。
+本目录保存单节点 CephFS 冷热识别负载。目标不是复现原生应用性能，也不是
+提交标准 benchmark 成绩，而是在来源可追溯的前提下，用通用 I/O 工具产生
+可观察、可重复的冷热变化。
 
-更简要的来源与设计说明见 [WORKLOAD_SUMMARY.md](WORKLOAD_SUMMARY.md)。
+这里共有 **5 类负载、6 个可执行实现**：大数据、图计算、HPC、AI 训练和
+AI 推理是 5 类应用；HPC 同时提供 Vdbench 与 IOR 两种实现。12 节点、三副本、
+750 GiB 版本位于 [`../SYSU_workload`](../SYSU_workload/README.md)，两套配置和
+数据目录互不覆盖。
 
-## 当前状态
+更精简的来源与模型说明见 [WORKLOAD_SUMMARY.md](WORKLOAD_SUMMARY.md)。
 
-| 负载 | 子目录 | 来源 | 执行工具 | 默认容量 | 运行时数据路径 |
-|---|---|---|---|---:|---|
-| 大数据 | [bigdata_mapreduce_vdbench_v1](bigdata_mapreduce_vdbench_v1/README.md) | Yahoo Hadoop/MapReduce 生产 trace | vdbench | 约 117.19 GiB | `/mnt/cephfs/bigdata_mapreduce_vdbench_v1` |
-| 图计算 | [graph_graphchi_vdbench_v1](graph_graphchi_vdbench_v1/README.md) | GraphChi OSDI 2012 PSW | vdbench | 约 112.50 GiB | `/mnt/cephfs/graph_graphchi_vdbench_v1` |
-| HPC | [hpc_wrf_ior_v1](hpc_wrf_ior_v1/README.md) | WRF checkpoint/restart/history 语义 | IOR | 约 112.00 GiB | `/mnt/cephfs/hpc_wrf_ior_v1` |
-| AI 训练 | [ai_training_checkpoint_vdbench_v1](ai_training_checkpoint_vdbench_v1/README.md) | Meta DSI ISCA 2022 + MLPerf Storage checkpointing | vdbench | 约 113.28 GiB | `/mnt/cephfs/ai_training_checkpoint_vdbench_v1` |
-| AI 推理 | [ai_inference_kvcache_vdbench_v1](ai_inference_kvcache_vdbench_v1/README.md) | vLLM/PagedAttention SOSP 2023 + MLPerf Storage KV Cache | vdbench | 约 117.19 GiB | `/mnt/cephfs/ai_inference_kvcache_vdbench_v1` |
+## 正式负载
 
-合计默认容量约 572.16 GiB，符合当前单节点 CephFS 约 600 GiB 测试预算。
+| 类别 | 实现 | 工具 | 逻辑容量 | 正式阶段 |
+|---|---|---|---:|---|
+| 大数据 | [MapReduce](bigdata_mapreduce_vdbench_v1/README.md) | Vdbench | 117.19 GiB | 4 × 150 s |
+| 图计算 | [GraphChi](graph_graphchi_vdbench_v1/README.md) | Vdbench | 112.50 GiB | 5 × 120 s |
+| HPC | [WRF 生命周期](hpc_wrf_vdbench_v1/README.md) | Vdbench | 112.50 GiB | 4 × 150 s |
+| HPC 备选 | [WRF 并行 I/O](hpc_wrf_ior_v1/README.md) | IOR | 108.00 GiB | 4 × 150 s |
+| AI 训练 | [数据读取与 checkpoint](ai_training_checkpoint_vdbench_v1/README.md) | Vdbench | 113.28 GiB | 3 × 160 s + 3 × 40 s |
+| AI 推理 | [KV cache](ai_inference_kvcache_vdbench_v1/README.md) | Vdbench | 117.19 GiB | 6 × 100 s |
 
-`graph_graphchi_fixed_hot_vdbench_v1` 和 `bigdata_fixed_hot_vdbench_v1` 是诊断负载，不计入 5 类正式负载。它们复用已有数据，用于排查热点迁移、固定热点等单一因素，不作为默认测试集合。
+默认五类集合选用 HPC Vdbench 实现，总逻辑容量约 572.66 GiB。IOR 是 HPC 的
+替代实现，不与 Vdbench 版本同时计入五类容量。
 
-## 目录约定
+所有正式测试阶段均为只读；写入和目录重建只发生在 `prepare_data.sh`。这样做
+是为了让单节点实验重点观察冷热识别，不能据此声称完整复现了应用原本的写入
+行为。
 
-每个负载目录都应包含：
+## 来源与实验参数的边界
 
-- `README.md`：来源、负载逻辑、执行方法和适用范围。
-- `SOURCES.md`：文献/官方 benchmark 来源和参数映射。
-- `validate_model.sh`：模型和脚本校验。
-- `prepare_data.sh`：只造数据。
-- `run_test.sh`：只跑正式测试。
+- 论文或官方文档决定应用语义，例如 MapReduce temporal locality、GraphChi
+  PSW、WRF 文件生命周期、训练数据读取/checkpoint 和 KV cache 生命周期。
+- 容量缩放、阶段时长、Vdbench/IOR 参数以及 Zipf 权重属于受控实验设计，除非
+  分负载文档明确标注为论文观测值。
+- HPC Vdbench、AI 训练和 AI 推理使用 Zipf(0.99) 表达长尾访问。该参数采用
+  YCSB 常见设定，但不是 WRF、Meta DSI 或 PagedAttention 的实测冷热比例。
+- GraphChi 的 `75/13/6/6` 来自当前 generated graph 和 PSW 推导流程；它不是
+  GraphChi 论文规定的通用固定比例。
+- AI 比例未来可由公开或目标系统 trace 替换，方案见
+  [AI_TRACE_RATIO_PLAN.md](AI_TRACE_RATIO_PLAN.md)。
 
-## 统一工作流
-
-每个负载目录都使用同一套入口：
-
-```bash
-cd /home/chris/ceph-test/new_workload/<负载目录>
-
-./validate_model.sh
-./prepare_data.sh
-./run_test.sh
-```
-
-含义：
-
-- `validate_model.sh`：检查模型、容量、脚本结构和当前渲染配置。
-- `prepare_data.sh`：只造数据，会覆盖或重建该负载的数据集。
-- `run_test.sh`：只跑正式冷热测试，不重新造全量数据。
-
-数据已经准备好后，重复测试只运行：
-
-```bash
-./run_test.sh
-```
-
-不要在每次测试前重复运行 `prepare_data.sh`，否则会重置对象历史，影响冷热识别结果。
-
-## 5 类负载的冷热逻辑
+## 阶段概览
 
 ### 大数据
 
@@ -62,55 +50,87 @@ cd /home/chris/ceph-test/new_workload/<负载目录>
 hot_a -> hot_b -> hot_c -> reheat_a
 ```
 
-- `pool_01/pool_02/pool_03` 轮流成为热点。
-- `pool_04` 是活跃背景数据。
-- 当前版本不再保留全程不访问的 `pool_05`；原 inactive/cold 容量已按论文原始比例分配给可访问数据池。
+`pool_01~03` 轮流承担 85% 访问，`pool_04` 始终承担 13% 背景访问。所有池都
+会被访问，不再保留全程 0 访问的 inactive 池。
 
 ### 图计算
 
 ```text
-iter1_i0 -> iter1_i1 -> iter1_i2 -> iter1_i3
--> iter2_i0 -> iter2_i1 -> iter2_i2 -> iter2_i3
+iter1_i0 -> iter1_i1 -> iter1_i2 -> iter1_i3 -> iter2_i0
 ```
 
-- 当前 interval 对应 shard 是 memory-shard，成为热点。
-- 热点随 GraphChi execution interval 迁移。
-- 第二轮迭代让旧 shard 复热。
-- `graph_graphchi_fixed_hot_vdbench_v1` 固定 `shard_00` 为热点，用于判断 accuracy 下降是否主要来自热点迁移。
+前四阶段完成一轮 interval 处理，最后一阶段让 `shard_00` 复热。每阶段都读取
+全部四个 shard，只是由当前 memory-shard 承担主要访问。
 
 ### HPC
 
 ```text
-startup read -> checkpoint write/read -> history write/read -> recovery read old checkpoint
+startup_read -> checkpoint_read -> history_read -> checkpoint_reheat
 ```
 
-- input/restart 启动阶段短期热。
-- current checkpoint/history 写后读，成为热数据。
-- old checkpoint 在 recovery 阶段复热。
-- old history 不访问，作为冷数据对照。
+Vdbench 版本在每个活动组内部使用 20 个等容量 rank 和 Zipf 权重，形成明确的
+阶段内冷热；IOR 版本保留 4 个 MPI rank 与 file-per-process 语义，但只表达组间
+生命周期，不提供组内 Zipf。
 
 ### AI 训练
 
 ```text
-dataset epoch reads
--> checkpoint write/read
--> recovery read old checkpoint
+dataset_epoch_01 -> dataset_epoch_02 -> dataset_epoch_03
+-> checkpoint_read_current_first
+-> checkpoint_read_current_second
+-> recovery_read_old_checkpoint
 ```
 
-- `dataset_rank_01~20` 全部参与训练数据读取。
-- 每个 dataset 阶段使用 Zipfian 权重，少量 rank 更热，但没有全程不访问的训练数据池。
-- `checkpoint_current` 写后读，成为 checkpoint 热点。
-- `checkpoint_old` 在 recovery 阶段复热。
+三个 dataset 阶段轮换最高权重 rank；随后两次读取当前 checkpoint，再读取旧
+checkpoint。正式阶段不会写 checkpoint。
 
 ### AI 推理
 
 ```text
-prefill write current -> decode read current
--> prefill write next -> decode read next
--> prefix reuse read old
+prefill_active -> decode_active
+-> prefill_next -> decode_next
+-> prefix_reuse_primary -> prefix_reuse_shifted
 ```
 
-- `kv_active` 是当前会话 KV。
-- `kv_next` 是下一批会话 KV，热点迁移。
-- `kv_prefix_rank` 是 prefix reuse KV，支持旧 KV 复热。
-- active/next/prefix 三类 KV 都按 rank 切分并使用 Zipfian 权重，没有全程不访问的 KV 数据池。
+prefill 使用顺序读，decode 与 prefix reuse 使用随机读。热点先从 active 迁移到
+next，最后进入 prefix 数据组并在组内旋转。
+
+## 统一工作流
+
+每个正式负载目录均提供：
+
+- `README.md`：来源、数据布局、阶段和适用范围；
+- `SOURCES.md`：文献与参数映射；
+- `validate_model.sh`：检查模型、容量和配置结构；
+- `prepare_data.sh`：清理并创建数据；
+- `run_test.sh`：只运行正式测试。
+
+基本流程：
+
+```bash
+cd /home/chris/ceph-test/new_workload/<负载目录>
+./validate_model.sh
+./prepare_data.sh
+./run_test.sh
+```
+
+数据已准备好后只需重复执行：
+
+```bash
+./run_test.sh
+```
+
+不要在每次测试前重复执行 `prepare_data.sh`，否则会重建文件并重置对象历史。
+
+单节点正式 Vdbench 负载默认 `fwdrate=1000`，用于维持阶段访问比例；如需测试
+冷热识别模块的最大吞吐开销，可显式设置 `FWD_RATE=max`。IOR 不使用
+`fwdrate` 参数。
+
+## 诊断负载
+
+- [bigdata_fixed_hot_vdbench_v1](bigdata_fixed_hot_vdbench_v1/README.md)
+- [graph_graphchi_fixed_hot_vdbench_v1](graph_graphchi_fixed_hot_vdbench_v1/README.md)
+
+这两个目录复用正式负载的数据，只用于排查固定热点与热点迁移的差异，不计入
+5 类正式负载。它们保留了早期诊断参数，I/O 大小、阶段数或 `fwdrate` 不一定
+与当前主负载相同；只有在参数对齐后才能作为严格的性能对照。

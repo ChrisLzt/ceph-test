@@ -12,7 +12,7 @@
 - 处理当前 interval 时，当前 shard 通过 `readFully()` 完整读入，成为 memory-shard。
 - 其他 shard 通过 `readNextWindow(a,b)` 读取 sliding window。
 - 论文说明 window length 会随图的 degree distribution 变化，因此 v1 不手写固定热点比例。
-- PageRank 等多轮迭代会让同一组 shard 被反复访问，因此旧 shard 会复热。
+- PageRank 等算法可以执行多轮迭代；当前缩放负载保留第一轮完整 interval 序列，并截取第二轮 interval 0，用于观察 `shard_00` 复热。
 
 ## 执行工具：Vdbench
 
@@ -54,7 +54,7 @@ generated graph 的边分布 + GraphChi PSW readFully/readNextWindow 规则
 | `shard[p].readFully()` | 所有 `dst` 属于 interval `p` 的边 | memory-shard 的 FWD 读流 |
 | `shard[s].readNextWindow(a,b)` | `src` 属于 interval `p` 且 `dst` 属于 interval `s` 的边，`s != p` | sliding-shard 的 FWD 读流 |
 | interval 轮换 | `p=0..P-1` | 多个 RD 顺序执行 |
-| 多轮迭代 | 重复 interval 序列 | 旧 shard 复热 |
+| 下一轮重新处理 interval 0 | 再次应用 interval 0 的同一 PSW 规则 | `iter2_i0` 中 `shard_00` 复热 |
 
 每个阶段的 `skew` 由各 shard 的派生 read_edges 归一化得到：
 
@@ -70,10 +70,9 @@ skew(shard s)
 保留：
 
 - shard 级对象；
-- interval 顺序轮换；
 - memory-shard 与 sliding-shard 角色；
-- 多轮迭代；
-- 冷却后复热；
+- 一轮内完整的 interval 顺序轮换；
+- 第二轮 interval 0 的单点复热；
 - 可由 generated graph 重新计算的 FWD/RD/skew。
 
 舍弃：
@@ -81,7 +80,8 @@ skew(shard s)
 - PageRank 数值计算；
 - 顶点更新和收敛逻辑；
 - GraphChi 原生 shard 文件格式；
+- 完整的第二轮 interval 序列；
 - 真实生产图比例声明；
 - 外部冷热真值表。
 
-因此本 workload 应称为“基于 generated graph 和 GraphChi PSW 规则派生的 vdbench 冷热识别测试”，不能称为完整 GraphChi benchmark，也不能把默认 generated graph 的比例泛化为真实图计算比例。
+因此本 workload 应称为“基于 generated graph 和 GraphChi PSW 规则派生的 vdbench 冷热识别测试”，不能称为完整 GraphChi benchmark，也不能把默认 generated graph 的比例泛化为真实图计算比例。`iter2_i0` 符合多轮迭代重新从 interval 0 开始的执行顺序，但为控制总时长而在此截断属于测试工程设计，不是论文给出的固定五阶段模型。

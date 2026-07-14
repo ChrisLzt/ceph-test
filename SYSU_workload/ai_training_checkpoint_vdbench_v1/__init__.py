@@ -1,0 +1,1 @@
+"""SYSU AI training workload."""

@@ -13,13 +13,13 @@
 - prefill 会产生当前请求的 KV cache；
 - decode/autoregressive generation 会持续使用已有 KV cache；
 - PagedAttention 将 KV cache 组织为块，并支持跨请求或分支共享 KV cache；
-- 在线服务请求通常存在流行度偏斜，因此用 Zipfian rank 表达可控访问偏斜。
+- 为构造可控冷热，本实验额外使用 Zipfian rank 表达访问偏斜；该分布是工程模型，不是 PagedAttention 论文结论。
 
 映射到本负载：
 
 | 论文/系统现象 | vdbench 映射 |
 |---|---|
-| prefill 生成 KV cache | `prefill_active` / `prefill_next` 顺序写 |
+| prefill 阶段 KV cache | `prefill_active` / `prefill_next` 读取预生成数据 |
 | decode 使用已有 KV cache | `decode_active` / `decode_next` 随机读 |
 | KV cache 可跨请求/分支共享 | `prefix_reuse_primary` / `prefix_reuse_shifted` 随机读 |
 | 访问存在偏斜但长尾仍有访问 | 对每类 KV cache 的 20 个 rank 施加 Zipfian skew |
@@ -39,7 +39,7 @@
 
 ## 3. 为什么使用 vdbench + Zipfian
 
-当前目标是冷热识别，不是提交 MLPerf 成绩，也不是复现 vLLM 推理性能。vdbench 能稳定地在 CephFS 上创建固定容量文件，并按阶段执行读写；Zipfian skew 能表达“少量 KV rank 访问更多，但长尾 rank 仍然被访问”的偏斜访问。
+当前目标是冷热识别，不是提交 MLPerf 成绩，也不是复现 vLLM 推理性能。Vdbench 在造数据阶段创建固定容量文件，正式阶段按顺序读或随机读访问这些文件；Zipfian skew 能表达“少量 KV rank 访问更多，但长尾 rank 仍然被访问”的偏斜访问。
 
 需要明确的适用范围：
 

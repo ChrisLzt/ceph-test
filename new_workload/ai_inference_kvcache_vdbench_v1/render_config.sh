@@ -18,11 +18,10 @@ vdbench_home=${VDBENCH_HOME:-/home/chris/PDSL/vdbench}
 remote_user=${REMOTE_USER:-chris}
 host1=${HOST1:-s52.servers.hustpdsl.cn}
 phase_seconds=${PHASE_SECONDS:-100}
-fwd_rate=${FWD_RATE:-max}
+fwd_rate=${FWD_RATE:-1000}
 threads=${THREADS:-8}
 format_threads=${FORMAT_THREADS:-4}
-kv_read_xfer_size=${KV_READ_XFER_SIZE:-1m}
-kv_write_xfer_size=${KV_WRITE_XFER_SIZE:-4m}
+kv_read_xfer_size=${KV_READ_XFER_SIZE:-4m}
 
 for value in "$phase_seconds" "$threads" "$format_threads"; do
     [[ "$value" =~ ^[1-9][0-9]*$ ]] || {
@@ -36,7 +35,7 @@ done
     exit 2
 }
 
-for value in "$kv_read_xfer_size" "$kv_write_xfer_size"; do
+for value in "$kv_read_xfer_size"; do
     [[ "$value" =~ ^[1-9][0-9]*[kKmMgG]$ ]] || {
         echo "Transfer sizes must look like 128k, 1m, or 4m: $value" >&2
         exit 2
@@ -59,7 +58,6 @@ render_one() {
         -e "s|@THREADS@|$threads|g" \
         -e "s|@FORMAT_THREADS@|$format_threads|g" \
         -e "s|@KV_READ_XFER_SIZE@|$kv_read_xfer_size|g" \
-        -e "s|@KV_WRITE_XFER_SIZE@|$kv_write_xfer_size|g" \
         "$template" > "$output"
 
     if grep -q '@[A-Z_][A-Z_]*@' "$output"; then

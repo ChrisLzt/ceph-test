@@ -8,13 +8,17 @@
 /mnt/cephfs/graph_graphchi_vdbench_v1/shard_00..03
 ```
 
-正式测试保留 GraphChi 原负载的 8 个 75 秒阶段、1 MiB 传输、16 线程和单节点执行方式，但把热点固定在 `shard_00`：
+这个早期诊断脚本执行 8 个 75 秒阶段，使用 1 MiB 传输、16 线程和
+`fwdrate=max`，并把热点固定在 `shard_00`：
 
 ```text
 shard_00 / shard_01 / shard_02 / shard_03 = 75% / 13% / 6% / 6%
 ```
 
 如果这个固定热点版本明显高于 `graph_graphchi_vdbench_v1`，说明原 GraphChi 低 accuracy 主要来自 PSW 热点迁移和旧热点退潮；如果仍然偏低，则需要继续检查 GraphChi 的顺序读、对象粒度和模型特征。
+
+当前主 GraphChi 负载是 5 × 120 秒、4 MiB、`fwdrate=1000`。因此本目录不是
+严格同参基线，结果只能用于诊断趋势；定量比较前应先统一阶段、请求大小和速率。
 
 ## 使用
 

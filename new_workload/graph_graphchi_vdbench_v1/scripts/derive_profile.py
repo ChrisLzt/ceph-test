@@ -44,49 +44,62 @@ def integer_percentages(counts: list[int]) -> list[int]:
     return pct
 
 
-def derive_rows(edges: list[tuple[int, int]], intervals: int, vertices_per_interval: int, iterations: int) -> list[dict[str, str]]:
+def derive_rows(
+    edges: list[tuple[int, int]],
+    intervals: int,
+    vertices_per_interval: int,
+    iterations: int,
+    reheat_interval: int | None = None,
+) -> list[dict[str, str]]:
     rows: list[dict[str, str]] = []
-    for iteration in range(1, iterations + 1):
-        for interval in range(intervals):
-            phase = f"iter{iteration}_i{interval}"
-            counts = [0 for _ in range(intervals)]
-            roles = ["not_accessed" for _ in range(intervals)]
+    phase_sequence = [
+        (iteration, interval)
+        for iteration in range(1, iterations + 1)
+        for interval in range(intervals)
+    ]
+    if reheat_interval is not None:
+        phase_sequence.append((iterations + 1, reheat_interval))
 
-            for src, dst in edges:
-                src_i = interval_of(src, vertices_per_interval)
-                dst_i = interval_of(dst, vertices_per_interval)
-                if src_i < 0 or src_i >= intervals or dst_i < 0 or dst_i >= intervals:
-                    raise SystemExit(
-                        f"edge ({src}, {dst}) outside intervals={intervals}, "
-                        f"vertices_per_interval={vertices_per_interval}"
-                    )
+    for iteration, interval in phase_sequence:
+        phase = f"iter{iteration}_i{interval}"
+        counts = [0 for _ in range(intervals)]
+        roles = ["not_accessed" for _ in range(intervals)]
 
-                # GraphChi PSW Algorithm 3:
-                # - readFully() reads the current memory shard by destination interval.
-                # - readNextWindow(a,b) reads out-edges from the current source interval
-                #   in non-current shards.
-                if dst_i == interval:
-                    counts[interval] += 1
-                    roles[interval] = "memory_shard"
-                elif src_i == interval:
-                    counts[dst_i] += 1
-                    roles[dst_i] = "sliding_shard"
-
-            pct = integer_percentages(counts)
-            for shard, count in enumerate(counts):
-                rows.append(
-                    {
-                        "phase": phase,
-                        "iteration": str(iteration),
-                        "interval": str(interval),
-                        "object_id": f"shard_{shard:02d}",
-                        "role": roles[shard],
-                        "read_edges": str(count),
-                        "read_bytes": str(count * EDGE_BYTES),
-                        "target_ops_pct": str(pct[shard]),
-                        "source": "generated_graph_plus_GraphChi_OSDI_2012_PSW",
-                    }
+        for src, dst in edges:
+            src_i = interval_of(src, vertices_per_interval)
+            dst_i = interval_of(dst, vertices_per_interval)
+            if src_i < 0 or src_i >= intervals or dst_i < 0 or dst_i >= intervals:
+                raise SystemExit(
+                    f"edge ({src}, {dst}) outside intervals={intervals}, "
+                    f"vertices_per_interval={vertices_per_interval}"
                 )
+
+            # GraphChi PSW Algorithm 3:
+            # - readFully() reads the current memory shard by destination interval.
+            # - readNextWindow(a,b) reads out-edges from the current source interval
+            #   in non-current shards.
+            if dst_i == interval:
+                counts[interval] += 1
+                roles[interval] = "memory_shard"
+            elif src_i == interval:
+                counts[dst_i] += 1
+                roles[dst_i] = "sliding_shard"
+
+        pct = integer_percentages(counts)
+        for shard, count in enumerate(counts):
+            rows.append(
+                {
+                    "phase": phase,
+                    "iteration": str(iteration),
+                    "interval": str(interval),
+                    "object_id": f"shard_{shard:02d}",
+                    "role": roles[shard],
+                    "read_edges": str(count),
+                    "read_bytes": str(count * EDGE_BYTES),
+                    "target_ops_pct": str(pct[shard]),
+                    "source": "generated_graph_plus_GraphChi_OSDI_2012_PSW",
+                }
+            )
     return rows
 
 
@@ -169,16 +182,28 @@ def main() -> None:
     parser.add_argument("--run-template", default="configs/run_test.vdb.in")
     parser.add_argument("--intervals", type=int, default=4)
     parser.add_argument("--vertices-per-interval", type=int, default=128)
-    parser.add_argument("--iterations", type=int, default=2)
+    parser.add_argument("--iterations", type=int, default=1)
+    parser.add_argument("--reheat-interval", type=int, default=0)
     args = parser.parse_args()
 
+    if args.reheat_interval < 0 or args.reheat_interval >= args.intervals:
+        raise SystemExit(
+            f"reheat interval {args.reheat_interval} outside intervals={args.intervals}"
+        )
+
     edges = read_edges(Path(args.edges))
-    rows = derive_rows(edges, args.intervals, args.vertices_per_interval, args.iterations)
+    rows = derive_rows(
+        edges,
+        args.intervals,
+        args.vertices_per_interval,
+        args.iterations,
+        args.reheat_interval,
+    )
     write_prepare_template(Path(args.prepare_template), args.intervals)
     write_run_template(Path(args.run_template), rows, args.intervals)
     print(
         f"derived {args.prepare_template} and {args.run_template} from {args.edges}; "
-        f"phases={args.intervals * args.iterations}"
+        f"phases={args.intervals * args.iterations + 1}"
     )
 
 

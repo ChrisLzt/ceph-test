@@ -9,12 +9,16 @@ IOR_BIN="/home/chris/PDSL/ior/src/ior"
 MPI_RUN="/usr/mpi/gcc/openmpi-4.1.9a1/bin/mpirun"
 NP="4"
 API="POSIX"
-BLOCK_SIZE="4g"
+BLOCK_SIZE="9g"
 TRANSFER_SIZE="1m"
 SEGMENT_COUNT="1"
 OUTPUT_DIR="${OUTPUT_DIR:-output/prepare_data}"
 
-mkdir -p "$ANCHOR/input" "$ANCHOR/restart" "$ANCHOR/checkpoint" "$ANCHOR/history" "$OUTPUT_DIR"
+echo "Removing legacy HPC dataset paths under: $ANCHOR"
+rm -rf -- "$ANCHOR/input" "$ANCHOR/restart"
+rm -f -- "$ANCHOR/checkpoint"/wrfrst_old* "$ANCHOR/history"/wrfout_old*
+
+mkdir -p "$ANCHOR/startup" "$ANCHOR/checkpoint" "$ANCHOR/history" "$OUTPUT_DIR"
 
 run_ior_write() {
     local phase=$1
@@ -22,7 +26,7 @@ run_ior_write() {
     local log="$OUTPUT_DIR/${phase}.log"
     echo "== $phase write $target =="
     "$MPI_RUN" -np "$NP" "$IOR_BIN" \
-        -a "$API" -F -w -k -e -C \
+        -a "$API" --posix.odirect -F -w -k -e -C \
         -o "$target" \
         -b "$BLOCK_SIZE" \
         -t "$TRANSFER_SIZE" \
@@ -31,10 +35,6 @@ run_ior_write() {
         2>&1 | tee "$log"
 }
 
-run_ior_write prepare_wrfinput "$ANCHOR/input/wrfinput_d01"
-run_ior_write prepare_wrfbdy "$ANCHOR/input/wrfbdy_d01"
-run_ior_write prepare_restart_initial "$ANCHOR/restart/wrfrst_initial"
-run_ior_write prepare_checkpoint_old "$ANCHOR/checkpoint/wrfrst_old"
-run_ior_write prepare_history_old "$ANCHOR/history/wrfout_old"
+run_ior_write prepare_startup_state "$ANCHOR/startup/wrf_state"
 run_ior_write prepare_checkpoint_current "$ANCHOR/checkpoint/wrfrst_current"
 run_ior_write prepare_history_current "$ANCHOR/history/wrfout_current"

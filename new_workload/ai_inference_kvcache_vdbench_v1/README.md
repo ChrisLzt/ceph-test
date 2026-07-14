@@ -1,10 +1,10 @@
 # AI 推理 KV cache vdbench Zipfian 冷热识别负载 v1
 
-这个负载不运行真实 LLM，也不评价 token 生成速度。它把 LLM 推理系统中 KV cache 的明确读写行为映射成 vdbench 对 CephFS 的阶段化读写，用于冷热识别。
+这个负载不运行真实 LLM，也不评价 token 生成速度。它把 LLM 推理系统中的 KV cache 生命周期映射成 Vdbench 对 CephFS 的阶段化访问，用于冷热识别。正式测试为纯读，KV 文件只在造数据阶段生成。
 
 核心逻辑：
 
-- prefill 阶段生成/写入当前请求的 KV cache；
+- prefill 阶段读取造数据阶段已生成的当前请求 KV cache；
 - decode 阶段反复读取已有 KV cache；
 - 下一批请求会生成新的 KV cache，热点迁移；
 - 共享前缀或多轮对话会复用旧 KV cache；
@@ -20,7 +20,7 @@
 
 - MLPerf Storage KV Cache：MLCommons Storage 中针对 KV-cache I/O 的官方 benchmark 类别，用于说明 KV cache 已被 MLPerf Storage 纳入存储侧 benchmark 范围。
 
-本目录使用 vdbench 执行这些读写阶段。vdbench 不是负载来源，只是把设定好的文件读写模型落到 CephFS 上。Zipfian 是当前实验用来表达访问偏斜的执行模型，不声明为论文给出的固定比例。
+本目录使用 Vdbench 执行缩放后的访问阶段。Vdbench 不是负载来源，只是把设定好的文件访问模型落到 CephFS 上。Zipfian 是当前实验用来表达访问偏斜的执行模型，不声明为论文给出的固定比例。
 
 详细映射见 [SOURCES.md](SOURCES.md)。
 
@@ -94,34 +94,34 @@ prefill_active
 
 | 阶段 | 读/写 | 访问数据 | 目的 |
 |---|---|---|---|
-| `prefill_active` | 写 | 全部 `kv_active_rank_01~20` | 当前请求 prefill 生成 KV cache |
+| `prefill_active` | 读 | 全部 `kv_active_rank_01~20` | 读取当前请求的预生成 KV cache |
 | `decode_active` | 读 | 全部 `kv_active_rank_01~20` | decode 持续读取当前 KV cache |
-| `prefill_next` | 写 | 全部 `kv_next_rank_01~20` | 下一批请求 prefill，`kv_next_rank_01` 为最高权重热点 |
+| `prefill_next` | 读 | 全部 `kv_next_rank_01~20` | 读取下一批预生成 KV cache，`kv_next_rank_01` 为最高权重热点 |
 | `decode_next` | 读 | 全部 `kv_next_rank_01~20` | decode 读取下一批 KV cache，`kv_next_rank_01` 保持最高权重热点 |
 | `prefix_reuse_primary` | 读 | 全部 `kv_prefix_rank_01~20` | 共享前缀/多轮对话复用旧 KV cache |
 | `prefix_reuse_shifted` | 读 | 全部 `kv_prefix_rank_01~20` | prefix 热点 rank 旋转，观察旧 KV cache 热点变化 |
 
 ### 阶段由来
 
-`prefill_active` 和 `prefill_next` 来自 LLM serving 的 prefill 过程：新请求会生成 KV cache，因此在存储侧表达为写入。这里拆成 active/next 两组，是为了让热点从当前请求迁移到下一批请求。为保持真值清晰，active 和 next 两个数据池内部都让 rank 01 承担最高 Zipf 权重，只改变数据池，不额外改变 rank 编号。
+`prefill_active` 和 `prefill_next` 保留 LLM serving 的阶段划分，但当前正式测试不测 KV 写入：它读取造数据阶段已生成的 active/next KV cache，使单盘环境可以稳定达到固定 IOPS。两组数据池内部都让 rank 01 承担最高 Zipf 权重，只改变数据池，不额外改变 rank 编号。
 
 `decode_active` 和 `decode_next` 来自 autoregressive decode：生成 token 时会持续使用已有 KV cache，因此在存储侧表达为读取。decode 阶段使用随机读，是为了表示不同请求、不同 block/rank 的 cache 访问，而不是单个大文件顺序扫描。
 
 `prefix_reuse_primary` 和 `prefix_reuse_shifted` 来自 PagedAttention 支持的 KV block sharing：共享前缀、多轮对话或分支推理会复用旧 KV cache。第二个 prefix 阶段旋转最高权重 rank，用于观察旧 KV cache 内部热点变化。
 
-prefill 阶段使用顺序写；decode 和 prefix reuse 阶段使用随机读。所有阶段在各自 KV cache 类型内部使用 Zipfian 访问偏斜，不再设置完全不访问的 KV 数据池。
+prefill 阶段使用顺序读；decode 和 prefix reuse 阶段使用随机读。所有阶段统一使用 4 MiB 请求，并在各自 KV cache 类型内部使用 Zipfian 访问偏斜。
 
 ## 可调参数
 
 ```bash
-ANCHOR=/mnt/cephfs/ai_inference_kvcache_vdbench_v1 THREADS=8 FORMAT_THREADS=4 PHASE_SECONDS=100 FWD_RATE=max KV_READ_XFER_SIZE=1m KV_WRITE_XFER_SIZE=4m ./render_config.sh all
+ANCHOR=/mnt/cephfs/ai_inference_kvcache_vdbench_v1 THREADS=8 FORMAT_THREADS=4 PHASE_SECONDS=100 FWD_RATE=1000 KV_READ_XFER_SIZE=4m ./render_config.sh all
 ```
 
-默认 `THREADS=8`，允许多线程。单节点 SN350 上如果 Ceph 出现 backfill、recovery 或 slow ops，应先停止测试，等 `ceph -s` 恢复 `active+clean` 后再运行。
+默认 `THREADS=8`，允许多线程；准确率测试默认固定 `FWD_RATE=1000`，峰值性能测试才显式设置 `FWD_RATE=max`。单节点 SN350 上如果 Ceph 出现 backfill、recovery 或 slow ops，应先停止测试，等 `ceph -s` 恢复 `active+clean` 后再运行。
 
 ## 适用范围
 
 - 这不是正式 MLPerf Storage 结果。
 - 这不是 LLM 推理性能 benchmark。
-- 论文和官方 benchmark 提供读写语义；vdbench 的 `xfersize`、线程数、容量缩放是当前实验环境参数。
+- 原始 LLM serving 会生成 KV cache；当前正式测试为消除单盘写瓶颈而采用纯读缩放模型。
 - Zipf(alpha=0.99) 采用 YCSB 常用参数；这里按 4 MiB object 计算后聚合到 vdbench rank，不是 PagedAttention 或 MLPerf 给出的实测热 KV cache 容量/访问比例。

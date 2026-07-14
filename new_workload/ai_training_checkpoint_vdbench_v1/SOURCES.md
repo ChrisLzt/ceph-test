@@ -32,20 +32,18 @@
 采用的负载逻辑：
 
 - MLPerf Storage 用 DLIO 模拟 ML 应用的存储 I/O；
-- checkpointing workload 关注 checkpoint 写入、读取和恢复；
-- 这类 I/O 是 AI 训练中区别于普通只读数据集扫描的重要存储行为。
+- checkpointing workload 关注 checkpoint 写入、读取和恢复；当前正式测试只保留加载和恢复读取。
 
 映射到本负载：
 
 | 官方 benchmark 语义 | vdbench 映射 |
 |---|---|
-| checkpoint write | `checkpoint_write_current` |
-| checkpoint read / validation / reload | `checkpoint_read_current` |
+| current checkpoint load/reload | `checkpoint_read_current_first` / `checkpoint_read_current_second` |
 | recovery from previous checkpoint | `recovery_read_old_checkpoint` |
 
 ## 3. 为什么使用 vdbench + Zipfian
 
-当前目标是冷热识别，不是提交 MLPerf 成绩。vdbench 能稳定地在 CephFS 上创建固定容量文件，并按阶段执行读写；Zipfian skew 能表达“少量对象访问更多，但长尾对象仍然被访问”的偏斜访问。
+当前目标是冷热识别，不是提交 MLPerf 成绩。vdbench 在造数据阶段创建固定容量文件，正式阶段执行纯读；Zipfian skew 能表达“少量对象访问更多，但长尾对象仍然被访问”的偏斜访问。
 
 需要明确的适用范围：
 

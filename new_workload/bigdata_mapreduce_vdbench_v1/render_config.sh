@@ -18,7 +18,7 @@ vdbench_home=${VDBENCH_HOME:-/home/chris/PDSL/vdbench}
 remote_user=${REMOTE_USER:-chris}
 host1=${HOST1:-s52.servers.hustpdsl.cn}
 phase_seconds=${PHASE_SECONDS:-150}
-fwd_rate=${FWD_RATE:-max}
+fwd_rate=${FWD_RATE:-1000}
 threads=${THREADS:-16}
 format_threads=${FORMAT_THREADS:-32}
 

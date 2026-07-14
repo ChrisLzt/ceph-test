@@ -24,7 +24,7 @@
 
 数据池容量与主大数据负载一致：`pool_01~03` 各 400 个 12 MiB 文件，`pool_04` 为 8800 个 12 MiB 文件。不存在 `pool_05`。
 
-默认参数与 `bigdata_mapreduce_vdbench_v1` 对齐：
+这个早期诊断脚本保留以下独立参数：
 
 - `xfersize=1m`
 - `fileio=sequential`
@@ -32,6 +32,10 @@
 - `threads=16`
 - `fwdrate=max`
 - 四个阶段各 150 秒，总时长 10 分钟
+
+主 MapReduce 负载当前使用 4 MiB、`fwdrate=1000`，因此本目录的 1 MiB、
+`fwdrate=max` 不能作为严格同参性能对照。它只适合快速判断“固定热点是否比
+迁移热点更容易识别”；需要定量比较时，应先让两个脚本的 I/O 参数一致。
 
 ## 运行
 
