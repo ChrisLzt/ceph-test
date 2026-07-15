@@ -1,0 +1,1 @@
+"""MapReduce rendering entry point."""

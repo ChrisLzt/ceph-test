@@ -29,8 +29,10 @@ class SuiteContractTests(unittest.TestCase):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         validator = (ROOT / "validate_all.sh").read_text(encoding="utf-8")
         self.assertIn("hpc_wrf_ior_v1", readme)
-        self.assertIn("五种Vdbench负载和一个IOR负载", readme)
+        self.assertIn("五个", readme)
+        self.assertIn("Vdbench 负载和一个保留的 HPC IOR 负载", readme)
         self.assertIn("hpc_wrf_ior_v1/validate_model.sh", validator)
+        self.assertIn("workload_common.validate_vdbench", validator)
 
     def test_contains_exactly_five_vdbench_workloads(self) -> None:
         actual = sorted(
@@ -56,7 +58,7 @@ class SuiteContractTests(unittest.TestCase):
             base = Path(tmp)
             jobs = (
                 ("bigdata", render_bigdata, {"threads": 1, "phase_seconds": 150, "fwdrate": "max"}),
-                ("graph", render_graph, {"threads": 1, "phase_seconds": 120, "fwdrate": "max"}),
+                ("graph", render_graph, {"threads": 1, "phase_seconds": 150, "fwdrate": "max"}),
                 ("hpc", render_hpc, {"threads": 1, "phase_seconds": 150, "fwdrate": "max"}),
                 (
                     "training",
@@ -64,7 +66,7 @@ class SuiteContractTests(unittest.TestCase):
                     {
                         "threads": 1,
                         "dataset_phase_seconds": 160,
-                        "checkpoint_phase_seconds": 40,
+                        "checkpoint_phase_seconds": 60,
                         "fwdrate": "max",
                     },
                 ),

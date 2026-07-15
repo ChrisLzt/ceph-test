@@ -57,8 +57,8 @@ def validate_rendered() -> None:
             "-a \"$API\"",
             "--posix.odirect",
             "-F",
-            "BLOCK_SIZE=\"9g\"",
-            "TRANSFER_SIZE=\"1m\"",
+            "BLOCK_SIZE=\"9600m\"",
+            "TRANSFER_SIZE=\"4m\"",
             "tee \"$log\"",
         ]:
             if marker not in text:
@@ -145,8 +145,8 @@ def validate_capacity() -> None:
     file_bases = 3
     total_gib = np * block_gib * segments * file_bases
     print(f"Total prepared capacity: {total_gib:.2f} GiB")
-    if total_gib != 108:
-        fail(f"total prepared capacity should be exactly 108 GiB, got {total_gib:.2f}")
+    if total_gib != 112.5:
+        fail(f"total prepared capacity should be exactly 112.5 GiB, got {total_gib:.2f}")
 
 
 def main() -> None:

@@ -54,4 +54,4 @@ IOR 官方仓库定位为 IOR/mdtest parallel I/O benchmark。这里使用 IOR �
 - checkpoint/history 正式写出；
 - 外部冷热真值表。
 
-因此本 workload 应称为“WRF 文件生命周期启发的 IOR 只读冷热识别测试”，不能称为完整 WRF benchmark。三个 36 GiB 等容量池、四阶段和每阶段 150 秒均为单节点实验参数，不是 WRF 官方或 trace 给出的比例。
+因此本 workload 应称为“WRF 文件生命周期启发的 IOR 只读冷热识别测试”，不能称为完整 WRF benchmark。三个 37.5 GiB 等容量池、四阶段和每阶段 150 秒均为单节点实验参数，不是 WRF 官方或 trace 给出的比例。

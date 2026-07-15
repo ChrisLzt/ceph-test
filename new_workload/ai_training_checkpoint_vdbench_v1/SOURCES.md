@@ -19,7 +19,7 @@
 | 论文/系统现象 | vdbench 映射 |
 |---|---|
 | 训练反复读取数据集 | `dataset_epoch_01~03` |
-| 热门 features/samples 被更频繁使用 | 对 `dataset_rank_01~20` 施加 Zipfian skew |
+| 热门 features/samples 被更频繁使用 | 对 dataset 的 100 个 rank 施加 Zipfian skew |
 | 热点随训练阶段变化 | 每个 epoch 旋转 Zipfian rank 顺序 |
 
 ## 2. MLPerf Storage checkpointing / DLIO
@@ -38,7 +38,7 @@
 
 | 官方 benchmark 语义 | vdbench 映射 |
 |---|---|
-| current checkpoint load/reload | `checkpoint_read_current_first` / `checkpoint_read_current_second` |
+| current checkpoint load | `checkpoint_read_current` |
 | recovery from previous checkpoint | `recovery_read_old_checkpoint` |
 
 ## 3. 为什么使用 vdbench + Zipfian
@@ -50,6 +50,11 @@
 - 目录名不使用 `mlperf`，因为这里不运行官方 MLPerf Storage closed/open 流程；
 - `THREADS`、`xfersize`、容量缩放是执行参数，不是论文参数；
 - Meta DSI 论文说明存在热门 features/samples 和训练数据反复读取，但没有给出“热数据占总容量 X%、承担总访问 Y%”这种可直接落地的固定比例；
-- 当前 Zipfian 权重采用 YCSB 常用 alpha=0.99。脚本按 4 MiB object 计算 Zipf(0.99)，再聚合到 20 个等容量 dataset rank，整数化为 `69/6/4/3/2/2/1×14`；后续可由公开 trace 提取结果替换；
+- 当前 Zipfian 权重采用 YCSB 常用 alpha=0.99。dataset、current checkpoint
+  和 old checkpoint 均切成 100 个等容量 rank；每个固定文件大小档按真实文件
+  数独立计算 Zipf(0.99)，以十进制小数写入 Vdbench，不进行整数化或最小 1%
+  修正。后续可由公开 trace 提取结果替换；
+- 三个 dataset epoch 依次令 rank 1、2、3 最热，属于可控热点迁移设计，不是
+  Meta DSI 论文给出的固定编号或比例；
 - MLPerf Storage checkpointing 给出 checkpoint 写/读/恢复语义，但它不是冷热分布论文；
 - 热/冷判断由测试者根据阶段语义和 Ceph 观测结果自行判断，不在脚本中生成真值表。

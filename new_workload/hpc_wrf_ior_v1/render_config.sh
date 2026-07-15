@@ -23,8 +23,8 @@ ior_bin=${IOR_BIN:-/home/chris/PDSL/ior/src/ior}
 mpi_run=${MPI_RUN:-/usr/mpi/gcc/openmpi-4.1.9a1/bin/mpirun}
 np=${NP:-4}
 api=${API:-POSIX}
-block_size=${BLOCK_SIZE:-9g}
-transfer_size=${TRANSFER_SIZE:-1m}
+block_size=${BLOCK_SIZE:-9600m}
+transfer_size=${TRANSFER_SIZE:-4m}
 segment_count=${SEGMENT_COUNT:-1}
 phase_seconds=${PHASE_SECONDS:-150}
 

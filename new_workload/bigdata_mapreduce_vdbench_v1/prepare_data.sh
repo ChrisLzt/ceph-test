@@ -6,17 +6,23 @@ cd "$script_dir"
 
 ./render_config.sh prepare
 
-anchor=${ANCHOR:-/mnt/cephfs/bigdata_mapreduce_vdbench_v1}
+anchor=${ANCHOR:-${ANCHOR_ROOT:-/mnt/cephfs}/bigdata_mapreduce_vdbench_v1}
 vdbench_home=${VDBENCH_HOME:-/home/chris/PDSL/vdbench}
 output_dir=${OUTPUT_DIR:-output/prepare_data}
 
 mkdir -p "$anchor"
 echo "Ensured data anchor: $anchor"
+find "$anchor" -mindepth 2 -maxdepth 2 -type d -name 'rank_*' \
+  -prune -exec rm -rf -- {} +
+find "$anchor" -mindepth 2 -maxdepth 2 -type d -name 'size_*m' \
+  -prune -exec rm -rf -- {} +
 
-if [[ -d "$anchor/pool_05" ]]; then
-  echo "Removing stale inactive pool directory: $anchor/pool_05"
-  rm -rf -- "$anchor/pool_05"
-fi
+for stale in pool_04 pool_05; do
+  if [[ -d "$anchor/$stale" ]]; then
+    echo "Removing stale MapReduce pool directory: $anchor/$stale"
+    rm -rf -- "$anchor/$stale"
+  fi
+done
 
 "$vdbench_home/vdbench" \
   -f rendered/prepare_data.vdb \

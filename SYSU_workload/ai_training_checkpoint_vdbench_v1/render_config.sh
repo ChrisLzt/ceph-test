@@ -7,7 +7,7 @@ root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 output_dir=${OUTPUT_DIR:-$root/rendered}
 threads=${THREADS:-1}
 dataset_phase_seconds=${DATASET_PHASE_SECONDS:-160}
-checkpoint_phase_seconds=${CHECKPOINT_PHASE_SECONDS:-40}
+checkpoint_phase_seconds=${CHECKPOINT_PHASE_SECONDS:-60}
 fwdrate=${FWD_RATE:-max}
 
 cd -- "$(dirname -- "$root")/.."

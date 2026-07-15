@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
-script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
-cd "$script_dir"
-
-./render_config.sh all >/dev/null
-python3 tests/validate_hpc_vdbench_workload.py
+root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+"$root/render_config.sh" all >/dev/null
+cd "$root/../.."
+python3 -m unittest workload_common.tests.test_hpc -v

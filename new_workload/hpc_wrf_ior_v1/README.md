@@ -43,15 +43,15 @@ IOR 文件名按 WRF 语义分组：
 |---|---:|
 | MPI ranks | 4 |
 | IOR file-per-process | enabled |
-| block size per rank | 9 GiB |
-| transfer size | 1 MiB |
+| block size per rank | 9,600 MiB（9.375 GiB） |
+| transfer size | 4 MiB |
 | 文件基名数量 | 3 |
-| 单池容量 | 36 GiB |
-| 总容量 | 约 108 GiB |
+| 单池容量 | 37.5 GiB |
+| 总容量 | 112.5 GiB |
 
 默认使用 file-per-process，是为了保留每个 rank 参与并行 I/O 的语义，同时降低单节点 CephFS 上 shared-file 锁和元数据争用带来的干扰。三个数据池等容量是便于比较冷热容量的单节点缩放参数，不是 WRF trace 给出的容量比例。
 
-IOR 的 `BLOCK_SIZE=9g` 表示每个 MPI rank 在一个数据池中的数据量，不是单次 I/O 请求大小。可与 Vdbench `xfersize` 对比的是 `TRANSFER_SIZE=1m`。当前单节点正式 Vdbench 负载多数使用 4 MiB 请求，因此 IOR 与 Vdbench 的请求粒度并不一致；跨工具比较性能时必须把这一差异作为控制变量。
+IOR 的 `BLOCK_SIZE=9600m` 表示每个 MPI rank 在一个数据池中的数据量，不是单次 I/O 请求大小；`4 rank × 9,600 MiB = 37.5 GiB`。可与 Vdbench `xfersize` 对比的是 `TRANSFER_SIZE=4m`，所以当前 IOR 与五个正式 Vdbench 负载采用相同的 4 MiB 请求粒度。两类工具仍有 MPI file-per-process 与 Vdbench 文件集模型的语义差异，不能把工具差异误判为冷热模块开销。
 
 ## 4. 文件结构
 
@@ -91,8 +91,8 @@ ANCHOR=/mnt/cephfs/hpc_wrf_ior_v1 \
 IOR_BIN=/home/chris/PDSL/ior/src/ior \
 MPI_RUN=/usr/mpi/gcc/openmpi-4.1.9a1/bin/mpirun \
 NP=4 \
-BLOCK_SIZE=9g \
-TRANSFER_SIZE=1m \
+BLOCK_SIZE=9600m \
+TRANSFER_SIZE=4m \
 SEGMENT_COUNT=1 \
 PHASE_SECONDS=150 \
 ./render_config.sh
@@ -114,7 +114,7 @@ PHASE_SECONDS=150 \
 ./prepare_data.sh
 ```
 
-`prepare_data.sh` 会渲染并执行 `rendered/prepare_data.sh`，先删除旧版的 `input/`、`restart/`、`wrfrst_old*` 和 `wrfout_old*` 数据，再创建三个各约 36 GiB、合计约 108 GiB 的文件池。这个脚本具有破坏性，只应在需要重新造数且确认旧版 HPC 数据无需保留时运行。
+`prepare_data.sh` 会渲染并执行 `rendered/prepare_data.sh`，先删除旧版的 `input/`、`restart/`、`wrfrst_old*` 和 `wrfout_old*` 数据，再创建三个各 37.5 GiB、合计 112.5 GiB 的文件池。这个脚本具有破坏性，只应在需要重新造数且确认旧版 HPC 数据无需保留时运行。
 
 后续正式测试：
 
@@ -131,7 +131,7 @@ PHASE_SECONDS=150 \
 
 正式测试只有读操作。每阶段使用 POSIX Direct I/O，并同时设置 `minTimeDuration=150` 和 `-D 150`：设备较快时循环读取到约 150 秒，设备较慢时在约 150 秒停止提交新 I/O。`stoneWallingWearOut=0` 避免为追平 rank 操作量继续延长阶段。四阶段 I/O 时间约 600 秒，加上 MPI 启停和文件打开/关闭后，总墙钟时间通常略高于 10 分钟。
 
-150 秒限制针对数据传输，不是系统级硬超时；Ceph 或 MPI 调用卡死时仍可能延长。若 150 秒不足以完整扫描 36 GiB 数据池，顺序读可能只覆盖文件前部，这是固定阶段时间的已知取舍。
+150 秒限制针对数据传输，不是系统级硬超时；Ceph 或 MPI 调用卡死时仍可能延长。若 150 秒不足以完整扫描 37.5 GiB 数据池，顺序读可能只覆盖文件前部，这是固定阶段时间的已知取舍。
 
 ## 7. 当前环境注意事项
 

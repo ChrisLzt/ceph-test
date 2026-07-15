@@ -33,7 +33,7 @@
 - `fwdrate=max`
 - 四个阶段各 150 秒，总时长 10 分钟
 
-主 MapReduce 负载当前使用 4 MiB、`fwdrate=1000`，因此本目录的 1 MiB、
+主 MapReduce 负载当前使用 4 MiB、`fwdrate=max`，因此本目录的 1 MiB、
 `fwdrate=max` 不能作为严格同参性能对照。它只适合快速判断“固定热点是否比
 迁移热点更容易识别”；需要定量比较时，应先让两个脚本的 I/O 参数一致。
 

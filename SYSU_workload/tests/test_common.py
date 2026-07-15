@@ -1,40 +1,21 @@
 import unittest
+from decimal import Decimal
 
-from SYSU_workload.common.layout import (
-    aggregate_zipf_percentages,
-    bucket_counts,
-    split_skew,
-)
+from workload_common.layout import SYSU_LAYOUT, rank_bucket_skews
 
 
-class MixedLayoutTests(unittest.TestCase):
-    def test_one_unit_has_equal_capacity_per_size(self) -> None:
-        self.assertEqual(bucket_counts(1), {4: 16, 8: 8, 16: 4, 32: 2, 64: 1})
+class SysuLayoutTests(unittest.TestCase):
+    def test_750_gib_mixed_size_layout(self) -> None:
+        self.assertEqual(SYSU_LAYOUT.sizes_mib, (4, 8, 16, 32, 64))
+        self.assertEqual(SYSU_LAYOUT.files_for_units(1), {4: 16, 8: 8, 16: 4, 32: 2, 64: 1})
+        self.assertEqual(SYSU_LAYOUT.capacity_mib(2400), 750 * 1024)
 
-    def test_750_gib_layout(self) -> None:
-        counts = bucket_counts(2400)
-        self.assertEqual(sum(size * files for size, files in counts.items()), 750 * 1024)
-        self.assertEqual(sum(counts.values()), 74400)
-
-    def test_scaled_zipf_profiles(self) -> None:
-        self.assertEqual(
-            aggregate_zipf_percentages(64000, 20, 0.99),
-            [73, 6, 3, 2] + [1] * 16,
-        )
-        self.assertEqual(
-            aggregate_zipf_percentages(166400, 20, 0.99),
-            [74, 5, 3, 2] + [1] * 16,
-        )
-
-    def test_fractional_bucket_skew(self) -> None:
-        self.assertEqual(split_skew(13), ["2.6"] * 5)
-        self.assertEqual(split_skew(1), ["0.2"] * 5)
-
-    def test_rejects_invalid_layout_inputs(self) -> None:
-        with self.assertRaisesRegex(ValueError, "units must be positive"):
-            bucket_counts(0)
-        with self.assertRaisesRegex(ValueError, "divisible"):
-            aggregate_zipf_percentages(101, 20, 0.99)
+    def test_decimal_zipf_is_not_integer_floor_normalized(self) -> None:
+        skews = rank_bucket_skews(SYSU_LAYOUT, 800, 80, 100)
+        values = [Decimal(value) for rank in skews.values() for value in rank.values()]
+        self.assertEqual(sum(values), Decimal("100"))
+        self.assertTrue(any(value < 1 for value in values))
+        self.assertTrue(all(value > 0 for value in values))
 
 
 if __name__ == "__main__":

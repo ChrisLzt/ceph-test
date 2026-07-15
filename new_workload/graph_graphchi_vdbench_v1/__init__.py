@@ -1,0 +1,1 @@
+"""Single-node GraphChi workload."""

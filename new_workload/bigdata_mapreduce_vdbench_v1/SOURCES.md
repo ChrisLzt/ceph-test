@@ -6,7 +6,8 @@ Cristina L. Abad, Nathan Roberts, Yi Lu, Roy H. Campbell, “A Storage-Centric A
 
 - DOI：<https://doi.org/10.1109/IISWC.2012.6402909>
 - 作者公开全文：<https://assured-cloud-computing.illinois.edu/files/2014/03/A-Storage-Centric-Analysis-of-MapReduce-Workloads-File-Popularity-Temporal-Locality-and-Arrival-Patterns.pdf>
-- 来源等级：B（同行评审论文 + Yahoo! 生产 trace）
+- CCF 目录：IISWC 未被当前 CCF 推荐目录收录；本文仍是基于 Yahoo! 生产
+  trace 的同行评审来源，不把它标为 CCF-B。
 
 数据范围：
 
@@ -26,7 +27,7 @@ Cristina L. Abad, Nathan Roberts, Yi Lu, Roy H. Campbell, “A Storage-Centric A
 | inactive storage 占 51%～52% 文件 | §IV-A/I1 | 不再单独造 0 访问池 | 当前要求所有测试数据都被访问，因此不直接复现 inactive 文件数 |
 | inactive storage 占 42%～46% bytes | §IV-A/I1 | 使用 PROD 口径的 46% 作为 cold 容量；当前把该 46% 按 2.21:2.21:2.21:47.37 分给 A/B/C/背景池 | 论文只给范围；由于访问侧使用 PROD 的 85.41%，容量侧也采用 PROD 侧的 46% |
 | file population 高 churn、静态 popularity 模型不足 | §IV-A/I2、§VI | A→B→C→A 热点迁移 | 迁移顺序和阶段时长是工程扩展 |
-| file size 与 popularity 没有强相关 | §IV-E/I7 | 所有对象池文件统一为 12 MiB | individual size 不是生产分布；用于单节点 100～120 GiB 测试预算 |
+| file size 与 popularity 没有强相关 | §IV-E/I7 | 每池使用 4/8/16 MiB 三档等容量文件 | 三档大小和等容量规则是受控参数，不是生产文件分布 |
 
 ## 3. 已核对但不作为默认容量热度映射的观测值
 
@@ -45,7 +46,10 @@ Cristina L. Abad, Nathan Roberts, Yi Lu, Roy H. Campbell, “A Storage-Centric A
 - PROD：15.03% 文件只访问 1 次，68.40% 最多 5 次，80.98% 最多 10 次。
 - R&D：23.66% 文件只访问 1 次，84.25% 最多 5 次，90.08% 最多 10 次。
 
-v1 不使用聚合 top-open share 作为默认热点强度，也没有生成完整 power-law/低频分布。当前 400/400/400/8800 文件数来自论文 PROD 原始容量模型 2.21/2.21/2.21/47.37/46 去除 0 访问 cold 池后的重分配，并取整为 4/4/4/88。
+v1 不使用聚合 top-open share 作为默认热点强度，也没有生成完整 power-law/低频
+分布。当前 96/96/96/2112 容量单元来自论文 PROD 原始容量模型
+2.21/2.21/2.21/47.37/46 去除 0 访问 cold 池后的重分配，并取整为
+4/4/4/88；每池再拆成 24 个等容量 rank。
 
 ### Age at access（AOA）
 
@@ -84,9 +88,10 @@ Oracle Vdbench User Guide 定义了本负载使用的机制：
 - FSD `files`/`sizes`：对象池文件数量和大小。
 - FWD `operation=read`：data operations。
 - FWD `skew`：各对象池获得的总 operation 比例。
-- RD `fwdrate`：所有 FWD 的固定总 operation rate。
+- RD `fwdrate=max`：在当前设备可承受范围内尽快发出 operation。
 - RD `format=only`：只创建目录/文件结构。
-- `abort_failed_skew`/skew report：检查实际 workload share。
+- 保留 skew report 检查实际 workload share；不使用 `abort_failed_skew=2` 硬中止，
+  因为 4 MiB、单盘受限的 10 分钟测试无法保证每个 FSD 达到建议的 2000 次操作。
 
 来源等级：A（工具官方文档）。
 

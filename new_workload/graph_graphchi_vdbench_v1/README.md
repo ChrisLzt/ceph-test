@@ -1,180 +1,50 @@
-# GraphChi 图计算冷热负载 vdbench v1
+# GraphChi shard 内 Zipf 冷热负载
 
-## 1. 用途
+## 来源与设计逻辑
 
-本负载用于验证存储系统能否识别图计算中的 shard 级移动热点：
+应用语义来源于 Kyrola、Blelloch、Guestrin 的 *GraphChi: Large-Scale Graph
+Computation on Just a PC*（OSDI 2012，CCF-A）。GraphChi 把图划分为 shard，
+并按顶点 interval 顺序处理。详细来源边界见 [SOURCES.md](SOURCES.md)。
 
-- 当前 GraphChi execution interval 对应的 memory-shard 升温；
-- sliding shards 产生由图结构决定的背景访问；
-- interval 轮换后热点迁移；
-- 第一轮依次覆盖全部 4 个 shard；
-- 第二轮重新处理 interval 0，观察 shard_00 复热。
+为了让单个阶段具有明确、可控且不超过 512 FWD 的文件热度，本版本不再实现
+Parallel Sliding Windows，也不再构造 `window_srcXX_dstYY`。它保留“shard 顺序
+处理”这一上层生命周期，并在每个 shard 内使用 Zipf(0.99) rank 分布。shard
+等容量、100 rank 和 Zipf 参数都是受控实验参数，不是 GraphChi 论文测量值。
 
-它不运行 GraphChi 程序，而是使用 GraphChi 论文中的 Parallel Sliding Windows 访问规则，把一张确定性 generated graph 转换成 vdbench workload。
+## 数据构造
 
-## 2. 权威来源
+- 4 个等容量 shard，每个 600 单元、28.125 GiB；
+- 每个 shard 100 rank，每 rank 6 单元、288 MiB；
+- 每 rank 包含 24 个 4 MiB、12 个 8 MiB 和 6 个 16 MiB 文件；
+- 总计 400 rank、2,400 单元、112.5 GiB。
 
-主要来源：
+每个 shard 的三个固定大小档分别计算 Zipf(0.99)，再聚合到同一组40个等容量
+rank。因此一个阶段有 `100 × 3 = 300` 个FWD，rank 1最热，长尾rank仍有
+非零理论访问概率。
 
-- Kyrola、Blelloch、Guestrin，*GraphChi: Large-Scale Graph Computation on Just a PC*，OSDI 2012。
-- 论文页面：<https://www.usenix.org/conference/osdi12/technical-sessions/presentation/kyrola>
-- 论文 PDF：<https://www.usenix.org/system/files/conference/osdi12/osdi12-final-126.pdf>
+## 正式阶段
 
-工具来源：
+四个逻辑阶段依次处理 shard 00、01、02、03，每个占150秒预算：
 
-- Oracle Vdbench：<https://www.oracle.com/downloads/server-storage/vdbench-downloads.html>
+| 时间 | 热点状态 |
+|---:|---|
+| 0–150 s | shard 00内部Zipf读 |
+| 150–300 s | shard 01内部Zipf读 |
+| 300–450 s | shard 02内部Zipf读 |
+| 450–600 s | shard 03内部Zipf读 |
 
-详细映射见 [SOURCES.md](SOURCES.md)。
+每个阶段只读取当前shard，热点在边界直接切换。每阶段最多300 FWD。全部为
+4 MiB顺序读、Direct I/O、`fwdrate=max`，合计600秒。完整测试中
+四个shard都会被访问，但不再设置shard 0复热。
 
-## 3. 负载逻辑
+## 数据迁移
 
-GraphChi 论文 Algorithm 3 的关键规则：
+旧版`window_src*`数据与当前布局不兼容。首次重新造数据时，`prepare_data.sh`
+会在该负载的shard目录下删除旧window目录，再创建新的`shard/rank/size`结构。
 
-- 当前 interval `p` 的 `shard[p]` 通过 `readFully()` 完整读入，成为 memory-shard。
-- 非当前 shard 通过 `readNextWindow(a,b)` 读取 sliding window。
-- sliding window 的长度依赖图的 degree distribution，因此不手写固定热点比例。
+## 适用范围
 
-本实现的工作流是：
+适合观察shard级热点迁移和shard内部文件热度；不执行GraphChi、PageRank、顶点
+更新、message passing、收敛判断、PSW sliding window或GraphChi原生shard编码。
 
-```text
-生成图 -> 按 GraphChi PSW 规则计算比例 -> 渲染 vdbench -> 分开造数据/跑测试
-```
-
-比例计算方式：
-
-```text
-memory_shard_edges(p)
-  = dst 属于 interval p 的所有边
-
-sliding_window_edges(p, s)
-  = src 属于 interval p 且 dst 属于 interval s 的边，s != p
-
-skew(p, s)
-  = shard_edges(p, s) / sum(shard_edges(p, *))
-```
-
-因此 vdbench `skew` 的来源是 `generated graph 的边分布 + GraphChi PSW readFully/readNextWindow 规则`，不是经验比例。
-
-默认 generated graph 写入 [datasets/smoke_edges.tsv](datasets/smoke_edges.tsv)。默认参数：
-
-| 参数 | 默认值 |
-|---|---:|
-| intervals | 4 |
-| vertices_per_interval | 128 |
-| iterations | 1 |
-| reheat_interval | 0 |
-| files_per_shard | 1800 |
-| file_size | 16 MiB |
-| 总容量 | 约 112.50 GiB |
-
-## 4. 文件结构
-
-- [scripts/generate_graph.py](scripts/generate_graph.py)：生成确定性 generated graph。
-- [scripts/derive_profile.py](scripts/derive_profile.py)：根据边分布和 PSW 规则生成 vdbench 模板。
-- [configs/prepare_data.vdb.in](configs/prepare_data.vdb.in)：只造数据的模板。
-- [configs/run_test.vdb.in](configs/run_test.vdb.in)：只跑正式阶段的模板。
-- `rendered/prepare_data.vdb`：渲染后的造数据配置。
-- `rendered/run_test.vdb`：渲染后的正式测试配置。
-- [prepare_data.sh](prepare_data.sh)：只执行 clean/create。
-- [run_test.sh](run_test.sh)：只执行正式测试，不包含 `format=`。
-- [validate_model.sh](validate_model.sh)：重新渲染并校验模型。
-
-本目录不提供外部冷热真值表。冷热判断由使用者结合阶段、shard 访问统计和被测系统观测自行判断。
-
-## 5. 生成配置
-
-```bash
-cd /home/chris/ceph-test/new_workload/graph_graphchi_vdbench_v1
-./render_config.sh
-```
-
-默认生成两个独立配置：
-
-- `rendered/prepare_data.vdb`：只包含 `prepare_clean` 和 `prepare_create`。
-- `rendered/run_test.vdb`：包含 `iter1_i0` 到 `iter1_i3`，以及 `iter2_i0` 复热阶段；不包含任何 `format=`。
-
-也可以只渲染其中一个：
-
-```bash
-./render_config.sh prepare
-./render_config.sh run
-```
-
-常用环境变量：
-
-```bash
-ANCHOR=/mnt/cephfs/graph_graphchi_vdbench_v1 \
-VDBENCH_HOME=/home/chris/PDSL/vdbench \
-REMOTE_USER=chris \
-HOST1=s52.servers.hustpdsl.cn \
-PHASE_SECONDS=120 \
-FWD_RATE=1000 \
-THREADS=16 \
-FILES_PER_SHARD=1800 \
-FILE_SIZE=16m \
-XFER_SIZE=4m \
-INTERVALS=4 \
-VERTICES_PER_INTERVAL=128 \
-ITERATIONS=1 \
-REHEAT_INTERVAL=0 \
-./render_config.sh
-```
-
-默认数据路径为 `/mnt/cephfs/graph_graphchi_vdbench_v1`，不再添加 `new_workload/` 中间层。默认 Vdbench 目录为 `/home/chris/PDSL/vdbench`，默认只使用当前单节点 `s52.servers.hustpdsl.cn`。准确率测试默认固定 `FWD_RATE=1000`；只有单独测峰值性能时才显式使用 `FWD_RATE=max`。
-
-## 6. 执行
-
-运行前先检查参数和容量：
-
-```bash
-./validate_model.sh
-```
-
-第一次造数据：
-
-```bash
-./prepare_data.sh
-```
-
-`prepare_data.sh` 会渲染并执行 `rendered/prepare_data.vdb`。其中 `prepare_clean` 通过 `format=(clean,only)` 清理旧结构，`prepare_create` 通过 `format=(restart,only)` 创建约 112.50 GiB 文件。这个脚本会清理/重建数据，只应在需要重新造数时运行。
-
-后续正式测试：
-
-```bash
-./run_test.sh
-```
-
-`run_test.sh` 会渲染并执行 `rendered/run_test.vdb`。该配置没有 `format=`，不会执行 clean/create，不会重新造数据。默认先执行一轮完整 GraphChi interval 序列，再执行第二轮 interval 0，共 5 个阶段，每阶段 `PHASE_SECONDS=120`，总时长约 10 分钟。
-
-默认阶段顺序为：
-
-```text
-iter1_i0 -> iter1_i1 -> iter1_i2 -> iter1_i3 -> iter2_i0
-```
-
-最后一个阶段沿用同一张图和同一套 PSW 比例，使第一阶段的主热点 `shard_00` 在经历三个其他 interval 后复热。GraphChi 论文支持算法按多轮迭代再次从 interval 0 开始；只截取第二轮的第一个 interval，是为了在 10 分钟预算内同时观察一次完整迁移和一次复热，并非论文规定的固定阶段数。
-
-## 7. 验收
-
-负载符合度：
-
-- `validate_model.sh` 通过；
-- Vdbench `-s` 能解析 `prepare_data.vdb` 和 `run_test.vdb`；
-- `run_test.vdb` 中没有 `format=`；
-- 每个正式阶段的 FWD `skew` 合计为 100；
-- `skew.html` 中各 shard 实际 share 与目标相差不超过 2 个百分点。
-
-冷热识别：
-
-- 每个 `iterX_iY` 中，`shard_Y` 是 memory-shard，通常应是该阶段主要热点；
-- 其他被访问 shard 是 sliding-shard，热度由边分布决定；
-- 前 4 个阶段依次观察 `shard_00` 到 `shard_03` 的热点迁移；
-- `iter2_i0` 观察 `shard_00` 复热；
-- 记录 time-to-promote、time-to-demote、time-to-reheat、迁移字节和 P95/P99 时延。
-
-## 8. 已知边界
-
-- 本负载适合评价 shard 级冷热识别，不等价于完整 GraphChi benchmark。
-- 默认 generated graph 是受控输入，不代表生产图分布。
-- 本负载不模拟 GraphChi 原生 shard 文件格式、PageRank 数值计算、顶点更新或收敛。
-- 如果获得真实图边列表，应替换 `EDGE_FILE` 后用同一 `derive_profile.py` 重新计算比例。
+数据默认位于`/mnt/cephfs/graph_graphchi_vdbench_v1`。

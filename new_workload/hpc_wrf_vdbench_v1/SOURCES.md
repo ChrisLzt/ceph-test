@@ -27,9 +27,9 @@
 - YCSB Zipfian generator：
   <https://github.com/brianfrankcooper/YCSB/blob/master/core/src/main/java/site/ycsb/generator/ZipfianGenerator.java>
 
-本负载采用 alpha=0.99，先对每个 WRF 数据组的 9600 个 4 MiB 建模对象
-计算 Zipf 概率，再聚合为 20 个等容量 rank。Zipf 只用于制造细粒度、
-非零的冷热访问偏斜，不是 WRF trace 或 WRF 官方参数。
+本负载采用 alpha=0.99。每个 WRF 数据组包含 80 个等容量 rank；4/8/16 MiB
+三个固定大小档分别按真实文件数计算 Zipf 概率，再聚合到 80 个 rank。Zipf
+只用于制造细粒度、非零的冷热访问偏斜，不是 WRF trace 或 WRF 官方参数。
 
 ## 执行工具
 
@@ -41,7 +41,8 @@ Vdbench 用于：
 - 创建等容量文件池；
 - 通过 FWD `skew` 分配 rank 访问比例；
 - 使用固定阶段时间、纯读、顺序文件 I/O 和 Direct I/O；
-- 通过 `abort_failed_skew=2` 检查目标比例偏差。
+- 保留 skew report 检查目标比例偏差；不使用 `abort_failed_skew=2` 硬中止，因为
+  4 MiB、单盘受限的 10 分钟测试无法保证每个 FSD 达到建议的 2000 次操作。
 
 ## 保留的 IOR 版本
 

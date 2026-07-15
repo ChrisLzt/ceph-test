@@ -6,12 +6,16 @@ cd "$script_dir"
 
 ./render_config.sh prepare
 
-anchor=${ANCHOR:-/mnt/cephfs/ai_inference_kvcache_vdbench_v1}
+anchor=${ANCHOR:-${ANCHOR_ROOT:-/mnt/cephfs}/ai_inference_kvcache_vdbench_v1}
 vdbench_home=${VDBENCH_HOME:-/home/chris/PDSL/vdbench}
 output_dir=${OUTPUT_DIR:-output/prepare_data}
 
 mkdir -p "$anchor"
 echo "Ensured data anchor: $anchor"
+find "$anchor" -mindepth 2 -maxdepth 2 -type d -name 'rank_*' \
+  -prune -exec rm -rf -- {} +
+find "$anchor" -mindepth 2 -maxdepth 2 -type d -name 'size_*m' \
+  -prune -exec rm -rf -- {} +
 
 stale_dirs=(
   kv_active_01 kv_active_02 kv_active_03 kv_active_04

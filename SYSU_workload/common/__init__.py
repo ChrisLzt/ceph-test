@@ -1,23 +1,11 @@
-"""Shared building blocks for SYSU Vdbench workload renderers."""
+"""Compatibility access to the repository-level shared generators."""
 
-from .layout import (
-    FILES_PER_UNIT,
-    SIZE_MIB,
-    UNIT_MIB,
-    Bucket,
-    aggregate_zipf_percentages,
-    bucket_counts,
-    make_buckets,
-    split_skew,
-)
+from workload_common.layout import SYSU_LAYOUT, Bucket, Layout, make_rank_buckets, rank_bucket_skews
 
 __all__ = [
-    "FILES_PER_UNIT",
-    "SIZE_MIB",
-    "UNIT_MIB",
     "Bucket",
-    "aggregate_zipf_percentages",
-    "bucket_counts",
-    "make_buckets",
-    "split_skew",
+    "Layout",
+    "SYSU_LAYOUT",
+    "make_rank_buckets",
+    "rank_bucket_skews",
 ]

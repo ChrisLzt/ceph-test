@@ -7,12 +7,12 @@ from pathlib import Path
 
 
 COLUMNS = [
-    "profile", "workload", "repetition", "io", "labeled", "pending",
+    "profile", "otsu_data_source", "workload", "repetition", "io", "labeled", "pending",
     "drop", "tp", "fp", "tn", "fn", "accuracy", "balanced_accuracy",
     "precision", "recall", "pred_hot_percent", "actual_hot_percent",
     "majority_baseline", "accuracy_excess", "hot_threshold",
     "otsu_candidate_threshold", "otsu_separation_percent",
-    "otsu_confidence_percent", "predict_threshold",
+    "otsu_confidence_percent", "otsu_vote_count", "predict_threshold",
     "predict_threshold_target", "snapshot_publish_count",
     "predict_latency_avg_ns", "vdbench_rate", "vdbench_mb_sec",
 ]
@@ -89,6 +89,7 @@ def main() -> None:
     majority_baseline = max(actual_hot_percent, 100.0 - actual_hot_percent)
     values = {
         "profile": metadata["profile"],
+        "otsu_data_source": metadata.get("otsu_data_source", 0),
         "workload": metadata["workload"],
         "repetition": metadata.get("repetition", 1),
         "io": samples["hp_io_count"],
@@ -111,6 +112,7 @@ def main() -> None:
         "otsu_candidate_threshold": heat_state["hp_otsu_candidate_threshold_avg"],
         "otsu_separation_percent": heat_state["hp_otsu_separation_percent_avg"],
         "otsu_confidence_percent": heat_state["hp_otsu_confidence_percent_avg"],
+        "otsu_vote_count": heat_state["hp_otsu_histogram_vote_count"],
         "predict_threshold": prediction["hp_hot_predict_threshold_avg"],
         "predict_threshold_target": prediction["hp_hot_predict_threshold_target_avg"],
         "snapshot_publish_count": training["hp_snapshot_publish_count"],
