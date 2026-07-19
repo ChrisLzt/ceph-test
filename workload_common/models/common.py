@@ -10,6 +10,7 @@ from workload_common.layout import (
     SKEW_QUANTUM,
     Bucket,
     Layout,
+    RankSpans,
     buckets_by_rank,
     make_rank_buckets,
     rank_bucket_skews,
@@ -35,6 +36,7 @@ def ranked_profile(
     group_weight: Decimal | int | float | str,
     *,
     hot_rank: int = 1,
+    rank_spans: RankSpans | None = None,
 ) -> Profile:
     """Expand rank/size Zipf skews into a bucket-addressable profile."""
     skews = rank_bucket_skews(
@@ -43,10 +45,11 @@ def ranked_profile(
         rank_count,
         group_weight,
         hot_rank=hot_rank,
+        rank_spans=rank_spans,
     )
     return {
         bucket: Decimal(skews[rank][bucket.size_mib])
-        for rank in range(1, rank_count + 1)
+        for rank in sorted(grouped)
         for bucket in grouped[rank]
     }
 
@@ -114,28 +117,39 @@ def append_profile_rd(
     threads: int,
     fwdrate: str,
     elapsed: int,
+    fwd_set_name: str | None = None,
+    define_fwd: bool = True,
 ) -> None:
-    """Emit one uniquely named FWD set and its RD for a complete profile."""
+    """Emit a profile RD, optionally reusing an earlier FWD set."""
     if elapsed <= 0:
         raise ValueError("profile RD elapsed time must be positive")
+    set_name = fwd_set_name or name
     names: list[str] = []
     for bucket in sorted(profile, key=lambda item: item.name):
-        fwd_name = f"{name}_{bucket.name.removeprefix('fsd_')}"
+        fwd_name = f"{set_name}_{bucket.name.removeprefix('fsd_')}"
         names.append(fwd_name)
-        bucket_fileio = fileio(bucket) if callable(fileio) else fileio
-        lines.append(
-            fwd_line(
-                name=fwd_name,
-                bucket=bucket,
-                operation="read",
-                fileio=bucket_fileio,
-                threads=threads,
-                skew=skew_text(profile[bucket]),
+        if define_fwd:
+            bucket_fileio = fileio(bucket) if callable(fileio) else fileio
+            lines.append(
+                fwd_line(
+                    name=fwd_name,
+                    bucket=bucket,
+                    operation="read",
+                    fileio=bucket_fileio,
+                    threads=threads,
+                    skew=skew_text(profile[bucket]),
+                )
             )
-        )
-    lines.append("")
+    if define_fwd:
+        lines.append("")
     rds.append(
-        rd_line(name=name, fwds=names, rate=fwdrate, elapsed=elapsed)
+        rd_line(
+            name=name,
+            fwds=names,
+            rate=fwdrate,
+            elapsed=elapsed,
+            fwd_set_name=set_name,
+        )
     )
 
 
@@ -189,6 +203,7 @@ def make_group(
     prefix: str,
     units: int,
     ranks: int,
+    rank_spans: RankSpans | None = None,
     anchor_suffix: str | None = None,
 ) -> tuple[list[Bucket], dict[int, list[Bucket]]]:
     suffix = anchor_suffix or group
@@ -199,6 +214,7 @@ def make_group(
         group=group,
         total_units=units,
         rank_count=ranks,
+        rank_spans=rank_spans,
     )
     return buckets, buckets_by_rank(buckets)
 

@@ -14,7 +14,8 @@
 - MLPerf Storage / DLIO：提供训练存储、checkpoint 和 KV cache benchmark
   语义，但参数不等于真实线上冷热比例。
 
-AI 训练将每个数据组切成 100 个等容量 rank，AI 推理切成 80 个等容量 rank。
+AI训练和AI推理均先将每个数据组划分为100个等容量参考rank，再保留前20个、
+将后80个每4个合并，形成40个物理bin。
 每个固定文件大小档
 按真实文件数量独立计算 Zipf(0.99)，再把连续文件概率聚合到 rank，以十进制
 小数写入 Vdbench。没有整数化、最小 1% 或全程不访问的数据。
@@ -37,8 +38,9 @@ Meta DSI 或 PagedAttention 的实测冷热比例。
 1. 选择 Criteo Terabyte、DLRM/MLPerf DLRM 或目标系统访问记录；
 2. 按 sample ID、categorical feature ID 或 embedding ID 统计访问频次；
 3. 获得或明确假设每个 ID 的存储容量；
-4. 按频次降序，并按等容量聚合到 100 个 rank；
-5. 输出每 rank 的容量、访问次数、访问占比和累计访问占比；
+4. 按频次降序，并按等容量聚合到100个参考rank，再按当前20%头部保留规则
+   聚合为40个物理bin；
+5. 同时输出每个参考rank及物理bin的容量、访问次数、访问占比和累计访问占比；
 6. 用 trace 权重替换 dataset 的 Zipf 权重，同时保留 checkpoint 生命周期。
 
 如果只有 feature 频次而没有真实容量，文档必须写明“由公开数据集访问频次与
@@ -49,7 +51,7 @@ Meta DSI 或 PagedAttention 的实测冷热比例。
 1. 获取 request/session/prefix trace；
 2. 将 prefix、session 或 KV block 映射到带容量的 cache 对象；
 3. 统计 prefill、decode 和 prefix reuse 中每对象读取次数；
-4. 按容量聚合到 active/next/prefix 各 80 个 rank；
+4. 按容量聚合到 active/next/prefix 各100个参考rank，再压缩为40个物理bin；
 5. 计算每阶段 rank 访问占比，并替换当前 Zipf 权重；
 6. 保留 prefill/decode 模式切换与数据组迁移语义。
 

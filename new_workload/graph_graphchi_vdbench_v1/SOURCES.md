@@ -9,7 +9,7 @@
 
 论文支持图被划分为shard、顶点interval按顺序处理，以及PSW通过memory shard
 和sliding window执行图计算。论文没有规定本负载使用的4 shard、等容量shard、
-100 rank、Zipf(0.99)或150秒阶段。
+100个参考rank、40个物理bin、Zipf(0.99)或150秒阶段。
 
 ## 当前映射
 
@@ -17,7 +17,8 @@
 
 1. `shard_00`到`shard_03`表示四个按目标顶点范围划分的数据分区；
 2. 四阶段顺序处理四个shard，表达GraphChi的interval/shard扫描生命周期；
-3. 每个shard内部独立使用100个Zipf rank，制造可验证的阶段内文件冷热；
+3. 每个shard内部独立使用100个参考Zipf rank，前20个单独保留，后80个每4个
+   合并，形成40个物理bin；
 4. shard热点在150秒阶段边界直接切换，不设论文未规定的中间比例。
 
 因此本负载应称为“GraphChi shard生命周期启发的冷热识别负载”，不能称为
@@ -30,8 +31,8 @@ GraphChi PSW复现或完整GraphChi benchmark。
 - Oracle Vdbench：
   <https://www.oracle.com/downloads/server-storage/vdbench-downloads.html>
 
-每个shard的每个固定文件大小档独立计算Zipf(0.99)，再聚合到100个等容量rank。
-Vdbench只负责把FSD/FWD/RD模型施加到CephFS。
+每个shard的每个固定文件大小档独立计算100个参考rank的Zipf(0.99)，再聚合到
+40个物理bin。Vdbench只负责把FSD/FWD/RD模型施加到CephFS。
 
 ## 不允许的结论
 

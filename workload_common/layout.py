@@ -11,6 +11,42 @@ import math
 getcontext().prec = 40
 ZIPF_ALPHA = 0.99
 SKEW_QUANTUM = Decimal("0.000000000001")
+RankSpans = tuple[tuple[int, ...], ...]
+
+
+def make_tail_rank_spans(
+    reference_rank_count: int,
+    *,
+    head_rank_count: int,
+    tail_group_size: int,
+) -> RankSpans:
+    """Keep the Zipf head as single ranks and merge the tail contiguously."""
+    if reference_rank_count <= 0:
+        raise ValueError("reference_rank_count must be positive")
+    if not 0 < head_rank_count < reference_rank_count:
+        raise ValueError("head_rank_count must be within the reference ranks")
+    tail_count = reference_rank_count - head_rank_count
+    if tail_group_size <= 0 or tail_count % tail_group_size:
+        raise ValueError("the Zipf tail must be divisible by tail_group_size")
+    spans: list[tuple[int, ...]] = [
+        (rank,) for rank in range(1, head_rank_count + 1)
+    ]
+    for start in range(head_rank_count + 1, reference_rank_count + 1, tail_group_size):
+        spans.append(tuple(range(start, start + tail_group_size)))
+    return tuple(spans)
+
+
+def _validated_rank_spans(
+    reference_rank_count: int,
+    rank_spans: RankSpans | None,
+) -> RankSpans:
+    spans = rank_spans or tuple((rank,) for rank in range(1, reference_rank_count + 1))
+    flattened = tuple(rank for span in spans for rank in span)
+    if not spans or any(not span for span in spans):
+        raise ValueError("rank_spans must contain non-empty spans")
+    if flattened != tuple(range(1, reference_rank_count + 1)):
+        raise ValueError("rank_spans must cover every reference rank once in order")
+    return spans
 
 
 @dataclass(frozen=True)
@@ -91,14 +127,16 @@ def make_rank_buckets(
     group: str,
     total_units: int,
     rank_count: int,
+    rank_spans: RankSpans | None = None,
 ) -> list[Bucket]:
-    """Split a logical group into equal-capacity ranks and size buckets."""
+    """Split a group into physical bins backed by equal reference ranks."""
     if total_units <= 0 or rank_count <= 0 or total_units % rank_count:
         raise ValueError("total_units must be positive and divisible by rank_count")
-    units_per_rank = total_units // rank_count
-    counts = layout.files_for_units(units_per_rank)
+    spans = _validated_rank_spans(rank_count, rank_spans)
+    units_per_reference_rank = total_units // rank_count
     buckets: list[Bucket] = []
-    for rank in range(1, rank_count + 1):
+    for rank, span in enumerate(spans, 1):
+        counts = layout.files_for_units(units_per_reference_rank * len(span))
         rank_key = f"{group}:{rank:03d}"
         for size in layout.sizes_mib:
             buckets.append(
@@ -149,6 +187,7 @@ def rank_bucket_skews(
     *,
     hot_rank: int = 1,
     alpha: float = ZIPF_ALPHA,
+    rank_spans: RankSpans | None = None,
 ) -> dict[int, dict[int, str]]:
     """Return exact decimal FWD skews for one ranked logical group.
 
@@ -164,16 +203,29 @@ def rank_bucket_skews(
     if target <= 0:
         raise ValueError("group_weight must be positive")
 
+    spans = _validated_rank_spans(rank_count, rank_spans)
+    reference_to_bin = {
+        reference_rank: bin_rank
+        for bin_rank, span in enumerate(spans, 1)
+        for reference_rank in span
+    }
     result: dict[int, dict[int, Decimal]] = {
-        rank: {} for rank in range(1, rank_count + 1)
+        rank: {} for rank in range(1, len(spans) + 1)
     }
     size_share = target / Decimal(len(layout.sizes_mib))
     ordered: list[tuple[int, int]] = []
     for size, files_per_unit in zip(layout.sizes_mib, layout.files_per_unit):
         profile = _zipf_rank_profile(group_units * files_per_unit, rank_count, alpha)
+        raw_by_bin = {rank: Decimal("0") for rank in result}
         for popularity_index, probability in enumerate(profile):
-            physical_rank = ((hot_rank - 1 + popularity_index) % rank_count) + 1
-            value = (size_share * Decimal(str(probability))).quantize(
+            physical_reference_rank = (
+                (hot_rank - 1 + popularity_index) % rank_count
+            ) + 1
+            raw_by_bin[reference_to_bin[physical_reference_rank]] += Decimal(
+                str(probability)
+            )
+        for physical_rank, probability in raw_by_bin.items():
+            value = (size_share * probability).quantize(
                 SKEW_QUANTUM,
                 rounding=ROUND_HALF_UP,
             )

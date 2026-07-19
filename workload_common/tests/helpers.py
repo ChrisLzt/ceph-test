@@ -84,9 +84,7 @@ def assert_run_contract(
     testcase.assertNotIn("format=", run_text)
     fwds = fwd_definitions(run_text)
     for rd in rd_definitions(run_text):
-        rd_name = rd.split(",", 1)[0].split("=", 1)[1]
         testcase.assertIn("fwdrate=max", rd)
-        testcase.assertIn(f",fwd={rd_name}*,", rd)
         matched_count = len(rd_fwd_names(rd, fwds))
         testcase.assertLessEqual(matched_count, 512)
         testcase.assertIn(matched_count, expected_counts)

@@ -10,14 +10,14 @@ Zipf(0.99) 是受控实验参数，详见 [SOURCES.md](SOURCES.md)。
 
 ## 数据构造
 
-| 数据组 | 单元 | 容量 | rank | 每 rank 容量 |
+| 数据组 | 单元 | 容量 | 参考 rank | 物理 bin |
 |---|---:|---:|---:|---:|
-| `kv_active` | 800 | 37.5 GiB | 80 | 480 MiB |
-| `kv_next` | 800 | 37.5 GiB | 80 | 480 MiB |
-| `kv_prefix` | 800 | 37.5 GiB | 80 | 480 MiB |
+| `kv_active` | 800 | 37.5 GiB | 100 | 40 |
+| `kv_next` | 800 | 37.5 GiB | 100 | 40 |
+| `kv_prefix` | 800 | 37.5 GiB | 100 | 40 |
 
-每 rank 为 10 单元，包含 40 个 4 MiB、20 个 8 MiB 和 10 个 16 MiB 文件。
-每个固定大小档独立计算 Zipf(0.99)，再聚合到 80 个等容量 rank。
+每个固定大小档先按 100 个参考 rank 计算 Zipf(0.99)。前 20 个物理 bin 各为
+8 单元、384 MiB；后 20 个各合并 4 个参考 rank，为 32 单元、1.5 GiB。
 
 ## 正式阶段
 
@@ -33,6 +33,7 @@ Zipf(0.99) 是受控实验参数，详见 [SOURCES.md](SOURCES.md)。
 prefill 与 decode 的切换只改变文件内部访问方式；active 和 next 各自的两阶段
 热点不变。active→next、next→prefix 与 prefix rank 1→2 均在 RD 边界直接
 切换。六个阶段合计 600 秒。所有请求为 4 MiB Direct I/O、`fwdrate=max`。
+每个阶段单节点为 120 FWD。
 
 ## 适用范围
 

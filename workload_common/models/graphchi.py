@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from workload_common.layout import Bucket, Layout
+from workload_common.layout import Bucket, Layout, make_tail_rank_spans
 from workload_common.models.common import (
     Profile,
     append_profile_rd,
@@ -19,6 +19,12 @@ WORKLOAD = "graph_graphchi_vdbench_v1"
 STAGES = (0, 1, 2, 3)
 SHARD_UNITS = 600
 RANK_COUNT = 100
+RANK_SPANS = make_tail_rank_spans(
+    RANK_COUNT,
+    head_rank_count=20,
+    tail_group_size=4,
+)
+BIN_COUNT = len(RANK_SPANS)
 
 
 def _build(
@@ -37,6 +43,7 @@ def _build(
             prefix=f"s{shard:02d}",
             units=SHARD_UNITS,
             ranks=RANK_COUNT,
+            rank_spans=RANK_SPANS,
             anchor_suffix=group,
         )
         all_buckets.extend(buckets)
@@ -55,6 +62,7 @@ def _run_text(layout: Layout, buckets: list[Bucket], grouped: dict[int, dict[int
             SHARD_UNITS,
             RANK_COUNT,
             100,
+            rank_spans=RANK_SPANS,
         )
         for shard in STAGES
     ]

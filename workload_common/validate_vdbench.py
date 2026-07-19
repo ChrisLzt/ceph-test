@@ -89,24 +89,19 @@ def validate_run_text(text: str) -> None:
                 f"run RD {rd_name} must use its prefix wildcard, not an explicit FWD list"
             )
         selector = _parameter(line, "fwd")
-        expected = f"{rd_name}*"
-        if selector != expected:
+        if not selector.endswith("*") or selector.count("*") != 1:
             raise ConfigValidationError(
-                f"run RD {rd_name} must use prefix wildcard {expected}, got {selector}"
+                f"run RD {rd_name} must use one trailing prefix wildcard, got {selector}"
             )
         # Match Vdbench's literal prefix wildcard semantics exactly.  Do not
         # assume an underscore boundary: ``phase*`` also selects ``phase2_*``.
-        names = sorted(name for name in fwds if name.startswith(rd_name))
+        prefix = selector[:-1]
+        names = sorted(name for name in fwds if name.startswith(prefix))
         if not names:
             raise ConfigValidationError(f"run RD {rd_name} wildcard selects no FWDs")
         if len(names) > MAX_EXPLICIT_FWDS:
             raise ConfigValidationError(
                 f"run RD {rd_name} matches {len(names)} FWDs; maximum is {MAX_EXPLICIT_FWDS}"
-            )
-        overlap = selected.intersection(names)
-        if overlap:
-            raise ConfigValidationError(
-                f"run FWD is selected by more than one RD: {sorted(overlap)[0]}"
             )
         selected.update(names)
         skew_total = Decimal("0")

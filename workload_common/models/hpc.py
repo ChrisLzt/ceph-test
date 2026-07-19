@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
-from workload_common.layout import Bucket, Layout
+from workload_common.layout import Bucket, Layout, make_tail_rank_spans
 from workload_common.models.common import (
     append_profile_rd,
     make_group,
@@ -17,7 +17,13 @@ from workload_common.vdbench import config_header, render_fsd_lines, render_prep
 
 WORKLOAD = "hpc_wrf_vdbench_v1"
 GROUP_UNITS = {"startup": 800, "checkpoint": 800, "history": 800}
-RANK_COUNT = 80
+RANK_COUNT = 100
+RANK_SPANS = make_tail_rank_spans(
+    RANK_COUNT,
+    head_rank_count=20,
+    tail_group_size=4,
+)
+BIN_COUNT = len(RANK_SPANS)
 
 
 @dataclass(frozen=True)
@@ -38,7 +44,7 @@ def _build(layout: Layout, anchor_root: str) -> tuple[list[Bucket], dict[str, di
     all_buckets: list[Bucket] = []
     grouped: dict[str, dict[int, list[Bucket]]] = {}
     for group, units in GROUP_UNITS.items():
-        buckets, ranks = make_group(layout=layout, anchor_root=anchor_root, workload=WORKLOAD, group=group, prefix=group, units=units, ranks=RANK_COUNT)
+        buckets, ranks = make_group(layout=layout, anchor_root=anchor_root, workload=WORKLOAD, group=group, prefix=group, units=units, ranks=RANK_COUNT, rank_spans=RANK_SPANS)
         all_buckets.extend(buckets)
         grouped[group] = ranks
     return all_buckets, grouped
@@ -55,10 +61,12 @@ def _run_text(layout: Layout, buckets: list[Bucket], grouped: dict[str, dict[int
             GROUP_UNITS[phase.group],
             RANK_COUNT,
             100,
+            rank_spans=RANK_SPANS,
         )
         for phase in PHASES
     ]
-    for phase, profile in zip(PHASES, profiles):
+    for index, (phase, profile) in enumerate(zip(PHASES, profiles)):
+        reused_name = PHASES[1].name if index == 3 else phase.name
         append_profile_rd(
             lines,
             rds,
@@ -68,6 +76,8 @@ def _run_text(layout: Layout, buckets: list[Bucket], grouped: dict[str, dict[int
             threads=threads,
             fwdrate=fwdrate,
             elapsed=phase_seconds,
+            fwd_set_name=reused_name,
+            define_fwd=index != 3,
         )
     lines.extend(rds)
     lines.append("")

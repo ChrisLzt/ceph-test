@@ -8,27 +8,30 @@
 
 - 每个正式 Vdbench 负载固定 2,400 个逻辑单元，共 112.5 GiB；
 - 每个单元包含 `4 × 4 MiB + 2 × 8 MiB + 1 × 16 MiB = 48 MiB`；
-- 同一逻辑组的每个固定大小档独立计算 Zipf(0.99)，再聚合到等容量 rank；
-- rank 内 `fileselect=random`，文件内部由应用阶段选择顺序读或随机读；
+- 同一逻辑组的每个固定大小档先按 100 个参考 rank 计算 Zipf(0.99)；
+- 前 20% 参考 rank 单独保留，其余参考 rank 每 4 个合并为一个物理 bin；
+- bin 内 `fileselect=random`，文件内部由应用阶段选择顺序读或随机读；
 - 正式阶段均为只读、`xfersize=4m`、Direct I/O、`fwdrate=max`；
 - 阶段边界直接切换热点，不设置 `25/50/75%` 中间渐变态；
-- prepare 每批最多处理 20 个 rank，造数据与正式测试完全分离。
-- 正式 run 的 RD 使用与阶段同名的 `fwd=<阶段名>*` 前缀通配符；这样既保持
-  原 FWD/skew 集合不变，也避免 Vdbench 5.04.07 的单个 RD 显式 FWD 列表上限。
+- prepare 每批最多处理 20 个物理 bin，造数据与正式测试完全分离。
+- 正式 run 的 RD 使用 FWD 前缀通配符；MapReduce 复热和 HPC checkpoint
+  复热直接复用第一次访问时的 FWD 集合。
 
 Zipf(0.99) 是采用 YCSB 常用偏斜参数的受控执行模型，不是五类应用论文给出的
-实测文件热度比例。所有文件都有非零理论概率，但有限测试时长不保证每个长尾
-文件一定实际命中。
+实测文件热度比例。权重先按文件顺序计算，再聚合到参考 rank 和物理 bin；
+Vdbench 在 bin 内随机选择文件，因此实际执行的是分段 Zipf 近似。在所属数据组
+的活动阶段，每个文件都有非零理论概率，但有限测试时长不保证每个长尾文件
+一定实际命中。
 
 ## 正式负载
 
 | 类别 | 目录 | 数据结构 | 正式阶段 |
 |---|---|---|---|
-| 大数据 | `bigdata_mapreduce_vdbench_v1` | 4 个 pool；24 rank/pool | 4 × 150 s |
-| 图计算 | `graph_graphchi_vdbench_v1` | 4 shard × 100 rank | 4 × 150 s |
-| HPC | `hpc_wrf_vdbench_v1` | 3 组 × 80 rank | 4 × 150 s |
-| AI 训练 | `ai_training_checkpoint_vdbench_v1` | dataset/current/old × 100 rank | 3 × 160 s + 2 × 60 s |
-| AI 推理 | `ai_inference_kvcache_vdbench_v1` | active/next/prefix × 80 rank | 6 × 100 s |
+| 大数据 | `bigdata_mapreduce_vdbench_v1` | 4 pool ×（100 参考 rank → 40 bin） | 4 × 150 s |
+| 图计算 | `graph_graphchi_vdbench_v1` | 4 shard ×（100 → 40） | 4 × 150 s |
+| HPC | `hpc_wrf_vdbench_v1` | 3 组 ×（100 → 40） | 4 × 150 s |
+| AI 训练 | `ai_training_checkpoint_vdbench_v1` | dataset/current/old ×（100 → 40） | 3 × 160 s + 2 × 60 s |
+| AI 推理 | `ai_inference_kvcache_vdbench_v1` | active/next/prefix ×（100 → 40） | 6 × 100 s |
 
 每行阶段总时长均为 600 秒。每个阶段只生成一个 RD；热点在相邻 RD 之间直接
 切换，便于按明确时间边界评估冷热识别。
@@ -65,14 +68,12 @@ Vdbench 与 HPC IOR 是同一容量预算下的两种替代表示，不要求同
 配置。可用 `VDBENCH_BIN=/path/to/vdbench` 覆盖默认工具路径。
 
 统一验证器还会展开每个通配符，要求单个正式 RD 实际匹配的 FWD 不超过 512；
-当前单节点最大 300，SYSU 最大 500。
+MapReduce 单节点/SYSU 每阶段分别为 240/400 FWD，其他四种负载分别为
+120/200 FWD。
 
 首次运行依次执行 validate、prepare、run；数据准备完成后只重复 run。默认数据
 根目录为 `/mnt/cephfs`，也可通过 `ANCHOR_ROOT` 覆盖。单节点 `hd=` 参数由
 `HOST1`、`REMOTE_USER` 和 `VDBENCH_HOME` 生成。
 
-本次布局已从旧版单一文件大小/少量 rank 改为新的混合大小目录结构；已有旧版
-数据不能复用，首次切换时必须重新执行 prepare，并确认旧目录已清理。
-
-`bigdata_fixed_hot_vdbench_v1` 与 `graph_graphchi_fixed_hot_vdbench_v1` 是保留的
-旧诊断实验，不属于当前五个正式模型，也没有随本次布局同步更新。
+本次布局使用尾部合并目录结构；MapReduce 已从 10 个物理 bin 改为 40 个，旧
+数据不能直接复用。首次切换时必须重新执行 prepare，并确认旧 `rank_*` 目录已清理。

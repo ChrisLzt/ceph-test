@@ -91,6 +91,20 @@ class VdbenchEmitterTests(unittest.TestCase):
                 elapsed=160,
             )
 
+    def test_run_rd_can_reuse_an_existing_fwd_prefix(self) -> None:
+        fwds = ["checkpoint_data_r001", "checkpoint_data_r002"]
+        line = rd_line(
+            name="checkpoint_reheat",
+            fwds=fwds,
+            fwd_set_name="checkpoint",
+            rate="max",
+            elapsed=150,
+        )
+        self.assertEqual(
+            line,
+            "rd=checkpoint_reheat,fwd=checkpoint*,fwdrate=max,elapsed=150,interval=1",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

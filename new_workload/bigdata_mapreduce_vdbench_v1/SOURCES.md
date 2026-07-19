@@ -21,9 +21,9 @@ Cristina L. Abad, Nathan Roberts, Yi Lu, Roy H. Campbell, “A Storage-Centric A
 
 | 论文观测 | 位置 | v1 映射 | 偏差/说明 |
 |---|---|---|---|
-| PROD：年龄不超过 1 天的文件贡献 85.41% accesses | §IV-B/I4 | 当前年轻热点池获得 85% operation | 从 85.41% 向下取整；accesses 是 open 次数，不是实测 read bytes |
-| PROD：年龄不超过 1 天的文件占 2.21% bytes | §IV-B/I4 | 三个候选热点池各取 2.21% 的原始容量窗口；去除 0 访问 cold 池后归一化为约 4.09%，最终工程取整为 4% | 4% 是把论文 cold 容量移除后重新归一化并取整的结果，不是论文原始观测 |
-| R&D：年龄不超过 1 天的文件贡献 78.91% accesses、占 1.87% bytes | §IV-B/I4 | 未作为默认 profile | 后续可增加 R&D temporal-locality profile，不能与 PROD 参数混用 |
+| PROD：年龄不超过 1 天的文件贡献 85.41% accesses | §IV-B/I4 | 当前年轻热点池获得 85.41% operation，background 获得剩余 14.59% | accesses 是 open 次数，不是实测 read bytes；论文没有规定四个池同时访问 |
+| PROD：年龄不超过 1 天的文件占 2.21% bytes | §IV-B/I4 | 三个候选热点池各取 2.21% 的原始容量窗口；去除 0 访问 cold 池后归一化为约 4.09%，最终按 2,400 个总单元工程量化为 4.167% | 4.167% 是把论文 cold 容量移除后重新归一化并量化的结果，不是论文原始观测 |
+| R&D：年龄不超过 1 天的文件贡献 78.91% accesses、占 1.87% bytes | §IV-B/I4 | 未作为默认 profile | 当前模型只采用 PROD 口径，不与 R&D 参数混用 |
 | inactive storage 占 51%～52% 文件 | §IV-A/I1 | 不再单独造 0 访问池 | 当前要求所有测试数据都被访问，因此不直接复现 inactive 文件数 |
 | inactive storage 占 42%～46% bytes | §IV-A/I1 | 使用 PROD 口径的 46% 作为 cold 容量；当前把该 46% 按 2.21:2.21:2.21:47.37 分给 A/B/C/背景池 | 论文只给范围；由于访问侧使用 PROD 的 85.41%，容量侧也采用 PROD 侧的 46% |
 | file population 高 churn、静态 popularity 模型不足 | §IV-A/I2、§VI | A→B→C→A 热点迁移 | 迁移顺序和阶段时长是工程扩展 |
@@ -35,9 +35,9 @@ Cristina L. Abad, Nathan Roberts, Yi Lu, Roy H. Campbell, “A Storage-Centric A
 - 论文明确说明 trace 只有 namespace metadata，无法确定每次 open 实际读取了多少字节；因此 v1 只能把 access share 映射为 Vdbench operation share，不能声称模拟了论文中的真实 read-byte share。
 - 补充检索的同类 MapReduce workload 论文（例如 Chen, Alspaugh, Katz, “Interactive Analytical Processing in Big Data Systems: A Cross-Industry Study of MapReduce Workloads,” arXiv:1208.4174）主要讨论跨行业 MapReduce job/workload 行为，没有给出可直接映射为“某比例存储容量承载某比例访问字节”的热容量参数。因此 v1 仍使用 Abad 等人的 temporal-locality bytes/accesses 关系作为容量热度来源。
 
-## 4. 论文已给出但 v1 未实现的特征
+## 4. 论文已给出但当前模型未纳入的特征
 
-这些数据不能丢失；后续版本应逐项实现：
+以下内容用于明确当前模型的适用范围，不构成后续开发承诺：
 
 ### File access frequency
 
@@ -47,9 +47,11 @@ Cristina L. Abad, Nathan Roberts, Yi Lu, Roy H. Campbell, “A Storage-Centric A
 - R&D：23.66% 文件只访问 1 次，84.25% 最多 5 次，90.08% 最多 10 次。
 
 v1 不使用聚合 top-open share 作为默认热点强度，也没有生成完整 power-law/低频
-分布。当前 96/96/96/2112 容量单元来自论文 PROD 原始容量模型
-2.21/2.21/2.21/47.37/46 去除 0 访问 cold 池后的重分配，并取整为
-4/4/4/88；每池再拆成 24 个等容量 rank。
+分布。当前100/100/100/2100容量单元来自论文PROD原始容量模型
+2.21/2.21/2.21/47.37/46去除0访问cold池后的重分配，并按2,400个总单元量化为
+约4.167/4.167/4.167/87.5%。每池先计算100个参考rank，再将前20个单独保留、
+后80个每4个合并为20个尾部bin，共40个物理bin。每阶段只生成当前热点池与
+background的FWD，不为0%池生成FWD。
 
 ### Age at access（AOA）
 

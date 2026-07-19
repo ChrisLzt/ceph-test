@@ -16,11 +16,11 @@ class GraphRendererTests(unittest.TestCase):
         rds = rd_definitions(run)
         self.assertEqual(len(rds), 4)
         self.assertEqual(sum(int(line.split("elapsed=", 1)[1].split(",", 1)[0]) for line in rds), 600)
-        self.assertIn("/shard_03/rank_100/size_64m", prepare)
+        self.assertIn("/shard_03/rank_040/size_64m", prepare)
         self.assertNotIn("window_src", prepare)
         self.assertNotIn("\nhd=", run)
         self.assertNotIn("rd=transition_", run)
-        assert_run_contract(self, run, expected_fwd_count=500)
+        assert_run_contract(self, run, expected_fwd_count=200)
 
 
 if __name__ == "__main__":

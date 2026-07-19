@@ -7,7 +7,7 @@ from workload_common.tests.helpers import assert_run_contract, fsd_capacity_mib,
 
 
 class HpcRendererTests(unittest.TestCase):
-    def test_sysu_wrapper_renders_eighty_rank_wrf_groups(self) -> None:
+    def test_sysu_wrapper_renders_one_hundred_rank_wrf_groups(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             output = Path(tmp)
             render(anchor_root="/__SYSU_CEPHFS__", output_dir=output)
@@ -16,10 +16,10 @@ class HpcRendererTests(unittest.TestCase):
         rds = rd_definitions(run)
         self.assertEqual(len(rds), 4)
         self.assertEqual(sum(int(line.split("elapsed=", 1)[1].split(",", 1)[0]) for line in rds), 600)
-        self.assertIn("/checkpoint/rank_080/size_64m", prepare)
+        self.assertIn("/checkpoint/rank_040/size_64m", prepare)
         self.assertNotIn("fileio=random", run)
         self.assertNotIn("rd=transition_", run)
-        assert_run_contract(self, run, expected_fwd_count=400)
+        assert_run_contract(self, run, expected_fwd_count=200)
 
 
 if __name__ == "__main__":

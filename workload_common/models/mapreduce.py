@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from decimal import Decimal
 from pathlib import Path
 
-from workload_common.layout import Bucket, Layout
+from workload_common.layout import Bucket, Layout, make_tail_rank_spans
 from workload_common.models.common import (
     Profile,
     append_profile_rd,
@@ -19,22 +19,30 @@ from workload_common.vdbench import config_header, render_fsd_lines, render_prep
 
 
 WORKLOAD = "bigdata_mapreduce_vdbench_v1"
-GROUP_UNITS = {"pool_01": 96, "pool_02": 96, "pool_03": 96, "background": 2112}
+GROUP_UNITS = {"pool_01": 100, "pool_02": 100, "pool_03": 100, "background": 2100}
 GROUPS = tuple(GROUP_UNITS)
-RANK_COUNT = 24
+RANK_COUNT = 100
+RANK_SPANS = make_tail_rank_spans(
+    RANK_COUNT,
+    head_rank_count=20,
+    tail_group_size=4,
+)
+BIN_COUNT = len(RANK_SPANS)
+HOT_SHARE = Decimal("85.41")
+BACKGROUND_SHARE = Decimal("14.59")
 
 
 @dataclass(frozen=True)
 class Stage:
     name: str
-    weights: tuple[int, int, int, int]
+    weights: tuple[Decimal, Decimal, Decimal, Decimal]
 
 
 STAGES = (
-    Stage("hot_pool_01", (85, 1, 1, 13)),
-    Stage("hot_pool_02", (1, 85, 1, 13)),
-    Stage("hot_pool_03", (1, 1, 85, 13)),
-    Stage("reheat_pool_01", (85, 1, 1, 13)),
+    Stage("hot_pool_01", (HOT_SHARE, Decimal("0"), Decimal("0"), BACKGROUND_SHARE)),
+    Stage("hot_pool_02", (Decimal("0"), HOT_SHARE, Decimal("0"), BACKGROUND_SHARE)),
+    Stage("hot_pool_03", (Decimal("0"), Decimal("0"), HOT_SHARE, BACKGROUND_SHARE)),
+    Stage("reheat_pool_01", (HOT_SHARE, Decimal("0"), Decimal("0"), BACKGROUND_SHARE)),
 )
 
 
@@ -50,6 +58,7 @@ def _build(layout: Layout, anchor_root: str) -> tuple[list[Bucket], dict[str, di
             prefix=group,
             units=units,
             ranks=RANK_COUNT,
+            rank_spans=RANK_SPANS,
         )
         all_buckets.extend(buckets)
         grouped[group] = ranks
@@ -71,12 +80,15 @@ def _run_text(layout: Layout, buckets: list[Bucket], grouped: dict[str, dict[int
                         GROUP_UNITS[group],
                         RANK_COUNT,
                         Decimal(weight),
+                        rank_spans=RANK_SPANS,
                     )
                     for group, weight in zip(GROUPS, stage.weights)
+                    if weight > 0
                 )
             )
         )
-    for stage, profile in zip(STAGES, profiles):
+    for index, (stage, profile) in enumerate(zip(STAGES, profiles)):
+        reused_name = STAGES[0].name if index == len(STAGES) - 1 else stage.name
         append_profile_rd(
             lines,
             rds,
@@ -86,6 +98,8 @@ def _run_text(layout: Layout, buckets: list[Bucket], grouped: dict[str, dict[int
             threads=threads,
             fwdrate=fwdrate,
             elapsed=phase_seconds,
+            fwd_set_name=reused_name,
+            define_fwd=index != len(STAGES) - 1,
         )
     lines.extend(rds)
     lines.append("")

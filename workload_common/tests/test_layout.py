@@ -6,12 +6,20 @@ from workload_common.layout import (
     SINGLE_LAYOUT,
     SYSU_LAYOUT,
     make_rank_buckets,
+    make_tail_rank_spans,
     rank_bucket_skews,
 )
 from workload_common.models.common import blend_profiles, combine_profiles, ranked_profile
 
 
 class LayoutTests(unittest.TestCase):
+    def test_tail_rank_spans_keep_twenty_percent_head_and_group_tail_by_four(self) -> None:
+        spans = make_tail_rank_spans(100, head_rank_count=20, tail_group_size=4)
+        self.assertEqual(len(spans), 40)
+        self.assertEqual(spans[:20], tuple((rank,) for rank in range(1, 21)))
+        self.assertEqual(spans[20], (21, 22, 23, 24))
+        self.assertEqual(spans[-1], (97, 98, 99, 100))
+
     def test_ranked_profiles_crossfade_at_exact_quarter_steps(self) -> None:
         buckets = make_rank_buckets(
             layout=SINGLE_LAYOUT,
@@ -66,6 +74,76 @@ class LayoutTests(unittest.TestCase):
         self.assertEqual([bucket.files for bucket in first], [80, 40, 20])
         self.assertEqual([bucket.capacity_mib for bucket in first], [320, 320, 320])
         self.assertEqual({bucket.rank_key for bucket in first}, {"dataset:001"})
+
+    def test_tail_merged_bins_keep_reference_rank_capacity(self) -> None:
+        spans = (
+            (1,), (2,), (3,), (4,), (5,),
+            (6, 7, 8, 9),
+            (10, 11, 12, 13),
+            (14, 15, 16, 17),
+            (18, 19, 20, 21),
+            (22, 23, 24, 25),
+        )
+        buckets = make_rank_buckets(
+            layout=SINGLE_LAYOUT,
+            prefix="pool",
+            anchor="/ceph/pool",
+            group="pool",
+            total_units=100,
+            rank_count=25,
+            rank_spans=spans,
+        )
+
+        self.assertEqual(len(buckets), 10 * 3)
+        by_rank = {}
+        for bucket in buckets:
+            by_rank.setdefault(bucket.rank, []).append(bucket)
+        self.assertEqual([bucket.files for bucket in by_rank[1]], [16, 8, 4])
+        self.assertEqual([bucket.files for bucket in by_rank[6]], [64, 32, 16])
+        self.assertEqual([bucket.files for bucket in by_rank[10]], [64, 32, 16])
+        self.assertEqual(sum(bucket.capacity_mib for bucket in buckets), 100 * 48)
+
+    def test_tail_merged_skew_sums_reference_rank_probabilities(self) -> None:
+        spans = (
+            (1,), (2,), (3,), (4,), (5,),
+            (6, 7, 8, 9),
+            (10, 11, 12, 13),
+            (14, 15, 16, 17),
+            (18, 19, 20, 21),
+            (22, 23, 24, 25),
+        )
+        reference = rank_bucket_skews(
+            SINGLE_LAYOUT,
+            100,
+            25,
+            Decimal("100"),
+        )
+        merged = rank_bucket_skews(
+            SINGLE_LAYOUT,
+            100,
+            25,
+            Decimal("100"),
+            rank_spans=spans,
+        )
+
+        self.assertEqual(len(merged), 10)
+        self.assertEqual(sum(Decimal(value) for ranks in merged.values() for value in ranks.values()), Decimal("100"))
+        for size in SINGLE_LAYOUT.sizes_mib:
+            self.assertAlmostEqual(
+                float(Decimal(merged[6][size])),
+                float(sum(Decimal(reference[rank][size]) for rank in range(6, 10))),
+                places=9,
+            )
+        shifted = rank_bucket_skews(
+            SINGLE_LAYOUT,
+            100,
+            25,
+            Decimal("100"),
+            hot_rank=2,
+            rank_spans=spans,
+        )
+        for size in SINGLE_LAYOUT.sizes_mib:
+            self.assertEqual(max(shifted, key=lambda rank: Decimal(shifted[rank][size])), 2)
 
     def test_zipf_skews_are_positive_decimal_and_exact(self) -> None:
         skews = rank_bucket_skews(

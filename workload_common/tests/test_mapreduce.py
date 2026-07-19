@@ -1,10 +1,11 @@
 import tempfile
 import unittest
+from decimal import Decimal
 from pathlib import Path
 import re
 
 from workload_common.layout import SINGLE_LAYOUT, SYSU_LAYOUT
-from workload_common.models.mapreduce import GROUP_UNITS, RANK_COUNT, STAGES, render
+from workload_common.models.mapreduce import BIN_COUNT, GROUP_UNITS, RANK_COUNT, RANK_SPANS, STAGES, render
 from workload_common.tests.helpers import (
     assert_run_contract,
     fsd_capacity_mib,
@@ -15,16 +16,21 @@ from workload_common.tests.helpers import (
 
 class MapReduceModelTests(unittest.TestCase):
     def test_layout_and_four_stage_pool_rotation(self) -> None:
-        self.assertEqual(GROUP_UNITS, {"pool_01": 96, "pool_02": 96, "pool_03": 96, "background": 2112})
-        self.assertEqual(RANK_COUNT, 24)
+        self.assertEqual(GROUP_UNITS, {"pool_01": 100, "pool_02": 100, "pool_03": 100, "background": 2100})
+        self.assertEqual(RANK_COUNT, 100)
+        self.assertEqual(BIN_COUNT, 40)
+        self.assertEqual([len(span) for span in RANK_SPANS], [1] * 20 + [4] * 20)
         self.assertEqual([stage.weights for stage in STAGES], [
-            (85, 1, 1, 13), (1, 85, 1, 13), (1, 1, 85, 13), (85, 1, 1, 13),
+            (Decimal("85.41"), Decimal("0"), Decimal("0"), Decimal("14.59")),
+            (Decimal("0"), Decimal("85.41"), Decimal("0"), Decimal("14.59")),
+            (Decimal("0"), Decimal("0"), Decimal("85.41"), Decimal("14.59")),
+            (Decimal("85.41"), Decimal("0"), Decimal("0"), Decimal("14.59")),
         ])
 
     def test_both_physical_layouts_render_exact_capacity(self) -> None:
-        for layout, capacity, fwd_count in (
-            (SINGLE_LAYOUT, 112 * 1024 + 512, 288),
-            (SYSU_LAYOUT, 750 * 1024, 480),
+        for layout, capacity, fwd_count, total_fwd_count in (
+            (SINGLE_LAYOUT, 112 * 1024 + 512, 240, 720),
+            (SYSU_LAYOUT, 750 * 1024, 400, 1200),
         ):
             with self.subTest(layout=layout.name), tempfile.TemporaryDirectory() as tmp:
                 render(layout=layout, anchor_root="/ceph", output_dir=Path(tmp), threads=1)
@@ -42,6 +48,8 @@ class MapReduceModelTests(unittest.TestCase):
                 )
                 self.assertNotIn("rd=transition_", run)
                 assert_run_contract(self, run, expected_fwd_count=fwd_count)
+                self.assertEqual(len(re.findall(r"^fwd=", run, re.MULTILINE)), total_fwd_count)
+                self.assertIn("rd=reheat_pool_01,fwd=hot_pool_01*", run)
 
 
 if __name__ == "__main__":

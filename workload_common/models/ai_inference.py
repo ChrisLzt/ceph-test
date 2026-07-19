@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
-from workload_common.layout import Bucket, Layout
+from workload_common.layout import Bucket, Layout, make_tail_rank_spans
 from workload_common.models.common import (
     append_profile_rd,
     make_group,
@@ -17,7 +17,13 @@ from workload_common.vdbench import config_header, render_fsd_lines, render_prep
 
 WORKLOAD = "ai_inference_kvcache_vdbench_v1"
 GROUP_UNITS = {"kv_active": 800, "kv_next": 800, "kv_prefix": 800}
-RANK_COUNT = 80
+RANK_COUNT = 100
+RANK_SPANS = make_tail_rank_spans(
+    RANK_COUNT,
+    head_rank_count=20,
+    tail_group_size=4,
+)
+BIN_COUNT = len(RANK_SPANS)
 
 
 @dataclass(frozen=True)
@@ -43,7 +49,7 @@ def _build(layout: Layout, anchor_root: str) -> tuple[list[Bucket], dict[str, di
     all_buckets: list[Bucket] = []
     grouped: dict[str, dict[int, list[Bucket]]] = {}
     for group, units in GROUP_UNITS.items():
-        buckets, ranks = make_group(layout=layout, anchor_root=anchor_root, workload=WORKLOAD, group=group, prefix=group, units=units, ranks=RANK_COUNT)
+        buckets, ranks = make_group(layout=layout, anchor_root=anchor_root, workload=WORKLOAD, group=group, prefix=group, units=units, ranks=RANK_COUNT, rank_spans=RANK_SPANS)
         all_buckets.extend(buckets)
         grouped[group] = ranks
     return all_buckets, grouped
@@ -61,6 +67,7 @@ def _run_text(layout: Layout, buckets: list[Bucket], grouped: dict[str, dict[int
             RANK_COUNT,
             100,
             hot_rank=phase.hot_rank,
+            rank_spans=RANK_SPANS,
         )
         for phase in PHASES
     ]

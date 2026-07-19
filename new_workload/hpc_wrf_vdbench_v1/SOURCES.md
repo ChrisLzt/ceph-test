@@ -27,9 +27,9 @@
 - YCSB Zipfian generator：
   <https://github.com/brianfrankcooper/YCSB/blob/master/core/src/main/java/site/ycsb/generator/ZipfianGenerator.java>
 
-本负载采用 alpha=0.99。每个 WRF 数据组包含 80 个等容量 rank；4/8/16 MiB
-三个固定大小档分别按真实文件数计算 Zipf 概率，再聚合到 80 个 rank。Zipf
-只用于制造细粒度、非零的冷热访问偏斜，不是 WRF trace 或 WRF 官方参数。
+本负载采用 alpha=0.99。每个 WRF 数据组先按 100 个参考 rank 计算概率；前
+20 个单独保留，后 80 个每 4 个合并，形成 40 个物理 bin。4/8/16 MiB 三个
+固定大小档分别按真实文件数计算。Zipf只用于制造可控冷热偏斜，不是WRF参数。
 
 ## 执行工具
 

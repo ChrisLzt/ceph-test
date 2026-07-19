@@ -22,6 +22,17 @@ class VdbenchValidationTests(unittest.TestCase):
         )
         validate_run_text(text)
 
+    def test_accepts_two_rds_reusing_one_fwd_set(self) -> None:
+        text = "\n".join(
+            [
+                "fwd=checkpoint_data_01,fsd=fsd_01,operation=read,skew=60",
+                "fwd=checkpoint_data_02,fsd=fsd_02,operation=read,skew=40",
+                "rd=checkpoint_read,fwd=checkpoint*,fwdrate=max,elapsed=300,interval=1",
+                "rd=checkpoint_reheat,fwd=checkpoint*,fwdrate=max,elapsed=300,interval=1",
+            ]
+        )
+        validate_run_text(text)
+
     def test_rejects_explicit_run_fwd_list_even_when_short(self) -> None:
         text = "\n".join(
             [

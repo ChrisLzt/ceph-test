@@ -98,17 +98,25 @@ def fwd_line(
     )
 
 
-def rd_line(*, name: str, fwds: list[str], rate: str, elapsed: int) -> str:
+def rd_line(
+    *,
+    name: str,
+    fwds: list[str],
+    rate: str,
+    elapsed: int,
+    fwd_set_name: str | None = None,
+) -> str:
     if not fwds:
         raise ValueError(f"RD {name} must select at least one FWD")
-    prefix = f"{name}_"
+    selector = fwd_set_name or name
+    prefix = f"{selector}_"
     mismatched = [fwd for fwd in fwds if not fwd.startswith(prefix)]
     if mismatched:
         raise ValueError(
             f"all FWD names for RD {name} must start with {prefix}: {mismatched[0]}"
         )
     return (
-        f"rd={name},fwd={name}*,fwdrate={rate},"
+        f"rd={name},fwd={selector}*,fwdrate={rate},"
         f"elapsed={elapsed},interval=1"
     )
 

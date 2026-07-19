@@ -14,10 +14,10 @@ class AiTrainingRendererTests(unittest.TestCase):
             prepare, run = read_configs(output)
         self.assertEqual(fsd_capacity_mib(prepare), 750 * 1024)
         self.assertEqual(len(rd_definitions(run)), 5)
-        self.assertIn("/checkpoint_old/rank_100/size_64m", prepare)
+        self.assertIn("/checkpoint_old/rank_040/size_64m", prepare)
         self.assertEqual(sum(int(line.split("elapsed=", 1)[1].split(",", 1)[0]) for line in rd_definitions(run)), 600)
         self.assertNotIn("rd=transition_", run)
-        assert_run_contract(self, run, expected_fwd_count=500)
+        assert_run_contract(self, run, expected_fwd_count=200)
 
 
 if __name__ == "__main__":
