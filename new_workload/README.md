@@ -8,7 +8,7 @@
 
 - 每个正式 Vdbench 负载固定 2,400 个逻辑单元，共 112.5 GiB；
 - 每个单元包含 `4 × 4 MiB + 2 × 8 MiB + 1 × 16 MiB = 48 MiB`；
-- 同一逻辑组的每个固定大小档先按 100 个参考 rank 计算 Zipf(0.99)；
+- MapReduce 每个池按 50 个参考 rank 计算 Zipf(0.99)，其他四种负载按 100 个；
 - 前 20% 参考 rank 单独保留，其余参考 rank 每 4 个合并为一个物理 bin；
 - bin 内 `fileselect=random`，文件内部由应用阶段选择顺序读或随机读；
 - 正式阶段均为只读、`xfersize=4m`、Direct I/O、`fwdrate=max`；
@@ -27,7 +27,7 @@ Vdbench 在 bin 内随机选择文件，因此实际执行的是分段 Zipf 近�
 
 | 类别 | 目录 | 数据结构 | 正式阶段 |
 |---|---|---|---|
-| 大数据 | `bigdata_mapreduce_vdbench_v1` | 4 pool ×（100 参考 rank → 40 bin） | 4 × 150 s |
+| 大数据 | `bigdata_mapreduce_vdbench_v1` | 4 pool ×（50 参考 rank → 20 bin） | 4 × 150 s |
 | 图计算 | `graph_graphchi_vdbench_v1` | 4 shard ×（100 → 40） | 4 × 150 s |
 | HPC | `hpc_wrf_vdbench_v1` | 3 组 ×（100 → 40） | 4 × 150 s |
 | AI 训练 | `ai_training_checkpoint_vdbench_v1` | dataset/current/old ×（100 → 40） | 3 × 160 s + 2 × 60 s |
@@ -68,12 +68,11 @@ Vdbench 与 HPC IOR 是同一容量预算下的两种替代表示，不要求同
 配置。可用 `VDBENCH_BIN=/path/to/vdbench` 覆盖默认工具路径。
 
 统一验证器还会展开每个通配符，要求单个正式 RD 实际匹配的 FWD 不超过 512；
-MapReduce 单节点/SYSU 每阶段分别为 240/400 FWD，其他四种负载分别为
-120/200 FWD。
+五种 Vdbench 负载的单节点/SYSU 每阶段均分别为 120/200 FWD。
 
 首次运行依次执行 validate、prepare、run；数据准备完成后只重复 run。默认数据
 根目录为 `/mnt/cephfs`，也可通过 `ANCHOR_ROOT` 覆盖。单节点 `hd=` 参数由
 `HOST1`、`REMOTE_USER` 和 `VDBENCH_HOME` 生成。
 
-本次布局使用尾部合并目录结构；MapReduce 已从 10 个物理 bin 改为 40 个，旧
+本次布局使用尾部合并目录结构；MapReduce 当前为 20 个物理 bin，旧的 40-bin
 数据不能直接复用。首次切换时必须重新执行 prepare，并确认旧 `rank_*` 目录已清理。

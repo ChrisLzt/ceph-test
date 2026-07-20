@@ -20,15 +20,16 @@ Zipf(0.99) 权重算法和阶段定义，只改变物理容量单元：
 | 64 MiB | 1 | 64 MiB |
 
 一个 SYSU 单元为 320 MiB；每负载 `2,400 × 320 MiB = 750 GiB`，共 74,400
-个文件。每个固定大小档先按文件顺序计算Zipf权重，再聚合到100个参考rank和
-40个物理bin；bin内文件由Vdbench随机选择，因此实际执行的是分段Zipf近似。
+个文件。MapReduce每池聚合到50个参考rank和20个物理bin，其他四种Vdbench
+负载聚合到100个参考rank和40个物理bin；bin内文件由Vdbench随机选择，因此
+实际执行的是分段Zipf近似。
 不同文件大小不会改变该档容量份额。
 
 ## 负载一览
 
 | 负载 | 逻辑结构 | 阶段 |
 |---|---|---|
-| MapReduce | 100/100/100/2100 单元；100 参考 rank → 40 bin/pool | 4 × 150 s |
+| MapReduce | 100/100/100/2100 单元；50 参考 rank → 20 bin/pool | 4 × 150 s |
 | GraphChi | 4 shard ×（100 参考 rank → 40 bin） | 4 × 150 s |
 | HPC Vdbench | 3 × 800 单元；100 → 40/group | 4 × 150 s |
 | AI 训练 | 2000/200/200 单元；100 → 40/group | 3 × 160 s + 2 × 60 s |
@@ -40,9 +41,8 @@ Zipf(0.99) 权重算法和阶段定义，只改变物理容量单元：
 写 `hd=`，客户端定义由部署环境提供。热点在相邻 RD 之间直接切换，不生成
 中间渐变态；每个 Vdbench 负载仍为 600 秒。正式 run RD 使用
 FWD 前缀通配符，避免 Vdbench 5.04.07 在大规模 FWD 显式列表上的 512 项解析
-上限；每个通配符的匹配集合和 skew 总和均由统一验证器复核。MapReduce
-每阶段400 FWD，其他四种负载每阶段200 FWD；MapReduce复热与HPC checkpoint
-复热复用已有FWD集合。
+上限；每个通配符的匹配集合和 skew 总和均由统一验证器复核。五种 Vdbench
+负载均为每阶段200 FWD；MapReduce复热与HPC checkpoint复热复用已有FWD集合。
 
 ## 使用
 

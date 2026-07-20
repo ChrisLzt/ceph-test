@@ -13,8 +13,8 @@ CASES = {
     "bigdata_mapreduce_no_migration_v1": {
         "durations": [600],
         "fileio": ["sequential"],
-        "fwd_count": 240,
-        "definition_count": 240,
+        "fwd_count": 120,
+        "definition_count": 120,
         "required": [
             "/bigdata_mapreduce_vdbench_v1/pool_01/",
             "/bigdata_mapreduce_vdbench_v1/background/",

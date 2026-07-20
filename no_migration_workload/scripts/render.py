@@ -52,8 +52,8 @@ SPECS = {
         name="bigdata_mapreduce_no_migration_v1",
         title="MapReduce fixed hot_pool_01 control workload",
         source_workload="bigdata_mapreduce_vdbench_v1",
-        rank_count=100,
-        rank_spans=make_tail_rank_spans(100, head_rank_count=20, tail_group_size=4),
+        rank_count=50,
+        rank_spans=make_tail_rank_spans(50, head_rank_count=10, tail_group_size=4),
         groups=(
             FixedGroup("pool_01", 100, Decimal("85.41")),
             FixedGroup("background", 2100, Decimal("14.59")),

@@ -24,10 +24,10 @@ AI 训练前三阶段为随机读，后两阶段为顺序读；AI 推理保留
 的文件集合和访问 skew 不变。
 
 五套负载均为纯读、4 MiB 请求、Direct I/O、`fwdrate=max`，总时长 600 秒。
-它们沿用正式负载的尾部合并：所有负载均为100个参考rank压缩到40个bin。
-MapReduce RD选择当前热点池和background，共240个FWD；其他负载每个RD选择
-120个FWD。AI重复阶段按读模式复用FWD集合，因此配置只保留随机读和顺序读
-各一套定义。
+它们沿用正式负载的尾部合并：MapReduce为50个参考rank压缩到20个bin，其他
+负载为100个参考rank压缩到40个bin。MapReduce RD选择当前热点池和background；
+五种负载的每个RD均选择120个FWD。AI重复阶段按读模式复用FWD集合，因此配置
+只保留随机读和顺序读各一套定义。
 
 ## 使用方式
 

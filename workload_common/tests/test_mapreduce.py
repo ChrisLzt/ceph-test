@@ -17,9 +17,9 @@ from workload_common.tests.helpers import (
 class MapReduceModelTests(unittest.TestCase):
     def test_layout_and_four_stage_pool_rotation(self) -> None:
         self.assertEqual(GROUP_UNITS, {"pool_01": 100, "pool_02": 100, "pool_03": 100, "background": 2100})
-        self.assertEqual(RANK_COUNT, 100)
-        self.assertEqual(BIN_COUNT, 40)
-        self.assertEqual([len(span) for span in RANK_SPANS], [1] * 20 + [4] * 20)
+        self.assertEqual(RANK_COUNT, 50)
+        self.assertEqual(BIN_COUNT, 20)
+        self.assertEqual([len(span) for span in RANK_SPANS], [1] * 10 + [4] * 10)
         self.assertEqual([stage.weights for stage in STAGES], [
             (Decimal("85.41"), Decimal("0"), Decimal("0"), Decimal("14.59")),
             (Decimal("0"), Decimal("85.41"), Decimal("0"), Decimal("14.59")),
@@ -29,8 +29,8 @@ class MapReduceModelTests(unittest.TestCase):
 
     def test_both_physical_layouts_render_exact_capacity(self) -> None:
         for layout, capacity, fwd_count, total_fwd_count in (
-            (SINGLE_LAYOUT, 112 * 1024 + 512, 240, 720),
-            (SYSU_LAYOUT, 750 * 1024, 400, 1200),
+            (SINGLE_LAYOUT, 112 * 1024 + 512, 120, 360),
+            (SYSU_LAYOUT, 750 * 1024, 200, 600),
         ):
             with self.subTest(layout=layout.name), tempfile.TemporaryDirectory() as tmp:
                 render(layout=layout, anchor_root="/ceph", output_dir=Path(tmp), threads=1)

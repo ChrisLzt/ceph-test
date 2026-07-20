@@ -49,8 +49,8 @@ Cristina L. Abad, Nathan Roberts, Yi Lu, Roy H. Campbell, “A Storage-Centric A
 v1 不使用聚合 top-open share 作为默认热点强度，也没有生成完整 power-law/低频
 分布。当前100/100/100/2100容量单元来自论文PROD原始容量模型
 2.21/2.21/2.21/47.37/46去除0访问cold池后的重分配，并按2,400个总单元量化为
-约4.167/4.167/4.167/87.5%。每池先计算100个参考rank，再将前20个单独保留、
-后80个每4个合并为20个尾部bin，共40个物理bin。每阶段只生成当前热点池与
+约4.167/4.167/4.167/87.5%。每池先计算50个参考rank，再将前10个单独保留、
+后40个每4个合并为10个尾部bin，共20个物理bin。每阶段只生成当前热点池与
 background的FWD，不为0%池生成FWD。
 
 ### Age at access（AOA）

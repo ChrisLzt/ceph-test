@@ -21,10 +21,10 @@ from workload_common.vdbench import config_header, render_fsd_lines, render_prep
 WORKLOAD = "bigdata_mapreduce_vdbench_v1"
 GROUP_UNITS = {"pool_01": 100, "pool_02": 100, "pool_03": 100, "background": 2100}
 GROUPS = tuple(GROUP_UNITS)
-RANK_COUNT = 100
+RANK_COUNT = 50
 RANK_SPANS = make_tail_rank_spans(
     RANK_COUNT,
-    head_rank_count=20,
+    head_rank_count=10,
     tail_group_size=4,
 )
 BIN_COUNT = len(RANK_SPANS)
