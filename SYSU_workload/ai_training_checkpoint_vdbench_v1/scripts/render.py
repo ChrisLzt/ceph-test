@@ -4,12 +4,22 @@
 import argparse
 from pathlib import Path
 
+from SYSU_workload.common.lifecycle_io import rewrite_phase, update_run_config
 from workload_common.layout import SYSU_LAYOUT
 from workload_common.models.ai_training import render as render_model
 
 
 def render(*, anchor_root: str, output_dir: Path, threads: int = 1, dataset_phase_seconds: int = 160, checkpoint_phase_seconds: int = 60, fwdrate: str = "max") -> None:
     render_model(layout=SYSU_LAYOUT, anchor_root=anchor_root, output_dir=output_dir, threads=threads, dataset_phase_seconds=dataset_phase_seconds, checkpoint_phase_seconds=checkpoint_phase_seconds, fwdrate=fwdrate)
+    update_run_config(
+        output_dir / "run_test.vdb",
+        lambda text: rewrite_phase(
+            text,
+            source="checkpoint_read_current",
+            target="checkpoint_write_current",
+            operation="write",
+        ),
+    )
 
 
 def main() -> None:

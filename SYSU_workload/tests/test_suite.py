@@ -34,6 +34,13 @@ class SuiteContractTests(unittest.TestCase):
         self.assertIn("hpc_wrf_ior_v1/validate_model.sh", validator)
         self.assertIn("workload_common.validate_vdbench", validator)
 
+    def test_top_level_readme_distinguishes_sysu_io_from_single_node(self) -> None:
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("单节点版本保留纯读", readme)
+        self.assertIn("R → W → W → R", readme)
+        self.assertIn("R → R → R → W → R", readme)
+        self.assertIn("W → R → W → R → R → R", readme)
+
     def test_contains_exactly_five_vdbench_workloads(self) -> None:
         actual = sorted(
             path.name

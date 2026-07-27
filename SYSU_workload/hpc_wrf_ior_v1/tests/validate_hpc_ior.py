@@ -69,8 +69,8 @@ def validate(rendered_dir: Path) -> None:
 
     expected_calls = (
         'run_ior_read startup_read "$ANCHOR/startup/wrf_state"',
-        'run_ior_read checkpoint_read "$ANCHOR/checkpoint/wrfrst_current"',
-        'run_ior_read history_read "$ANCHOR/history/wrfout_current"',
+        'run_ior_write checkpoint_write "$ANCHOR/checkpoint/wrfrst_current"',
+        'run_ior_write history_write "$ANCHOR/history/wrfout_current"',
         'run_ior_read checkpoint_reheat "$ANCHOR/checkpoint/wrfrst_current"',
     )
     positions = []
@@ -80,13 +80,14 @@ def validate(rendered_dir: Path) -> None:
         positions.append(run.index(call))
     if positions != sorted(positions):
         fail("formal phases are out of order")
-    if run.count("run_ior_read ") != 4:
-        fail("formal run must contain exactly four read calls")
-    if re.search(r"(?:^|\s)-w(?:\s|$)", run, re.M):
-        fail("formal run must not write")
+    if run.count("run_ior_read ") != 2:
+        fail("formal run must contain exactly two read calls")
+    if run.count("run_ior_write ") != 2:
+        fail("formal run must contain exactly two write calls")
     for marker in (
         'PHASE_SECONDS="150"',
         "--posix.odirect -F -r -k",
+        "--posix.odirect -F -w -k -e",
         '-D "$PHASE_SECONDS"',
         '-O "minTimeDuration=$PHASE_SECONDS"',
         "-O stoneWallingWearOut=0",
@@ -94,7 +95,7 @@ def validate(rendered_dir: Path) -> None:
         if marker not in run:
             fail(f"formal run missing marker: {marker}")
 
-    print("PASS: SYSU HPC WRF IOR model is 750 GiB, -F, Direct I/O, and read-only.")
+    print("PASS: SYSU HPC WRF IOR model is 750 GiB, -F, Direct I/O, and R-W-W-R.")
 
 
 def main() -> None:

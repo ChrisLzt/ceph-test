@@ -37,18 +37,20 @@ run 必须使用相同路径、文件基名和 `NP=4`。
 
 ## 正式阶段
 
-| 阶段 | 时长 | 读取数据 | 热容量口径 |
+| 阶段 | 时长 | 操作与数据 | 热容量口径 |
 |---|---:|---|---:|
-| `startup_read` | 150 s | startup 的 4 个 rank 文件 | 250 GiB |
-| `checkpoint_read` | 150 s | checkpoint 的 4 个 rank 文件 | 250 GiB |
-| `history_read` | 150 s | history 的 4 个 rank 文件 | 250 GiB |
-| `checkpoint_reheat` | 150 s | 同一 checkpoint 文件 | 250 GiB |
+| `startup_read` | 150 s | 读取 startup 的 4 个 rank 文件 | 250 GiB |
+| `checkpoint_write` | 150 s | 覆盖写 checkpoint 的 4 个 rank 文件 | 250 GiB |
+| `history_write` | 150 s | 覆盖写 history 的 4 个 rank 文件 | 250 GiB |
+| `checkpoint_reheat` | 150 s | 读取刚写过的同一 checkpoint 文件 | 250 GiB |
 
 每阶段只活动一个数据组，即总容量的三分之一承担该阶段全部请求。组内 4 个 rank
 以相同 IOR 参数运行，没有预设的热点 rank；实际完成量仍可能受客户端和文件
 性能差异影响。
 
-正式测试为 POSIX 顺序读、4 MiB Direct I/O。每阶段同时设置 `-D 150`、
+正式测试采用 `R → W → W → R`，均为 POSIX 顺序 I/O 和 4 MiB Direct I/O。
+两个写阶段使用 `-w -e`，在关闭文件前执行 fsync，确保 checkpoint/history
+写入到稳定存储。每阶段同时设置 `-D 150`、
 `minTimeDuration=150` 和 `stoneWallingWearOut=0`，主体 I/O 时间约 600 秒；
 加上四次 MPI 启停、打开和关闭文件，总墙钟时间通常略高于 10 分钟。该时长
 不是系统级强制超时，Ceph 或 MPI 阻塞时仍可能延长。
@@ -94,4 +96,5 @@ hostfile，以减少客户端差异；文件匹配的硬要求是共享路径、
 - 用于保留 MPI rank 与 file-per-process 语义的组间冷热实验。
 - 不适合评价单阶段内的明确冷热层次；该需求使用 Vdbench 版本。
 - 不运行 WRF 数值模式，不复现 NetCDF 布局或 collective I/O。
-- 正式阶段只读，不模拟 checkpoint/history 写出。
+- 按 WRF 生命周期模拟 startup 读、checkpoint/history 写出和 checkpoint
+  恢复读，但容量、时长仍是冷热识别实验参数。

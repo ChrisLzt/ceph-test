@@ -68,15 +68,16 @@ class HpcIorRendererTests(unittest.TestCase):
         self.assertEqual(4 * 64000 * 3 / 1024, 750)
         self.assertIn('--posix.odirect -F -w -k -e', prepare)
         self.assertIn('--posix.odirect -F -r -k', run)
+        self.assertIn('--posix.odirect -F -w -k -e', run)
         self.assertNotRegex(prepare, re.compile(r"(?:^|\s)-r(?:\s|$)", re.M))
-        self.assertNotRegex(run, re.compile(r"(?:^|\s)-w(?:\s|$)", re.M))
         self.assertEqual(prepare.count("run_ior_write prepare_"), 3)
-        self.assertEqual(run.count("run_ior_read "), 4)
+        self.assertEqual(run.count("run_ior_read "), 2)
+        self.assertEqual(run.count("run_ior_write "), 2)
 
         expected_calls = (
             'run_ior_read startup_read "$ANCHOR/startup/wrf_state"',
-            'run_ior_read checkpoint_read "$ANCHOR/checkpoint/wrfrst_current"',
-            'run_ior_read history_read "$ANCHOR/history/wrfout_current"',
+            'run_ior_write checkpoint_write "$ANCHOR/checkpoint/wrfrst_current"',
+            'run_ior_write history_write "$ANCHOR/history/wrfout_current"',
             'run_ior_read checkpoint_reheat "$ANCHOR/checkpoint/wrfrst_current"',
         )
         positions = [run.index(call) for call in expected_calls]

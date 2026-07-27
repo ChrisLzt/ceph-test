@@ -3,7 +3,8 @@ import unittest
 from pathlib import Path
 
 from SYSU_workload.ai_inference_kvcache_vdbench_v1.scripts.render import render
-from workload_common.tests.helpers import assert_run_contract, fsd_capacity_mib, rd_definitions, read_configs
+from SYSU_workload.tests.operation_helpers import assert_rd_operations, assert_sysu_run_contract
+from workload_common.tests.helpers import fsd_capacity_mib, rd_definitions, read_configs
 
 
 class AiInferenceRendererTests(unittest.TestCase):
@@ -19,7 +20,19 @@ class AiInferenceRendererTests(unittest.TestCase):
         self.assertIn("/kv_prefix/rank_040/size_64m", prepare)
         self.assertNotIn("\nhd=", run)
         self.assertNotIn("rd=transition_", run)
-        assert_run_contract(self, run, expected_fwd_count=200)
+        assert_rd_operations(
+            self,
+            run,
+            {
+                "prefill_active": "write",
+                "decode_active": "read",
+                "prefill_next": "write",
+                "decode_next": "read",
+                "prefix_reuse_primary": "read",
+                "prefix_reuse_shifted": "read",
+            },
+        )
+        assert_sysu_run_contract(self, run, expected_fwd_count=200)
 
 
 if __name__ == "__main__":

@@ -4,12 +4,29 @@
 import argparse
 from pathlib import Path
 
+from SYSU_workload.common.lifecycle_io import rewrite_phase, update_run_config
 from workload_common.layout import SYSU_LAYOUT
 from workload_common.models.ai_inference import render as render_model
 
 
 def render(*, anchor_root: str, output_dir: Path, threads: int = 1, phase_seconds: int = 100, fwdrate: str = "max") -> None:
     render_model(layout=SYSU_LAYOUT, anchor_root=anchor_root, output_dir=output_dir, threads=threads, phase_seconds=phase_seconds, fwdrate=fwdrate)
+
+    def add_prefill_writes(text: str) -> str:
+        text = rewrite_phase(
+            text,
+            source="prefill_active",
+            target="prefill_active",
+            operation="write",
+        )
+        return rewrite_phase(
+            text,
+            source="prefill_next",
+            target="prefill_next",
+            operation="write",
+        )
+
+    update_run_config(output_dir / "run_test.vdb", add_prefill_writes)
 
 
 def main() -> None:
