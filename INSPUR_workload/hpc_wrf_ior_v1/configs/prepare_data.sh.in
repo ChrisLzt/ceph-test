@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# INSPUR WRF IOR - prepare only. This deletes and recreates this workload's data.
+
+ANCHOR="@ANCHOR@"
+IOR_BIN="@IOR_BIN@"
+MPI_RUN="@MPI_RUN@"
+MPI_HOSTFILE="@MPI_HOSTFILE@"
+NP="4"
+API="POSIX"
+BLOCK_SIZE="256000m"
+TRANSFER_SIZE="4m"
+SEGMENT_COUNT="1"
+
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+OUTPUT_DIR=${IOR_OUTPUT_DIR:-$script_dir/../output/prepare_data}
+
+mpi_args=(-np "$NP")
+if [[ -n "$MPI_HOSTFILE" ]]; then
+    mpi_args+=(--hostfile "$MPI_HOSTFILE")
+fi
+
+echo "Removing existing INSPUR HPC IOR dataset: $ANCHOR"
+rm -rf -- "$ANCHOR"
+mkdir -p -- "$ANCHOR/startup" "$ANCHOR/checkpoint" "$ANCHOR/history" "$OUTPUT_DIR"
+
+run_ior_write() {
+    local phase=$1
+    local target=$2
+    local log="$OUTPUT_DIR/${phase}.log"
+    echo "== $phase write $target =="
+    "$MPI_RUN" "${mpi_args[@]}" "$IOR_BIN" \
+        -a "$API" --posix.odirect -F -w -k -e \
+        -o "$target" \
+        -b "$BLOCK_SIZE" \
+        -t "$TRANSFER_SIZE" \
+        -s "$SEGMENT_COUNT" \
+        -i 1 \
+        2>&1 | tee "$log"
+}
+
+run_ior_write prepare_startup "$ANCHOR/startup/wrf_state"
+run_ior_write prepare_checkpoint "$ANCHOR/checkpoint/wrfrst_current"
+run_ior_write prepare_history "$ANCHOR/history/wrfout_current"

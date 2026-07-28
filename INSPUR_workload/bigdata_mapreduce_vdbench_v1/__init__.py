@@ -1,0 +1,1 @@
+"""INSPUR MapReduce workload."""

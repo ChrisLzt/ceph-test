@@ -1,0 +1,1 @@
+"""INSPUR workload validation tests."""

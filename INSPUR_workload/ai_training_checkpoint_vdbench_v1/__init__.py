@@ -1,0 +1,1 @@
+"""INSPUR AI training workload."""
