@@ -57,7 +57,10 @@ def render_prepare_config(
     for bucket in buckets:
         by_rank.setdefault(bucket.rank_key, []).append(bucket)
     rank_keys = list(by_rank)
-    fwd_lines: list[str] = []
+    fwd_lines = [
+        "* Explicit format settings avoid version-dependent Vdbench defaults.",
+        "fwd=format,threads=1,xfersize=4m",
+    ]
     rd_lines: list[str] = []
     for batch_number, start in enumerate(range(0, len(rank_keys), batch_rank_limit), 1):
         names: list[str] = []

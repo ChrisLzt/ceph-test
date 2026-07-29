@@ -47,6 +47,21 @@ class VdbenchEmitterTests(unittest.TestCase):
         first_rd = next(index for index, line in enumerate(lines) if line.startswith("rd="))
         self.assertFalse(any(line.startswith("fwd=") for line in lines[first_rd + 1 :]))
 
+    def test_prepare_explicitly_controls_format_io(self) -> None:
+        buckets = make_rank_buckets(
+            layout=SINGLE_LAYOUT,
+            prefix="data",
+            anchor="/mnt/cephfs/test/data",
+            group="data",
+            total_units=1,
+            rank_count=1,
+        )
+        lines = render_prepare_config("test", buckets, threads=1).splitlines()
+        self.assertEqual(
+            [line for line in lines if line.startswith("fwd=format,")],
+            ["fwd=format,threads=1,xfersize=4m"],
+        )
+
     def test_sysu_header_is_host_agnostic(self) -> None:
         text = "\n".join(config_header("test", hd_line=None))
         self.assertNotIn("\nhd=", text)
