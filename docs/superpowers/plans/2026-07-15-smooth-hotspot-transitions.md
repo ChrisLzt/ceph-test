@@ -4,7 +4,7 @@
 
 **Goal:** Replace instantaneous hotspot changes in all five Vdbench workloads with 30-second, three-step crossfades while preserving each workload's 600-second total duration.
 
-**Architecture:** The shared workload layer will represent every stable hotspot as a complete bucket-to-skew profile and blend adjacent profiles at 25%, 50%, and 75% progress. Each transition uses three 10-second Vdbench RDs; stable time is shortened inside the existing logical phase budget, so capacity, source-derived lifecycle, data layout, operations, and the 600-second total remain unchanged. Both `new_workload/` and `SYSU_workload/` continue to render from the same five models.
+**Architecture:** The shared workload layer will represent every stable hotspot as a complete bucket-to-skew profile and blend adjacent profiles at 25%, 50%, and 75% progress. Each transition uses three 10-second Vdbench RDs; stable time is shortened inside the existing logical phase budget, so capacity, source-derived lifecycle, data layout, operations, and the 600-second total remain unchanged. Both `SINGLE_workload/` and `SYSU_workload/` continue to render from the same five models.
 
 **Tech Stack:** Python 3 standard library (`decimal`, `unittest`), Bash, Vdbench 5.04.07 parameter files, Markdown.
 
@@ -77,7 +77,7 @@
 **Files:**
 - Modify: ten tracked `rendered/run_test.vdb` files through the existing renderers.
 - Modify: ten workload `README.md` files.
-- Modify: `new_workload/WORKLOAD_SUMMARY.md`
+- Modify: `SINGLE_workload/WORKLOAD_SUMMARY.md`
 - Modify: `SYSU_workload/README.md`
 - Modify: tests/helpers only if needed to validate variable FWD counts safely.
 

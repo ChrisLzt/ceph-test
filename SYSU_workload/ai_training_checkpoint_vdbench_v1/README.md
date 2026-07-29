@@ -1,7 +1,7 @@
 # SYSU AI 训练数据与 checkpoint 负载
 
 这是单节点 AI 训练模型的 750 GiB 物理版本。来源与适用范围见
-[`../../new_workload/ai_training_checkpoint_vdbench_v1/README.md`](../../new_workload/ai_training_checkpoint_vdbench_v1/README.md)。
+[`../../SINGLE_workload/ai_training_checkpoint_vdbench_v1/README.md`](../../SINGLE_workload/ai_training_checkpoint_vdbench_v1/README.md)。
 
 | 数据组 | 单元 | 容量 | 参考 rank | 物理 bin |
 |---|---:|---:|---:|---:|

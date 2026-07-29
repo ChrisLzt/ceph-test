@@ -54,10 +54,10 @@
 ### Task 3: Update migration behavior and documentation
 
 **Files:**
-- Modify: `new_workload/graph_graphchi_vdbench_v1/prepare_data.sh`
+- Modify: `SINGLE_workload/graph_graphchi_vdbench_v1/prepare_data.sh`
 - Modify: `SYSU_workload/graph_graphchi_vdbench_v1/prepare_data.sh`
-- Modify: `new_workload/graph_graphchi_vdbench_v1/README.md`
-- Modify: `new_workload/graph_graphchi_vdbench_v1/SOURCES.md`
+- Modify: `SINGLE_workload/graph_graphchi_vdbench_v1/README.md`
+- Modify: `SINGLE_workload/graph_graphchi_vdbench_v1/SOURCES.md`
 - Modify: `SYSU_workload/graph_graphchi_vdbench_v1/README.md`
 - Modify: remaining workload READMEs and suite summaries containing old rank counts.
 
@@ -68,7 +68,7 @@
 ### Task 4: Regenerate and verify both suites
 
 **Files:**
-- Regenerate: `new_workload/*_vdbench_v1/rendered/*.vdb`
+- Regenerate: `SINGLE_workload/*_vdbench_v1/rendered/*.vdb`
 - Regenerate: `SYSU_workload/*_vdbench_v1/rendered/*.vdb`
 
 - [ ] Render all five formal workloads in both suites.

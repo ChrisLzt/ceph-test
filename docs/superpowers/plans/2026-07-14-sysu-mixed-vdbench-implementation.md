@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Do not modify `/home/chris/ceph-test/new_workload`; it remains the single-node suite.
+- Do not modify `/home/chris/ceph-test/SINGLE_workload`; it remains the single-node suite.
 - Create the new source suite at `/home/chris/ceph-test/SYSU_workload`.
 - Require `ANCHOR_ROOT`; data anchors are `${ANCHOR_ROOT}/<workload-name>`.
 - Generate no `hd=` lines and hard-code no client host names.
@@ -40,8 +40,8 @@
 - [ ] **Step 0: Record the untouched single-node tree**
 
 ```bash
-find new_workload -type f -print0 | sort -z | xargs -0 sha256sum > /tmp/sysu-new-workload-before.sha256
-find new_workload -type f -printf '%P\n' | sort > /tmp/sysu-new-workload-before.files
+find SINGLE_workload -type f -print0 | sort -z | xargs -0 sha256sum > /tmp/sysu-new-workload-before.sha256
+find SINGLE_workload -type f -printf '%P\n' | sort > /tmp/sysu-new-workload-before.files
 ```
 
 - [ ] **Step 1: Write the failing common tests**
@@ -368,7 +368,7 @@ Expected: FAIL until `validate_all.sh` and the top-level README exist.
 
 - [ ] **Step 3: Add top-level documentation and validator**
 
-Document that `SYSU_workload` is the 12-node, three-replica script suite; `new_workload` remains single-node; `hd=` is intentionally deferred; and `ANCHOR_ROOT` must resolve identically on every future client.
+Document that `SYSU_workload` is the 12-node, three-replica script suite; `SINGLE_workload` remains single-node; `hd=` is intentionally deferred; and `ANCHOR_ROOT` must resolve identically on every future client.
 
 - [ ] **Step 4: Run all tests and shell syntax checks**
 
@@ -405,7 +405,7 @@ Run:
 
 ```bash
 sha256sum -c /tmp/sysu-new-workload-before.sha256
-find new_workload -type f -printf '%P\n' | sort > /tmp/sysu-new-workload-after.files
+find SINGLE_workload -type f -printf '%P\n' | sort > /tmp/sysu-new-workload-after.files
 cmp /tmp/sysu-new-workload-before.files /tmp/sysu-new-workload-after.files
 ```
 

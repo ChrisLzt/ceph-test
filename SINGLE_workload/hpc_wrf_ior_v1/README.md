@@ -68,7 +68,7 @@ IOR 的 `BLOCK_SIZE=9600m` 表示每个 MPI rank 在一个数据池中的数据�
 ## 5. 生成配置
 
 ```bash
-cd /home/chris/ceph-test/new_workload/hpc_wrf_ior_v1
+cd /home/chris/ceph-test/SINGLE_workload/hpc_wrf_ior_v1
 ./render_config.sh
 ```
 
@@ -98,7 +98,7 @@ PHASE_SECONDS=150 \
 ./render_config.sh
 ```
 
-默认数据路径为 `/mnt/cephfs/hpc_wrf_ior_v1`，不再添加 `new_workload/` 中间层。
+默认数据路径为 `/mnt/cephfs/hpc_wrf_ior_v1`，不再添加 `SINGLE_workload/` 中间层。
 
 ## 6. 执行
 

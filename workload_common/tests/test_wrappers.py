@@ -3,11 +3,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from new_workload.ai_inference_kvcache_vdbench_v1.scripts.render import render as render_single_inference
-from new_workload.ai_training_checkpoint_vdbench_v1.scripts.render import render as render_single_training
-from new_workload.bigdata_mapreduce_vdbench_v1.scripts.render import render as render_single_bigdata
-from new_workload.graph_graphchi_vdbench_v1.scripts.render import render as render_single_graph
-from new_workload.hpc_wrf_vdbench_v1.scripts.render import render as render_single_hpc
+from SINGLE_workload.ai_inference_kvcache_vdbench_v1.scripts.render import render as render_single_inference
+from SINGLE_workload.ai_training_checkpoint_vdbench_v1.scripts.render import render as render_single_training
+from SINGLE_workload.bigdata_mapreduce_vdbench_v1.scripts.render import render as render_single_bigdata
+from SINGLE_workload.graph_graphchi_vdbench_v1.scripts.render import render as render_single_graph
+from SINGLE_workload.hpc_wrf_vdbench_v1.scripts.render import render as render_single_hpc
 from workload_common.tests.helpers import fsd_capacity_mib, read_configs
 
 
@@ -25,7 +25,7 @@ class SingleWrapperTests(unittest.TestCase):
         }
         actual = {
             path.name
-            for path in (ROOT / "new_workload").iterdir()
+            for path in (ROOT / "SINGLE_workload").iterdir()
             if path.is_dir()
             and (path / "render_config.sh").is_file()
             and (path / "rendered" / "run_test.vdb").is_file()
@@ -75,11 +75,11 @@ class SingleWrapperTests(unittest.TestCase):
 
     def test_prepare_wrappers_remove_all_old_rank_directories_safely(self) -> None:
         for relative in (
-            "new_workload/bigdata_mapreduce_vdbench_v1/prepare_data.sh",
-            "new_workload/graph_graphchi_vdbench_v1/prepare_data.sh",
-            "new_workload/hpc_wrf_vdbench_v1/prepare_data.sh",
-            "new_workload/ai_training_checkpoint_vdbench_v1/prepare_data.sh",
-            "new_workload/ai_inference_kvcache_vdbench_v1/prepare_data.sh",
+            "SINGLE_workload/bigdata_mapreduce_vdbench_v1/prepare_data.sh",
+            "SINGLE_workload/graph_graphchi_vdbench_v1/prepare_data.sh",
+            "SINGLE_workload/hpc_wrf_vdbench_v1/prepare_data.sh",
+            "SINGLE_workload/ai_training_checkpoint_vdbench_v1/prepare_data.sh",
+            "SINGLE_workload/ai_inference_kvcache_vdbench_v1/prepare_data.sh",
             "SYSU_workload/bigdata_mapreduce_vdbench_v1/prepare_data.sh",
             "SYSU_workload/graph_graphchi_vdbench_v1/prepare_data.sh",
             "SYSU_workload/hpc_wrf_vdbench_v1/prepare_data.sh",
@@ -95,7 +95,7 @@ class SingleWrapperTests(unittest.TestCase):
 
     def test_mapreduce_prepare_wrappers_remove_legacy_pool_directories(self) -> None:
         for relative in (
-            "new_workload/bigdata_mapreduce_vdbench_v1/prepare_data.sh",
+            "SINGLE_workload/bigdata_mapreduce_vdbench_v1/prepare_data.sh",
             "SYSU_workload/bigdata_mapreduce_vdbench_v1/prepare_data.sh",
         ):
             with self.subTest(script=relative):
@@ -104,7 +104,7 @@ class SingleWrapperTests(unittest.TestCase):
 
     def test_graph_prepare_wrappers_remove_only_legacy_window_directories(self) -> None:
         for relative in (
-            "new_workload/graph_graphchi_vdbench_v1/prepare_data.sh",
+            "SINGLE_workload/graph_graphchi_vdbench_v1/prepare_data.sh",
             "SYSU_workload/graph_graphchi_vdbench_v1/prepare_data.sh",
         ):
             with self.subTest(script=relative):

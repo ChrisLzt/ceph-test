@@ -13,7 +13,7 @@
 - 不引入全程不访问的数据。
 
 本设计新建五种 Vdbench 的 12 节点版本，不修改单节点目录
-`/home/chris/ceph-test/new_workload`，也不修改其中的 `hpc_wrf_ior_v1`。
+`/home/chris/ceph-test/SINGLE_workload`，也不修改其中的 `hpc_wrf_ior_v1`。
 
 ## 源码与数据路径
 
@@ -23,7 +23,7 @@
 /home/chris/ceph-test/SYSU_workload
 ```
 
-该目录与 `new_workload` 并列；`new_workload` 继续作为单节点版本，不复用
+该目录与 `SINGLE_workload` 并列；`SINGLE_workload` 继续作为单节点版本，不复用
 12 节点渲染结果。五个负载沿用现有负载名称作为 `SYSU_workload` 下的子目录。
 
 CephFS 在 12 个客户端上的实际挂载点不由源码目录推断。渲染时统一通过
@@ -161,6 +161,6 @@ decode 和 prefix 继续随机读。文件大小分布不参与热点轮换。
 
 - 不在任何 CephFS 挂载点造数据，也不执行正式测试。
 - 不修改 HPC IOR 负载。
-- 不修改或覆盖 `new_workload` 中的单节点脚本和渲染结果。
+- 不修改或覆盖 `SINGLE_workload` 中的单节点脚本和渲染结果。
 - 不把 320 MiB 容量单元解释为应用真实文件格式。
 - 不宣称 Zipf(0.99) 是 WRF、MLPerf 或 PagedAttention 论文给出的实测比例。

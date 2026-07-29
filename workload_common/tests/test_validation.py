@@ -86,7 +86,7 @@ class VdbenchValidationTests(unittest.TestCase):
             validate_run_text(text)
 
     def test_both_suites_expose_real_vdbench_validation_entrypoint(self) -> None:
-        for suite in ("new_workload", "SYSU_workload"):
+        for suite in ("SINGLE_workload", "SYSU_workload"):
             script = ROOT / suite / "validate_all.sh"
             self.assertTrue(script.is_file(), suite)
             text = script.read_text(encoding="utf-8")

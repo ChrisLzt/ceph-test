@@ -1,7 +1,7 @@
 # INSPUR AI 推理 KV cache 负载
 
 这是 INSPUR 套件中 3000 GiB 的 AI 推理物理版本。来源与适用范围见
-[`../../new_workload/ai_inference_kvcache_vdbench_v1/README.md`](../../new_workload/ai_inference_kvcache_vdbench_v1/README.md)。
+[`../../SINGLE_workload/ai_inference_kvcache_vdbench_v1/README.md`](../../SINGLE_workload/ai_inference_kvcache_vdbench_v1/README.md)。
 
 kv_active、kv_next、kv_prefix各800单元、1000 GiB。每组以100个参考rank计算
 Zipf并压缩为40个物理bin：前20个各8单元、10 GiB，后20个各32单元、40 GiB。

@@ -2,8 +2,8 @@
 
 ## 目标
 
-在保留 `new_workload/hpc_wrf_ior_v1` 的前提下，新增
-`new_workload/hpc_wrf_vdbench_v1`。新负载使用 WRF 的输入、restart 和
+在保留 `SINGLE_workload/hpc_wrf_ior_v1` 的前提下，新增
+`SINGLE_workload/hpc_wrf_vdbench_v1`。新负载使用 WRF 的输入、restart 和
 history 文件生命周期组织四个纯读阶段，并在每个活动数据组内部使用
 Zipf(0.99) 访问权重制造明确的冷热区分。
 
@@ -27,13 +27,13 @@ WRF 官方 trace 给出的比例。文档不得将 Zipf 权重描述成 WRF 实�
 新增目录：
 
 ```text
-new_workload/hpc_wrf_vdbench_v1/
+SINGLE_workload/hpc_wrf_vdbench_v1/
 ```
 
 现有目录保持不变：
 
 ```text
-new_workload/hpc_wrf_ior_v1/
+SINGLE_workload/hpc_wrf_ior_v1/
 ```
 
 Vdbench 版本使用独立 CephFS anchor：

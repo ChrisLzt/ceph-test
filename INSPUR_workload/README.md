@@ -74,4 +74,4 @@ ANCHOR_ROOT=/ceph-test/INSPUR_workload ./run_test.sh
 
 数据已经创建后不要重复 prepare。INSPUR Vdbench 配置不包含 `hd=`，客户端由
 部署环境提供。详细来源与阶段边界见各负载 README 和
-[`../new_workload/WORKLOAD_SUMMARY.md`](../new_workload/WORKLOAD_SUMMARY.md)。
+[`../SINGLE_workload/WORKLOAD_SUMMARY.md`](../SINGLE_workload/WORKLOAD_SUMMARY.md)。

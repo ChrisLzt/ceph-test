@@ -10,7 +10,7 @@ boundaries.
 ## Scope
 
 The five workload models under `workload_common/models/` are shared by the
-single-node `new_workload` suite and the 12-node `SYSU_workload` suite. The
+single-node `SINGLE_workload` suite and the 12-node `SYSU_workload` suite. The
 change therefore applies to both suites and their rendered configurations.
 
 The following properties remain unchanged:

@@ -60,7 +60,7 @@ Vdbench 与 HPC IOR 是同一容量预算下的两种替代表示，不要求同
 修改模型或生成器后，应从仓库根目录执行统一验收：
 
 ```bash
-./new_workload/validate_all.sh
+./SINGLE_workload/validate_all.sh
 ```
 
 该入口会重新渲染五个正式 Vdbench 负载，执行共享模型测试、全部 shell 语法检查、

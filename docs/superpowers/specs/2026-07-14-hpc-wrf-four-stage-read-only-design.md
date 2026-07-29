@@ -65,7 +65,7 @@
 - `render_config.sh`：默认 `BLOCK_SIZE=9g`、`PHASE_SECONDS=150`，删除 `IOR_ITERATIONS`，渲染 IOR 时间参数。
 - `rendered/prepare_data.sh`、`rendered/run_test.sh`：从模板重新生成。
 - `tests/validate_hpc_workload.py`：校验 108 GiB、四阶段、正式测试无 `-w`、Direct I/O 和 150 秒双时间约束。
-- `README.md`、`SOURCES.md`、`new_workload/WORKLOAD_SUMMARY.md`：同步数据结构、阶段、来源边界和时间说明。
+- `README.md`、`SOURCES.md`、`SINGLE_workload/WORKLOAD_SUMMARY.md`：同步数据结构、阶段、来源边界和时间说明。
 
 ## 验证
 

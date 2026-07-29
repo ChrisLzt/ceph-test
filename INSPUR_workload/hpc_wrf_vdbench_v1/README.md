@@ -1,7 +1,7 @@
 # INSPUR WRF 生命周期 Vdbench 负载
 
 这是 INSPUR 套件中 3000 GiB 的 WRF 生命周期物理版本。来源与适用范围见
-[`../../new_workload/hpc_wrf_vdbench_v1/README.md`](../../new_workload/hpc_wrf_vdbench_v1/README.md)。
+[`../../SINGLE_workload/hpc_wrf_vdbench_v1/README.md`](../../SINGLE_workload/hpc_wrf_vdbench_v1/README.md)。
 
 startup、checkpoint、history 各800单元、1000 GiB。每组以100个参考rank计算
 Zipf并压缩为40个物理bin：前20个各8单元、10 GiB，后20个各32单元、40 GiB。

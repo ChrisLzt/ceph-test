@@ -63,8 +63,8 @@ def validate_rendered() -> None:
         ]:
             if marker not in text:
                 fail(f"rendered {name} script missing marker: {marker}")
-        if "/mnt/cephfs/new_workload" in text:
-            fail(f"rendered {name} script still uses old new_workload path")
+        if "/mnt/cephfs/SINGLE_workload" in text:
+            fail(f"rendered {name} script still uses old SINGLE_workload path")
 
     if re.search(r"(?:^|\s)-r(?:\s|$)", prepare):
         fail("prepare script should not contain read phases")
@@ -114,7 +114,7 @@ def validate_rendered() -> None:
     if prepare.count("--posix.odirect") != 1:
         fail("rendered prepare should use direct I/O for dataset writes")
 
-    for marker in ["ground_truth.csv", "/mnt/cephfs/new_workload"]:
+    for marker in ["ground_truth.csv", "/mnt/cephfs/SINGLE_workload"]:
         if marker in readme or marker in sources:
             fail(f"docs should not reference stale marker: {marker}")
 

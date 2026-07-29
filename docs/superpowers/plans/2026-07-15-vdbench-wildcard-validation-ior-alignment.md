@@ -55,7 +55,7 @@ Expected: all shared model tests pass and every formal run RD expands to the sam
 **Files:**
 - Create: `workload_common/validate_vdbench.py`
 - Create: `workload_common/tests/test_validation.py`
-- Create: `new_workload/validate_all.sh`
+- Create: `SINGLE_workload/validate_all.sh`
 - Modify: `SYSU_workload/validate_all.sh`
 - Modify: `SYSU_workload/tests/test_suite.py`
 
@@ -83,7 +83,7 @@ Render the five formal workloads, run Python and shell checks, validate IOR, the
 
 - [ ] **Step 5: Verify both suites**
 
-Run: `new_workload/validate_all.sh`
+Run: `SINGLE_workload/validate_all.sh`
 
 Run: `SYSU_workload/validate_all.sh`
 
@@ -92,11 +92,11 @@ Expected: model tests, shell syntax, IOR validation, structural checks, and all 
 ### Task 3: Align the single-node IOR workload with SYSU semantics
 
 **Files:**
-- Modify: `new_workload/hpc_wrf_ior_v1/render_config.sh`
-- Modify: `new_workload/hpc_wrf_ior_v1/tests/validate_hpc_workload.py`
-- Modify: `new_workload/hpc_wrf_ior_v1/README.md`
-- Regenerate: `new_workload/hpc_wrf_ior_v1/rendered/prepare_data.sh`
-- Regenerate: `new_workload/hpc_wrf_ior_v1/rendered/run_test.sh`
+- Modify: `SINGLE_workload/hpc_wrf_ior_v1/render_config.sh`
+- Modify: `SINGLE_workload/hpc_wrf_ior_v1/tests/validate_hpc_workload.py`
+- Modify: `SINGLE_workload/hpc_wrf_ior_v1/README.md`
+- Regenerate: `SINGLE_workload/hpc_wrf_ior_v1/rendered/prepare_data.sh`
+- Regenerate: `SINGLE_workload/hpc_wrf_ior_v1/rendered/run_test.sh`
 
 **Interfaces:**
 - Produces: three 37.5-GiB IOR pools and four 150-second Direct-I/O read phases.
@@ -107,7 +107,7 @@ Require `BLOCK_SIZE="9600m"`, `TRANSFER_SIZE="4m"`, and exact total prepared cap
 
 - [ ] **Step 2: Update renderer defaults and regenerate scripts**
 
-Set the defaults in `render_config.sh`, then run `new_workload/hpc_wrf_ior_v1/render_config.sh all`.
+Set the defaults in `render_config.sh`, then run `SINGLE_workload/hpc_wrf_ior_v1/render_config.sh all`.
 
 - [ ] **Step 3: Revise workload documentation**
 
@@ -115,16 +115,16 @@ Explain the 37.5-GiB pool calculation, 4-MiB transfer size, and that IOR and Vdb
 
 - [ ] **Step 4: Verify the IOR model**
 
-Run: `new_workload/hpc_wrf_ior_v1/validate_model.sh`
+Run: `SINGLE_workload/hpc_wrf_ior_v1/validate_model.sh`
 
 Expected: exact 112.50-GiB capacity and all phase/direct-I/O checks pass.
 
 ### Task 4: Regenerate, document, and perform final regression
 
 **Files:**
-- Regenerate: `new_workload/*_vdbench_v1/rendered/*.vdb`
+- Regenerate: `SINGLE_workload/*_vdbench_v1/rendered/*.vdb`
 - Regenerate: `SYSU_workload/*_vdbench_v1/rendered/*.vdb`
-- Modify: `new_workload/README.md`
+- Modify: `SINGLE_workload/README.md`
 - Modify: `SYSU_workload/README.md`
 
 - [ ] **Step 1: Render all five workloads in both suites**

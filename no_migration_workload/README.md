@@ -1,11 +1,11 @@
 # 单节点无热点迁移对照负载
 
 本目录包含 5 个只运行测试、不创建数据的 Vdbench 对照负载。它们复用
-`new_workload` 已经在 `/mnt/cephfs` 下创建的数据，使用固定的 FSD 与
+`SINGLE_workload` 已经在 `/mnt/cephfs` 下创建的数据，使用固定的 FSD 与
 Zipf(0.99) skew，使物理 bin 访问分布不迁移。MapReduce、GraphChi 和 HPC 使用
 单个 600 秒 RD，避免阶段重启干扰 object 热度；AI 负载保留原有读模式阶段。
 
-本目录不提供 `prepare_data.sh`。必须先使用 `new_workload` 对应负载完成造数据；
+本目录不提供 `prepare_data.sh`。必须先使用 `SINGLE_workload` 对应负载完成造数据；
 运行脚本只读取这些文件，并在启动 Vdbench 前检查所有引用目录是否存在。
 
 ## 固定热点设计

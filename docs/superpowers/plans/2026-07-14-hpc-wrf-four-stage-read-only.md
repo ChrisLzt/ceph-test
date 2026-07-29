@@ -22,8 +22,8 @@
 ### Task 1: Express the four-stage model in validation
 
 **Files:**
-- Modify: `new_workload/hpc_wrf_ior_v1/tests/validate_hpc_workload.py`
-- Test: `new_workload/hpc_wrf_ior_v1/tests/validate_hpc_workload.py`
+- Modify: `SINGLE_workload/hpc_wrf_ior_v1/tests/validate_hpc_workload.py`
+- Test: `SINGLE_workload/hpc_wrf_ior_v1/tests/validate_hpc_workload.py`
 
 **Interfaces:**
 - Consumes: rendered Bash variables and literal IOR arguments.
@@ -88,7 +88,7 @@ if total_gib != 108:
 Run:
 
 ```bash
-cd /home/chris/ceph-test/new_workload/hpc_wrf_ior_v1
+cd /home/chris/ceph-test/SINGLE_workload/hpc_wrf_ior_v1
 python3 tests/validate_hpc_workload.py
 ```
 
@@ -99,11 +99,11 @@ Expected: FAIL because the rendered scripts still contain seven prepared bases a
 ### Task 2: Implement and render the read-only IOR workload
 
 **Files:**
-- Modify: `new_workload/hpc_wrf_ior_v1/configs/prepare_data.sh.in`
-- Modify: `new_workload/hpc_wrf_ior_v1/configs/run_test.sh.in`
-- Modify: `new_workload/hpc_wrf_ior_v1/render_config.sh`
-- Generate: `new_workload/hpc_wrf_ior_v1/rendered/prepare_data.sh`
-- Generate: `new_workload/hpc_wrf_ior_v1/rendered/run_test.sh`
+- Modify: `SINGLE_workload/hpc_wrf_ior_v1/configs/prepare_data.sh.in`
+- Modify: `SINGLE_workload/hpc_wrf_ior_v1/configs/run_test.sh.in`
+- Modify: `SINGLE_workload/hpc_wrf_ior_v1/render_config.sh`
+- Generate: `SINGLE_workload/hpc_wrf_ior_v1/rendered/prepare_data.sh`
+- Generate: `SINGLE_workload/hpc_wrf_ior_v1/rendered/run_test.sh`
 
 **Interfaces:**
 - Consumes: `ANCHOR`, `IOR_BIN`, `MPI_RUN`, `NP`, `API`, `BLOCK_SIZE`, `TRANSFER_SIZE`, `SEGMENT_COUNT`, `PHASE_SECONDS`.
@@ -168,7 +168,7 @@ Remove `IOR_ITERATIONS`, validate `phase_seconds` as a positive integer, render 
 Run:
 
 ```bash
-cd /home/chris/ceph-test/new_workload/hpc_wrf_ior_v1
+cd /home/chris/ceph-test/SINGLE_workload/hpc_wrf_ior_v1
 ./render_config.sh all
 ```
 
@@ -194,10 +194,10 @@ PASS: HPC WRF IOR workload is split into prepare-only and run-only scripts.
 ### Task 3: Synchronize workload documentation and verify the result
 
 **Files:**
-- Modify: `new_workload/hpc_wrf_ior_v1/README.md`
-- Modify: `new_workload/hpc_wrf_ior_v1/SOURCES.md`
-- Modify: `new_workload/WORKLOAD_SUMMARY.md`
-- Modify: `new_workload/hpc_wrf_ior_v1/validate_model.sh` only if its existing commands do not cover all changed scripts.
+- Modify: `SINGLE_workload/hpc_wrf_ior_v1/README.md`
+- Modify: `SINGLE_workload/hpc_wrf_ior_v1/SOURCES.md`
+- Modify: `SINGLE_workload/WORKLOAD_SUMMARY.md`
+- Modify: `SINGLE_workload/hpc_wrf_ior_v1/validate_model.sh` only if its existing commands do not cover all changed scripts.
 
 **Interfaces:**
 - Consumes: the final rendered parameters and phase names from Task 2.
@@ -226,7 +226,7 @@ Replace the HPC capacity and stage tables with the three pools and four read pha
 Run:
 
 ```bash
-cd /home/chris/ceph-test/new_workload/hpc_wrf_ior_v1
+cd /home/chris/ceph-test/SINGLE_workload/hpc_wrf_ior_v1
 ./validate_model.sh
 bash -n render_config.sh prepare_data.sh run_test.sh validate_model.sh configs/prepare_data.sh.in configs/run_test.sh.in rendered/prepare_data.sh rendered/run_test.sh
 python3 -m py_compile tests/validate_hpc_workload.py
@@ -242,8 +242,8 @@ Run:
 
 ```bash
 rg -n "wrfinput_d01|wrfbdy_d01|wrfrst_initial|wrfrst_old|wrfout_old|IOR_ITERATIONS|checkpoint_write|history_write|8 次 IOR|512 GiB" \
-  new_workload/hpc_wrf_ior_v1 \
-  new_workload/WORKLOAD_SUMMARY.md
+  SINGLE_workload/hpc_wrf_ior_v1 \
+  SINGLE_workload/WORKLOAD_SUMMARY.md
 ```
 
 Expected: no matches outside historical design/plan documents.
@@ -253,8 +253,8 @@ Expected: no matches outside historical design/plan documents.
 Run:
 
 ```bash
-git status --short -- new_workload/hpc_wrf_ior_v1 new_workload/WORKLOAD_SUMMARY.md
-git diff --stat -- new_workload/hpc_wrf_ior_v1 new_workload/WORKLOAD_SUMMARY.md
+git status --short -- SINGLE_workload/hpc_wrf_ior_v1 SINGLE_workload/WORKLOAD_SUMMARY.md
+git diff --stat -- SINGLE_workload/hpc_wrf_ior_v1 SINGLE_workload/WORKLOAD_SUMMARY.md
 ```
 
 Expected: only the intended HPC workload and the HPC portion of the summary are changed; no prepare or formal workload process has been started.

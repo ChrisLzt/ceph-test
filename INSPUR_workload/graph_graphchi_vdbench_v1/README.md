@@ -1,7 +1,7 @@
 # INSPUR GraphChi shard内Zipf冷热负载
 
 这是INSPUR套件中3000 GiB的GraphChi shard生命周期物理版本。来源和适用边界见
-[`../../new_workload/graph_graphchi_vdbench_v1/README.md`](../../new_workload/graph_graphchi_vdbench_v1/README.md)。
+[`../../SINGLE_workload/graph_graphchi_vdbench_v1/README.md`](../../SINGLE_workload/graph_graphchi_vdbench_v1/README.md)。
 
 - 4个等容量shard，每个600单元、750 GiB；
 - 每shard以100个参考rank计算Zipf，并压缩为40个物理bin；

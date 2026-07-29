@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Create `new_workload/hpc_wrf_vdbench_v1`; do not modify or delete `new_workload/hpc_wrf_ior_v1`.
+- Create `SINGLE_workload/hpc_wrf_vdbench_v1`; do not modify or delete `SINGLE_workload/hpc_wrf_ior_v1`.
 - Use the independent anchor `/mnt/cephfs/hpc_wrf_vdbench_v1`.
 - Model exactly three groups: startup, checkpoint, history.
 - Split each group into 20 equal ranks, each with 120 files of 16 MiB.
@@ -26,8 +26,8 @@
 ### Task 1: Zipf Derivation and Template Generator
 
 **Files:**
-- Create: `new_workload/hpc_wrf_vdbench_v1/tests/test_derive_zipf_profile.py`
-- Create: `new_workload/hpc_wrf_vdbench_v1/scripts/derive_zipf_profile.py`
+- Create: `SINGLE_workload/hpc_wrf_vdbench_v1/tests/test_derive_zipf_profile.py`
+- Create: `SINGLE_workload/hpc_wrf_vdbench_v1/scripts/derive_zipf_profile.py`
 
 **Interfaces:**
 - Produces: `aggregate_zipf_percentages(object_count: int, rank_count: int, alpha: float) -> list[int]`.
@@ -52,7 +52,7 @@ def test_default_profile_is_nonzero_and_sums_to_100():
 Run:
 
 ```bash
-python3 -m unittest discover -s new_workload/hpc_wrf_vdbench_v1/tests -p 'test_*.py' -v
+python3 -m unittest discover -s SINGLE_workload/hpc_wrf_vdbench_v1/tests -p 'test_*.py' -v
 ```
 
 Expected: FAIL because `scripts.derive_zipf_profile` does not exist.
@@ -110,22 +110,22 @@ Expected: all Zipf derivation and generated-template tests PASS.
 - [ ] **Step 5: Commit Task 1**
 
 ```bash
-git add new_workload/hpc_wrf_vdbench_v1/scripts new_workload/hpc_wrf_vdbench_v1/tests/test_derive_zipf_profile.py
+git add SINGLE_workload/hpc_wrf_vdbench_v1/scripts SINGLE_workload/hpc_wrf_vdbench_v1/tests/test_derive_zipf_profile.py
 git commit -m "feat: derive WRF vdbench Zipf profile"
 ```
 
 ### Task 2: Rendering, Wrappers, and Model Validation
 
 **Files:**
-- Create: `new_workload/hpc_wrf_vdbench_v1/configs/prepare_data.vdb.in`
-- Create: `new_workload/hpc_wrf_vdbench_v1/configs/run_test.vdb.in`
-- Create: `new_workload/hpc_wrf_vdbench_v1/rendered/prepare_data.vdb`
-- Create: `new_workload/hpc_wrf_vdbench_v1/rendered/run_test.vdb`
-- Create: `new_workload/hpc_wrf_vdbench_v1/render_config.sh`
-- Create: `new_workload/hpc_wrf_vdbench_v1/prepare_data.sh`
-- Create: `new_workload/hpc_wrf_vdbench_v1/run_test.sh`
-- Create: `new_workload/hpc_wrf_vdbench_v1/validate_model.sh`
-- Create: `new_workload/hpc_wrf_vdbench_v1/tests/validate_hpc_vdbench_workload.py`
+- Create: `SINGLE_workload/hpc_wrf_vdbench_v1/configs/prepare_data.vdb.in`
+- Create: `SINGLE_workload/hpc_wrf_vdbench_v1/configs/run_test.vdb.in`
+- Create: `SINGLE_workload/hpc_wrf_vdbench_v1/rendered/prepare_data.vdb`
+- Create: `SINGLE_workload/hpc_wrf_vdbench_v1/rendered/run_test.vdb`
+- Create: `SINGLE_workload/hpc_wrf_vdbench_v1/render_config.sh`
+- Create: `SINGLE_workload/hpc_wrf_vdbench_v1/prepare_data.sh`
+- Create: `SINGLE_workload/hpc_wrf_vdbench_v1/run_test.sh`
+- Create: `SINGLE_workload/hpc_wrf_vdbench_v1/validate_model.sh`
+- Create: `SINGLE_workload/hpc_wrf_vdbench_v1/tests/validate_hpc_vdbench_workload.py`
 
 **Interfaces:**
 - `render_config.sh [all|prepare|run]` renders generated templates.
@@ -161,7 +161,7 @@ It must reject `operation=write`, `format=` in run configs, unresolved tokens, m
 Run:
 
 ```bash
-python3 new_workload/hpc_wrf_vdbench_v1/tests/validate_hpc_vdbench_workload.py
+python3 SINGLE_workload/hpc_wrf_vdbench_v1/tests/validate_hpc_vdbench_workload.py
 ```
 
 Expected: FAIL with missing `configs/prepare_data.vdb.in`.
@@ -201,7 +201,7 @@ Use wrapper commands:
 Run:
 
 ```bash
-cd new_workload/hpc_wrf_vdbench_v1
+cd SINGLE_workload/hpc_wrf_vdbench_v1
 ./render_config.sh all
 ./validate_model.sh
 ```
@@ -217,23 +217,23 @@ PASS: WRF-derived Vdbench Zipf workload is internally consistent.
 - [ ] **Step 5: Commit Task 2**
 
 ```bash
-git add new_workload/hpc_wrf_vdbench_v1/configs \
-  new_workload/hpc_wrf_vdbench_v1/rendered \
-  new_workload/hpc_wrf_vdbench_v1/render_config.sh \
-  new_workload/hpc_wrf_vdbench_v1/prepare_data.sh \
-  new_workload/hpc_wrf_vdbench_v1/run_test.sh \
-  new_workload/hpc_wrf_vdbench_v1/validate_model.sh \
-  new_workload/hpc_wrf_vdbench_v1/tests/validate_hpc_vdbench_workload.py
+git add SINGLE_workload/hpc_wrf_vdbench_v1/configs \
+  SINGLE_workload/hpc_wrf_vdbench_v1/rendered \
+  SINGLE_workload/hpc_wrf_vdbench_v1/render_config.sh \
+  SINGLE_workload/hpc_wrf_vdbench_v1/prepare_data.sh \
+  SINGLE_workload/hpc_wrf_vdbench_v1/run_test.sh \
+  SINGLE_workload/hpc_wrf_vdbench_v1/validate_model.sh \
+  SINGLE_workload/hpc_wrf_vdbench_v1/tests/validate_hpc_vdbench_workload.py
 git commit -m "feat: add WRF vdbench Zipf workload"
 ```
 
 ### Task 3: Source Documentation and Workload Index
 
 **Files:**
-- Create: `new_workload/hpc_wrf_vdbench_v1/README.md`
-- Create: `new_workload/hpc_wrf_vdbench_v1/SOURCES.md`
-- Modify: `new_workload/README.md`
-- Modify: `new_workload/WORKLOAD_SUMMARY.md`
+- Create: `SINGLE_workload/hpc_wrf_vdbench_v1/README.md`
+- Create: `SINGLE_workload/hpc_wrf_vdbench_v1/SOURCES.md`
+- Modify: `SINGLE_workload/README.md`
+- Modify: `SINGLE_workload/WORKLOAD_SUMMARY.md`
 
 **Interfaces:**
 - Documents the exact source/engineering boundary consumed by workload users.
@@ -259,15 +259,15 @@ Expected: FAIL because README and SOURCES are missing.
 
 - [ ] **Step 3: Write documentation and update indexes**
 
-README sections must cover purpose, source boundary, data layout, formula, four phases, workflow, defaults, acceptance, and limitations. `new_workload/README.md` must show both `hpc_wrf_ior_v1` and `hpc_wrf_vdbench_v1`; `WORKLOAD_SUMMARY.md` must describe the Vdbench version as the controllable-heat option and retain IOR as the MPI-oriented option.
+README sections must cover purpose, source boundary, data layout, formula, four phases, workflow, defaults, acceptance, and limitations. `SINGLE_workload/README.md` must show both `hpc_wrf_ior_v1` and `hpc_wrf_vdbench_v1`; `WORKLOAD_SUMMARY.md` must describe the Vdbench version as the controllable-heat option and retain IOR as the MPI-oriented option.
 
 - [ ] **Step 4: Run validation and Markdown consistency checks**
 
 Run:
 
 ```bash
-./new_workload/hpc_wrf_vdbench_v1/validate_model.sh
-rg -n "hpc_wrf_(ior|vdbench)_v1" new_workload/README.md new_workload/WORKLOAD_SUMMARY.md
+./SINGLE_workload/hpc_wrf_vdbench_v1/validate_model.sh
+rg -n "hpc_wrf_(ior|vdbench)_v1" SINGLE_workload/README.md SINGLE_workload/WORKLOAD_SUMMARY.md
 ```
 
 Expected: validator PASS and both directories listed.
@@ -279,8 +279,8 @@ Stage the new workload documentation and clean index changes only. If `WORKLOAD_
 ### Task 4: Final Verification
 
 **Files:**
-- Verify all files under `new_workload/hpc_wrf_vdbench_v1/`.
-- Verify preservation of `new_workload/hpc_wrf_ior_v1/`.
+- Verify all files under `SINGLE_workload/hpc_wrf_vdbench_v1/`.
+- Verify preservation of `SINGLE_workload/hpc_wrf_ior_v1/`.
 
 **Interfaces:**
 - Produces evidence for final handoff; performs no CephFS I/O.
@@ -288,15 +288,15 @@ Stage the new workload documentation and clean index changes only. If `WORKLOAD_
 - [ ] **Step 1: Run shell and Python syntax checks**
 
 ```bash
-bash -n new_workload/hpc_wrf_vdbench_v1/*.sh
-python3 -m compileall -q new_workload/hpc_wrf_vdbench_v1/scripts new_workload/hpc_wrf_vdbench_v1/tests
+bash -n SINGLE_workload/hpc_wrf_vdbench_v1/*.sh
+python3 -m compileall -q SINGLE_workload/hpc_wrf_vdbench_v1/scripts SINGLE_workload/hpc_wrf_vdbench_v1/tests
 ```
 
 - [ ] **Step 2: Run unit and integration validation**
 
 ```bash
-python3 -m unittest discover -s new_workload/hpc_wrf_vdbench_v1/tests -p 'test_*.py' -v
-new_workload/hpc_wrf_vdbench_v1/validate_model.sh
+python3 -m unittest discover -s SINGLE_workload/hpc_wrf_vdbench_v1/tests -p 'test_*.py' -v
+SINGLE_workload/hpc_wrf_vdbench_v1/validate_model.sh
 ```
 
 Expected: all unit tests PASS and model validator reports 7200 files, 112.50 GiB, and PASS.
@@ -304,9 +304,9 @@ Expected: all unit tests PASS and model validator reports 7200 files, 112.50 GiB
 - [ ] **Step 3: Inspect rendered invariants**
 
 ```bash
-rg -n '^rd=' new_workload/hpc_wrf_vdbench_v1/rendered/run_test.vdb
-rg -n 'operation=write|format=' new_workload/hpc_wrf_vdbench_v1/rendered/run_test.vdb
-test -d new_workload/hpc_wrf_ior_v1
+rg -n '^rd=' SINGLE_workload/hpc_wrf_vdbench_v1/rendered/run_test.vdb
+rg -n 'operation=write|format=' SINGLE_workload/hpc_wrf_vdbench_v1/rendered/run_test.vdb
+test -d SINGLE_workload/hpc_wrf_ior_v1
 ```
 
 Expected: four RDs, no write/format match, and the IOR directory exists.

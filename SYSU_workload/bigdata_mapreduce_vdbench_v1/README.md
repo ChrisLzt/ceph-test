@@ -1,7 +1,7 @@
 # SYSU MapReduce 文件冷热负载
 
 这是单节点 MapReduce 模型的 750 GiB 物理版本。来源、论文比例和适用范围见
-[`../../new_workload/bigdata_mapreduce_vdbench_v1/README.md`](../../new_workload/bigdata_mapreduce_vdbench_v1/README.md)。
+[`../../SINGLE_workload/bigdata_mapreduce_vdbench_v1/README.md`](../../SINGLE_workload/bigdata_mapreduce_vdbench_v1/README.md)。
 
 | 数据池 | 单元 | 容量 | 参考 rank | 物理 bin |
 |---|---:|---:|---:|---:|

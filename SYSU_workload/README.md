@@ -66,7 +66,7 @@ ANCHOR_ROOT=/ceph-test/SYSU_workload ./run_test.sh
 ```
 
 数据已创建后不要重复 prepare。详细来源和适用范围见各目录 README，以及
-[`../new_workload/WORKLOAD_SUMMARY.md`](../new_workload/WORKLOAD_SUMMARY.md)。
+[`../SINGLE_workload/WORKLOAD_SUMMARY.md`](../SINGLE_workload/WORKLOAD_SUMMARY.md)。
 
 修改模型或生成器后，在仓库根目录执行：
 

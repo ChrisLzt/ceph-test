@@ -57,7 +57,7 @@ Meta DSI 或 PagedAttention 的实测冷热比例。
 
 ## 建议工具接口
 
-后续可增加 `new_workload/tools/trace_profile.py`：
+后续可增加 `SINGLE_workload/tools/trace_profile.py`：
 
 ```text
 --trace PATH

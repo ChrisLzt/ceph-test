@@ -11,7 +11,7 @@
 ## Global Constraints
 
 - Work in `/home/chris/ceph-test` on the user-authorized local `main` branch.
-- Create `/home/chris/ceph-test/SYSU_workload/hpc_wrf_ior_v1`; do not change `new_workload/hpc_wrf_ior_v1`.
+- Create `/home/chris/ceph-test/SYSU_workload/hpc_wrf_ior_v1`; do not change `SINGLE_workload/hpc_wrf_ior_v1`.
 - Require an absolute `ANCHOR_ROOT`; append `/hpc_wrf_ior_v1` for the data path.
 - Fix capacity at three groups × 250 GiB = 750 GiB logical.
 - Fix `NP=4`, `BLOCK_SIZE=64000m`, `SEGMENT_COUNT=1`, and `TRANSFER_SIZE=4m`.

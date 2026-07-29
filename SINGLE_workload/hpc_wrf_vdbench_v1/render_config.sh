@@ -10,7 +10,7 @@ anchor=${ANCHOR:-/mnt/cephfs/$workload}
 anchor_root=${ANCHOR_ROOT:-${anchor%/$workload}}
 
 cd "$repo"
-python3 -m new_workload.$workload.scripts.render \
+python3 -m SINGLE_workload.$workload.scripts.render \
   --anchor-root "$anchor_root" --output-dir "$root/rendered" \
   --host "${HOST1:-s52.servers.hustpdsl.cn}" --remote-user "${REMOTE_USER:-chris}" \
   --vdbench-home "${VDBENCH_HOME:-/home/chris/PDSL/vdbench}" \

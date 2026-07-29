@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Implement the approved file-level Zipf(0.99), mixed-file-size layouts for the five Vdbench workloads in both `new_workload/` and `SYSU_workload/`, without changing HPC IOR or the two fixed-hot experiments.
+**Goal:** Implement the approved file-level Zipf(0.99), mixed-file-size layouts for the five Vdbench workloads in both `SINGLE_workload/` and `SYSU_workload/`, without changing HPC IOR or the two fixed-hot experiments.
 
 **Architecture:** A new repository-level `workload_common` package owns capacity units, exact decimal Zipf aggregation, Vdbench emission, and five workload models. Thin single-node and SYSU wrappers select the physical layout and host policy, so both environments share one logical design and cannot drift. Generated parameter files stay committed, while tests render into temporary directories and validate capacities, phases, skews, Direct I/O, and batched preparation.
 
@@ -17,7 +17,7 @@
 - Formal runs use read-only operations, `xfersize=4m`, `fwdrate=max`, `openflags=o_direct`, and `fileselect=random`.
 - Prepare and run remain separate; prepare processes no more than 20 logical ranks per clean/create batch.
 - SYSU parameter files contain no `hd=` definition; single-node files retain configurable `HOST1` and `REMOTE_USER`.
-- Leave `new_workload/hpc_wrf_ior_v1`, `SYSU_workload/hpc_wrf_ior_v1`, `bigdata_fixed_hot_vdbench_v1`, and `graph_graphchi_fixed_hot_vdbench_v1` unchanged.
+- Leave `SINGLE_workload/hpc_wrf_ior_v1`, `SYSU_workload/hpc_wrf_ior_v1`, `bigdata_fixed_hot_vdbench_v1`, and `graph_graphchi_fixed_hot_vdbench_v1` unchanged.
 
 ---
 
@@ -78,10 +78,10 @@ Make `SYSU_workload.common.layout` and `SYSU_workload.common.vdbench` re-export 
 - Create: `workload_common/models/__init__.py`
 - Create: `workload_common/models/mapreduce.py`
 - Create: `workload_common/tests/test_mapreduce.py`
-- Create: `new_workload/__init__.py`
-- Create: `new_workload/bigdata_mapreduce_vdbench_v1/__init__.py`
-- Create: `new_workload/bigdata_mapreduce_vdbench_v1/scripts/__init__.py`
-- Create: `new_workload/bigdata_mapreduce_vdbench_v1/scripts/render.py`
+- Create: `SINGLE_workload/__init__.py`
+- Create: `SINGLE_workload/bigdata_mapreduce_vdbench_v1/__init__.py`
+- Create: `SINGLE_workload/bigdata_mapreduce_vdbench_v1/scripts/__init__.py`
+- Create: `SINGLE_workload/bigdata_mapreduce_vdbench_v1/scripts/render.py`
 - Modify: `SYSU_workload/bigdata_mapreduce_vdbench_v1/scripts/render.py`
 - Modify: both `bigdata_mapreduce_vdbench_v1/render_config.sh`
 - Modify: both MapReduce `README.md` files and `SOURCES.md` as needed.
@@ -108,7 +108,7 @@ Generate anchors `<root>/<workload>/<pool>/rank_NNN/size_Xm`; call `rank_bucket_
 
 Run: `python3 -m unittest workload_common.tests.test_mapreduce -v`
 
-Run: `./new_workload/bigdata_mapreduce_vdbench_v1/render_config.sh all`
+Run: `./SINGLE_workload/bigdata_mapreduce_vdbench_v1/render_config.sh all`
 
 Run: `ANCHOR_ROOT=/ceph-test/SYSU_workload ./SYSU_workload/bigdata_mapreduce_vdbench_v1/render_config.sh`
 
@@ -119,9 +119,9 @@ Expected: tests pass and both `rendered/` pairs update.
 **Files:**
 - Create: `workload_common/models/graphchi.py`
 - Create: `workload_common/tests/test_graphchi.py`
-- Create: `new_workload/graph_graphchi_vdbench_v1/__init__.py`
-- Create: `new_workload/graph_graphchi_vdbench_v1/scripts/__init__.py`
-- Create/Replace: `new_workload/graph_graphchi_vdbench_v1/scripts/render.py`
+- Create: `SINGLE_workload/graph_graphchi_vdbench_v1/__init__.py`
+- Create: `SINGLE_workload/graph_graphchi_vdbench_v1/scripts/__init__.py`
+- Create/Replace: `SINGLE_workload/graph_graphchi_vdbench_v1/scripts/render.py`
 - Modify: `SYSU_workload/graph_graphchi_vdbench_v1/scripts/render.py`
 - Modify: both GraphChi `render_config.sh`, `README.md`, and validation entry points.
 
@@ -151,8 +151,8 @@ Expected: four RDs, no obsolete fifth reheat RD, and all tests pass.
 **Files:**
 - Create: `workload_common/models/hpc.py`
 - Create: `workload_common/tests/test_hpc.py`
-- Create: `new_workload/hpc_wrf_vdbench_v1/__init__.py`
-- Create/Replace: `new_workload/hpc_wrf_vdbench_v1/scripts/render.py`
+- Create: `SINGLE_workload/hpc_wrf_vdbench_v1/__init__.py`
+- Create/Replace: `SINGLE_workload/hpc_wrf_vdbench_v1/scripts/render.py`
 - Modify: `SYSU_workload/hpc_wrf_vdbench_v1/scripts/render.py`
 - Modify: both HPC Vdbench wrappers, READMEs, and validation entry points.
 
@@ -173,7 +173,7 @@ Use one 100% group-level share per phase and independent Zipf per size class. Ke
 
 - [ ] **Step 4: Run tests and compare IOR status**
 
-Run the HPC unit test and `git diff -- new_workload/hpc_wrf_ior_v1 SYSU_workload/hpc_wrf_ior_v1`.
+Run the HPC unit test and `git diff -- SINGLE_workload/hpc_wrf_ior_v1 SYSU_workload/hpc_wrf_ior_v1`.
 
 Expected: test passes and IOR diff is empty.
 
@@ -182,9 +182,9 @@ Expected: test passes and IOR diff is empty.
 **Files:**
 - Create: `workload_common/models/ai_training.py`
 - Create: `workload_common/tests/test_ai_training.py`
-- Create: `new_workload/ai_training_checkpoint_vdbench_v1/__init__.py`
-- Create: `new_workload/ai_training_checkpoint_vdbench_v1/scripts/__init__.py`
-- Create: `new_workload/ai_training_checkpoint_vdbench_v1/scripts/render.py`
+- Create: `SINGLE_workload/ai_training_checkpoint_vdbench_v1/__init__.py`
+- Create: `SINGLE_workload/ai_training_checkpoint_vdbench_v1/scripts/__init__.py`
+- Create: `SINGLE_workload/ai_training_checkpoint_vdbench_v1/scripts/render.py`
 - Modify: `SYSU_workload/ai_training_checkpoint_vdbench_v1/scripts/render.py`
 - Modify: both AI-training wrappers, READMEs, and validation entry points.
 
@@ -212,9 +212,9 @@ Expected: `160 × 3 + 40 × 3 = 600` seconds and all tests pass.
 **Files:**
 - Create: `workload_common/models/ai_inference.py`
 - Create: `workload_common/tests/test_ai_inference.py`
-- Create: `new_workload/ai_inference_kvcache_vdbench_v1/__init__.py`
-- Create: `new_workload/ai_inference_kvcache_vdbench_v1/scripts/__init__.py`
-- Create: `new_workload/ai_inference_kvcache_vdbench_v1/scripts/render.py`
+- Create: `SINGLE_workload/ai_inference_kvcache_vdbench_v1/__init__.py`
+- Create: `SINGLE_workload/ai_inference_kvcache_vdbench_v1/scripts/__init__.py`
+- Create: `SINGLE_workload/ai_inference_kvcache_vdbench_v1/scripts/render.py`
 - Modify: `SYSU_workload/ai_inference_kvcache_vdbench_v1/scripts/render.py`
 - Modify: both AI-inference wrappers, READMEs, and validation entry points.
 
@@ -237,7 +237,7 @@ Expected: six `elapsed=100` RDs and all tests pass.
 
 **Files:**
 - Modify: ten `render_config.sh` files and ten `validate_model.sh` files.
-- Modify: `new_workload/README.md`, `new_workload/WORKLOAD_SUMMARY.md`, `SYSU_workload/README.md`.
+- Modify: `SINGLE_workload/README.md`, `SINGLE_workload/WORKLOAD_SUMMARY.md`, `SYSU_workload/README.md`.
 - Modify: all ten formal Vdbench workload READMEs and tracked `rendered/*.vdb` files.
 - Remove: obsolete single-node `.vdb.in` templates and superseded derivation scripts/tests only after their replacement tests pass.
 
@@ -274,10 +274,10 @@ Run:
 ```bash
 python3 -m unittest discover -s workload_common/tests -v
 python3 -m unittest discover -s SYSU_workload/tests -v
-for validator in new_workload/*_vdbench_v1/validate_model.sh; do "$validator"; done
+for validator in SINGLE_workload/*_vdbench_v1/validate_model.sh; do "$validator"; done
 SYSU_workload/validate_all.sh
 git diff --check
-git diff -- new_workload/hpc_wrf_ior_v1 SYSU_workload/hpc_wrf_ior_v1
+git diff -- SINGLE_workload/hpc_wrf_ior_v1 SYSU_workload/hpc_wrf_ior_v1
 ```
 
 Expected: all commands pass; IOR diff is empty; no whitespace errors.

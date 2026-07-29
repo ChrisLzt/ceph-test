@@ -6,7 +6,7 @@
 
 本设计统一调整以下两套测试中的五个 Vdbench 负载：
 
-- `new_workload/`：单节点测试；
+- `SINGLE_workload/`：单节点测试；
 - `SYSU_workload/`：12 节点、三副本测试。
 
 目标是在保留各负载应用层结构的前提下，让同一个 pool、window 或数据组内部
