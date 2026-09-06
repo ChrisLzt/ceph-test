@@ -370,6 +370,8 @@ fsd=fsd_checkpoint_old_r040_s4,anchor=/mnt/cephfs/ai_training_checkpoint_vdbench
 fsd=fsd_checkpoint_old_r040_s8,anchor=/mnt/cephfs/ai_training_checkpoint_vdbench_v1/checkpoint_old/rank_040/size_8m,files=16,size=8m
 fsd=fsd_checkpoint_old_r040_s16,anchor=/mnt/cephfs/ai_training_checkpoint_vdbench_v1/checkpoint_old/rank_040/size_16m,files=8,size=16m
 
+* Explicit format settings avoid version-dependent Vdbench defaults.
+fwd=format,threads=1,xfersize=4m
 fwd=prep_dataset_r001_s4,fsd=fsd_dataset_r001_s4,operation=read,threads=1
 fwd=prep_dataset_r001_s8,fsd=fsd_dataset_r001_s8,operation=read,threads=1
 fwd=prep_dataset_r001_s16,fsd=fsd_dataset_r001_s16,operation=read,threads=1

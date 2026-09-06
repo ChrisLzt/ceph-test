@@ -8,6 +8,16 @@
 # Generated caches
 **/__pycache__/
 *.py[cod]
+/.pytest_cache/
+**/.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Local analysis environments and reference material
+/.venv*/
+/资料/
+/SYSU_test/
 
 # Third-party source snapshots kept only for local reference
 **/upstream/

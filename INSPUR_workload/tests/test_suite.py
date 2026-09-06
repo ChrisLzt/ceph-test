@@ -22,13 +22,25 @@ class InspurSuiteTests(unittest.TestCase):
         self.assertEqual(actual, sorted(WORKLOADS))
         self.assertTrue((ROOT / "hpc_wrf_ior_v1").is_dir())
 
-    def test_top_level_workflow_and_capacity_documentation_exist(self) -> None:
+    def test_top_level_capacity_and_workload_design_documentation_exist(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertTrue((ROOT / "validate_all.sh").is_file())
         self.assertIn("3000 GiB", readme)
+        self.assertIn("18000 GiB", readme)
+        self.assertIn("54000 GiB", readme)
         self.assertIn("17.578", readme)
         self.assertIn("52.734", readme)
-        self.assertIn("200 FWD", readme)
+        for section in (
+            "### MapReduce",
+            "### GraphChi",
+            "### HPC Vdbench",
+            "### AI 训练",
+            "### AI 推理",
+            "### HPC IOR",
+        ):
+            with self.subTest(section=section):
+                self.assertIn(section, readme)
+        self.assertNotIn("200 FWD", readme)
 
 
 if __name__ == "__main__":
