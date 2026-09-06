@@ -1,77 +1,87 @@
-# INSPUR 150 TiB CephFS 冷热识别负载
+# INSPUR CephFS 冷热识别负载
 
-本目录面向原始总容量上限 150 TiB、三副本的 CephFS。包含五个 Vdbench
-负载和一个 HPC IOR 负载。它复用 SYSU 的 2,400 个逻辑单元、rank/bin、
-Zipf(0.99)、阶段时长和读写语义，只把五档文件大小整体扩大四倍。
+本目录包含 5 个 Vdbench 负载和 1 个 HPC IOR 负载，用于在 CephFS 上生成
+来源可追溯、阶段边界明确的冷热访问。各负载以应用的数据组织和生命周期为
+设计依据，重点观察热点识别、迁移与复热，不用于复现原生应用的计算性能。
 
-## 容量预算
+## 容量
 
-| 项目 | 容量 |
+| 负载 | 逻辑容量 |
 |---|---:|
-| 单个负载 | 3000 GiB（2.9297 TiB） |
-| 六个负载逻辑合计 | 18000 GiB（17.5781 TiB） |
-| 三副本原始占用 | 54000 GiB（52.7344 TiB） |
-| 150 TiB 中剩余原始容量 | 约 97.266 TiB |
-| 原始容量使用率 | 约 35.2% |
+| MapReduce | 3000 GiB（2.9297 TiB） |
+| GraphChi | 3000 GiB（2.9297 TiB） |
+| HPC Vdbench | 3000 GiB（2.9297 TiB） |
+| AI 训练 | 3000 GiB（2.9297 TiB） |
+| AI 推理 | 3000 GiB（2.9297 TiB） |
+| HPC IOR | 3000 GiB（2.9297 TiB） |
+| 六种负载合计 | 18000 GiB（17.5781 TiB） |
 
-六套数据可以同时保留。剩余约 64.8% 原始空间用于 Ceph 元数据、BlueStore、
-回填、恢复和性能余量，不应再按“50 TiB 逻辑容量全部可用于测试数据”规划。
+六种数据全部保留且使用三副本时，原始副本容量约为 54000 GiB
+（52.7344 TiB）。除此之外还应为文件系统元数据、回填、恢复和运行期间的
+空间波动预留容量。
 
-## Vdbench 文件布局
+## 整体设计
 
-| 文件大小 | 每单元文件数 | 每档容量 |
-|---:|---:|---:|
-| 16 MiB | 16 | 256 MiB |
-| 32 MiB | 8 | 256 MiB |
-| 64 MiB | 4 | 256 MiB |
-| 128 MiB | 2 | 256 MiB |
-| 256 MiB | 1 | 256 MiB |
+五个 Vdbench 负载都在所属数据组内部构造文件级访问偏斜。文件访问概率先按
+Zipf 分布计算，再聚合为可由 Vdbench 执行的数据区间；因此既保留高频头部和
+低频长尾，也避免为每个文件分别创建工作定义。热点在阶段边界切换，各负载的
+正式测试总时长均为 600 秒。
 
-一个单元为 1280 MiB（1.25 GiB），所以每个 Vdbench 负载为
-`2,400 × 1.25 GiB = 3000 GiB`。文件数仍为每负载 74,400 个；扩大的是文件
-容量，不是 FSD、rank、bin 或文件数量。
+### MapReduce
 
-## 六种负载
+依据 Yahoo! MapReduce 生产 trace 中的文件流行度和时间局部性设计。三个候选
+热点池依次成为当前热点，最后重新访问第一个热点池；大容量 background 在每个
+阶段都以较低份额持续访问。当前热点池与 background 内部都具有文件级冷热差异，
+用于同时观察池间热点迁移和池内文件热度。
 
-| 负载 | 数据结构 | 阶段与 I/O |
-|---|---|---|
-| MapReduce | 125/125/125/2625 GiB；50 rank → 20 bin/pool | `R → R → R → R`，4 × 150 s |
-| GraphChi | 4 shard × 750 GiB；100 rank → 40 bin/shard | `R → R → R → R`，4 × 150 s |
-| HPC Vdbench | startup/checkpoint/history 各 1000 GiB | `R → W → W → R`，4 × 150 s |
-| AI 训练 | dataset 2500 GiB；current/old 各 250 GiB | `R → R → R → W → R`，160/160/160/60/60 s |
-| AI 推理 | active/next/prefix 各 1000 GiB | `W → R → W → R → R → R`，6 × 100 s |
-| HPC IOR | 三组各 1000 GiB；4 MPI rank/group | `R → W → W → R`，4 × 150 s |
+### GraphChi
 
-写入只用于语义明确的 WRF checkpoint/history、AI 训练 checkpoint 和 KV
-cache prefill。MapReduce 与 GraphChi 保持读取模型，不人为增加没有明确比例
-来源的写流量。五种 Vdbench 均使用 4 MiB Direct I/O 和 `fwdrate=max`；
-文件变大不改变单次 I/O 大小。
+依据 GraphChi 的 Parallel Sliding Windows 思路，将图数据划分为四个 shard。
+四个阶段依次访问不同 shard，表示图处理窗口沿分片移动；每个 shard 内部仍有
+文件级访问偏斜，用于区分分片级热点和分片内部热点。
 
-## FWD 约束
+### HPC Vdbench
 
-MapReduce 每个活动热点池和 background 各 100 FWD；其他 Vdbench 每个活动组
-为 `40 bin × 5 size = 200 FWD`。因此所有正式 RD 都只匹配 200 FWD，低于
-Vdbench 5.04.07 的 512 项限制。配置使用 FWD 前缀通配符，总 FWD 定义数超过
-512 不会形成单个 RD 的显式列表超限。
+依据 WRF 的输入、checkpoint 和 history 文件生命周期组织数据。测试依次处理
+startup、checkpoint、history，并在最后重新访问 checkpoint，形成一次明确的
+复热。正式读写版本将 checkpoint 和 history 表示为写入阶段，startup 与
+checkpoint 复热表示为读取阶段。
 
-## 使用
+### AI 训练
 
-修改模型或部署前先执行统一验证：
+数据划分为训练 dataset、当前 checkpoint 和旧 checkpoint。前三个阶段表示连续
+epoch 对训练数据的读取，并移动 dataset 内部的最热区域；随后写入当前
+checkpoint，再读取旧 checkpoint 模拟恢复。该设计用于区分长期反复访问的训练
+数据和短时活跃的状态文件。
+
+### AI 推理
+
+数据划分为 active KV cache、next KV cache 和可复用 prefix。active 与 next
+分别经历 prefill 和 decode，随后两次访问 prefix，并在第二次改变其内部热点。
+prefill 表示缓存写入，decode 和 prefix reuse 表示读取，从而形成写入、随机访问
+和前缀复用相结合的阶段序列。
+
+### HPC IOR
+
+IOR 版本与 HPC Vdbench 采用相同的 startup、checkpoint、history 和 checkpoint
+复热生命周期，但保留 MPI 并行进程和 file-per-process 语义。它不使用文件级
+Zipf 分布，主要作为更接近 HPC 并行文件访问方式的替代表示；两种 HPC 数据集
+相互独立。
+
+## 读写范围
+
+写入只用于语义明确的 WRF checkpoint/history、AI 训练 checkpoint 和 KV cache
+prefill。MapReduce 和 GraphChi 保持读取模型，避免加入缺少明确来源的写入比例。
+各负载的论文来源、阶段映射和适用范围见对应目录的 `README.md` 与 `SOURCES.md`。
+
+## 基本流程
+
+每个负载目录分别提供配置生成、模型验证、数据准备和正式测试入口。数据准备
+完成后可以重复运行正式测试，不需要每次重新造数据。修改模型或部署配置后，可在
+仓库根目录执行：
 
 ```bash
-cd /home/chris/ceph-test
 ./INSPUR_workload/validate_all.sh
 ```
 
-各负载的常规流程：
-
-```bash
-cd /home/chris/ceph-test/INSPUR_workload/<负载目录>
-./validate_model.sh
-ANCHOR_ROOT=/ceph-test/INSPUR_workload ./prepare_data.sh
-ANCHOR_ROOT=/ceph-test/INSPUR_workload ./run_test.sh
-```
-
-数据已经创建后不要重复 prepare。INSPUR Vdbench 配置不包含 `hd=`，客户端由
-部署环境提供。详细来源与阶段边界见各负载 README 和
-[`../SINGLE_workload/WORKLOAD_SUMMARY.md`](../SINGLE_workload/WORKLOAD_SUMMARY.md)。
+各负载的具体环境变量和执行方式见其目录内的 `README.md`。
