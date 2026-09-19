@@ -192,7 +192,7 @@ def check_ready(bundle):
     return {**verify_inventory(manifest), 'id':manifest['id'], 'mount':mount, 'state':'ready'}
 
 
-def run(bundle, *, profile='baseline', vdbench, output, execute=False, ses_root=None):
+def run(bundle, *, profile='baseline', vdbench, output, execute=False):
     if not execute:
         raise ValueError('measurement requires explicit --execute')
     bundle = Path(bundle).absolute()
@@ -204,13 +204,5 @@ def run(bundle, *, profile='baseline', vdbench, output, execute=False, ses_root=
     root = Path(manifest['data_root'])
     output = _output(output, root, bundle)
     config = bundle/f'run_{profile}.vdb'
-    if manifest['id'] in ('ai_training_ses_v2','ai_inference_ses_v2'):
-        if ses_root is None:
-            raise ValueError('AI measurement requires the pinned SES 1.2.0 source root')
-        from . import ses_adapter
-        return ses_adapter.run(config=config, output=output, vdbench=vdbench, ses_root=Path(ses_root),
-            metadata={**manifest, 'model_id':manifest['id'], 'profile':profile,
-                      'logical_bytes':manifest['capacity_bytes'],
-                      'manifest_sha256':digest((bundle/'manifest.json').read_text())})
     subprocess.run([str(vdbench), '-f', str(config), '-o', str(output)], check=True)
     return {'id':manifest['id'], 'profile':profile, 'output':str(output)}

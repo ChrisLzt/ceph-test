@@ -50,19 +50,15 @@ class FileZipfTests(unittest.TestCase):
             if min(m[2] for m in bin['source_members'])<=32:
                 self.assertEqual(bin['files'],1)
 
-    def test_ses_two_phase_inference_and_capacity_gate(self):
-        from unittest.mock import patch
-        from workload_common.single_v2 import ses_adapter
+    def test_two_phase_inference_bundle_validation(self):
         from workload_common.single_v2.file_zipf import transform
         model=transform(build('ai_inference'),'ai_inference')
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp)
-            manifest=core.render(model,data_root=root/'data',output=root/'cfg',rate=100)
+            core.render(model,data_root=root/'data',output=root/'cfg',rate=100)
+            manifest=core.validate_bundle(root/'cfg')
+            self.assertEqual(manifest['capacity_bytes'],115*2**30)
             config=root/'cfg'/'run_file_zipf099.vdb'
-            ses_adapter._validate_measurement_config(config.read_text())
+            config.write_text(config.read_text().replace('elapsed=240','elapsed=241'))
             with self.assertRaises(ValueError):
-                ses_adapter._validate_measurement_config(config.read_text().replace('elapsed=240','elapsed=241'))
-            metadata=dict(id=model['id'],profile='file_zipf099',manifest_sha256='a'*64,capacity_bytes=manifest['capacity_bytes'])
-            with patch.object(ses_adapter,'preflight',side_effect=RuntimeError('offline sentinel')):
-                with self.assertRaisesRegex(RuntimeError,'offline sentinel'):
-                    ses_adapter.run(config,root/'out',Path('/usr/bin/true'),root/'source',metadata)
+                core.validate_bundle(root/'cfg')

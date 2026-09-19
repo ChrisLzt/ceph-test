@@ -3,11 +3,6 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from SINGLE_workload.ai_inference_kvcache_vdbench_v1.scripts.render import render as render_single_inference
-from SINGLE_workload.ai_training_checkpoint_vdbench_v1.scripts.render import render as render_single_training
-from SINGLE_workload.bigdata_mapreduce_vdbench_v1.scripts.render import render as render_single_bigdata
-from SINGLE_workload.graph_graphchi_vdbench_v1.scripts.render import render as render_single_graph
-from SINGLE_workload.hpc_wrf_vdbench_v1.scripts.render import render as render_single_hpc
 from workload_common.tests.helpers import fsd_capacity_mib, read_configs
 
 
@@ -19,50 +14,16 @@ class SingleWrapperTests(unittest.TestCase):
         from workload_common.single_v2 import CASES
         expected = set(CASES.values())
         actual = {p.name for p in (ROOT / 'SINGLE_workload').iterdir()
-                  if p.is_dir() and (p / 'render_config.sh').is_file()
-                  and (p / 'rendered' / 'run_baseline.vdb').is_file()}
+                  if p.is_dir() and p.name != '__pycache__'}
         self.assertEqual(actual, expected)
 
-    def test_legacy_single_renderers_remain_reproducible_offline(self) -> None:
-        jobs = (
-            (render_single_bigdata, {"phase_seconds": 150}),
-            (render_single_graph, {"phase_seconds": 150}),
-            (render_single_hpc, {"phase_seconds": 150}),
-            (render_single_training, {"dataset_phase_seconds": 160, "checkpoint_phase_seconds": 60}),
-            (render_single_inference, {"phase_seconds": 100}),
-        )
-        for renderer, options in jobs:
-            with self.subTest(renderer=renderer.__module__), tempfile.TemporaryDirectory() as tmp:
-                output = Path(tmp)
-                renderer(
-                    anchor_root="/mnt/cephfs",
-                    output_dir=output,
-                    host="test-host",
-                    remote_user="test-user",
-                    vdbench_home="/opt/vdbench",
-                    threads=1,
-                    fwdrate="max",
-                    **options,
-                )
-                prepare, run = read_configs(output)
-                self.assertEqual(fsd_capacity_mib(prepare), 112 * 1024 + 512)
-                elapsed = [
-                    int(value)
-                    for value in re.findall(
-                        r"^rd=.*\belapsed=(\d+)", run, flags=re.MULTILINE
-                    )
-                ]
-                self.assertEqual(sum(elapsed), 600, renderer.__module__)
-                for text in (prepare, run):
-                    self.assertEqual(text.count("hd=default,"), 1)
-                    self.assertEqual(text.count("hd=hd1,system=test-host"), 1)
-                    self.assertIn("vdbench=/opt/vdbench,user=test-user", text)
-                clean = [line for line in prepare.splitlines() if "format=(clean,only)" in line]
-                create = [line for line in prepare.splitlines() if "format=(restart,only)" in line]
-                self.assertEqual(len(clean), len(create))
-                self.assertGreater(len(clean), 1)
-                for line in clean:
-                    self.assertLessEqual(len(re.findall(r"prep_[^,)]+", line)), 20 * 3)
+    def test_current_config_lives_with_each_workload(self):
+        from workload_common.single_v2 import CASES, core
+        for name in CASES.values():
+            bundle = ROOT/'SINGLE_workload'/name/'rendered'
+            manifest = core.validate_bundle(bundle)
+            self.assertIn('current', manifest['profiles'])
+            self.assertTrue((bundle/'run_current.vdb').is_file())
 
     def test_prepare_wrappers_remove_all_old_rank_directories_safely(self) -> None:
         for relative in (

@@ -123,12 +123,13 @@ class PhaseZipfTests(unittest.TestCase):
         self.assertEqual(len(p['lanes']),200)
         self.assertLess(m['phase_zipf']['phases'][0]['tv_distance'],1e-12)
 
-    def test_determinism_source_preservation_and_ses_grammar(self):
-        from workload_common.single_v2.ses_adapter import _validate_measurement_config
+    def test_determinism_source_preservation_and_read_only_config(self):
         from pathlib import Path
         old=build('ai_inference');snapshot=copy.deepcopy(old)
         self.assertEqual(transform(old,'ai_inference'),self.models['ai_inference'])
         self.assertEqual(old,snapshot)
         for case in ('ai_training','ai_inference'):
             text=core.config_texts(self.models[case],Path('/no-io'), 'max')[0]['run_phase_zipf099.vdb']
-            _validate_measurement_config(text)
+            self.assertNotIn('operation=write', text)
+            self.assertIn('elapsed=600', text)
+            core.validate_model(self.models[case])

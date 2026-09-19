@@ -24,36 +24,29 @@ def _rate(text):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['render','validate','preflight','prepare','verify','run','ses-check','parser-check','preview'])
+    parser.add_argument('action', choices=['render','validate','preflight','prepare','verify','run','parser-check','preview'])
     parser.add_argument('--case', choices=['all',*CASES], default='all')
     parser.add_argument('--data-root', type=Path, default=Path('/mnt/cephfs/single_v2'))
     parser.add_argument('--output-root', type=Path, default=REPO/'SINGLE_workload')
-    parser.add_argument('--rate', type=_rate, default=100.0, help='mean target IOPS; 100 is uncalibrated conservative default; max is separate saturation mode')
-    parser.add_argument('--profile', choices=['baseline','zipf099','file_zipf099','phase_zipf099','current'], default='baseline')
-    parser.add_argument('--design', choices=['source','file_zipf','phase_zipf','static_native','current'], default='source', help='file_zipf: global ranks; phase_zipf: business phases; static_native: Baleen native snapshot; derived designs require separate roots')
+    parser.add_argument('--rate', type=_rate, default='max', help='mean target IOPS; current design requires max (default)')
+    parser.add_argument('--profile', choices=['baseline','zipf099','file_zipf099','phase_zipf099','current'], default='current')
+    parser.add_argument('--design', choices=['source','file_zipf','phase_zipf','static_native','current'], default='current', help='file_zipf: global ranks; phase_zipf: business phases; static_native: Baleen native snapshot; derived designs require separate roots')
     parser.add_argument('--vdbench', type=Path, default=Path(os.environ.get('VDBENCH_HOME','/home/chris/PDSL/vdbench'))/'vdbench')
     parser.add_argument('--results', type=Path, help='new results root; each case gets its own child')
-    parser.add_argument('--ses-root', type=Path, default=os.environ.get('SES_SOURCE_ROOT'))
     parser.add_argument('--execute', action='store_true', help='explicitly perform preparation/measurement; requires user authorization')
     args=parser.parse_args()
     try:
-        if args.action=='ses-check':
-            if not args.ses_root: raise ValueError('--ses-root or SES_SOURCE_ROOT required')
-            from .ses_adapter import preflight
-            report=preflight(args.ses_root)
-            print(core.json_text(report),end='')
-            return 1 if report['missing_dependencies'] else 0
         if args.action in ('prepare','run') and not args.execute:
             raise ValueError('this action requires explicit --execute')
         cases=list(CASES) if args.case=='all' else [args.case]
         bundles={case:args.output_root/CASES[case]/'rendered' for case in cases}
         if args.action=='render':
+            if args.design != 'current' and args.output_root.resolve() == (REPO/'SINGLE_workload').resolve():
+                raise ValueError('historical designs require a separate output root')
             if args.design=='static_native' and cases!=['baleen']:
                 raise ValueError('static_native requires --case baleen')
             if args.design=='current':
                 from .current_suite import build_current
-                if args.output_root==REPO/'SINGLE_workload':
-                    raise ValueError('current design needs a separate output root')
                 if args.rate!='max':raise ValueError('current suite requires --rate max')
                 models={case:build_current(case) for case in cases}
             else:
@@ -125,18 +118,12 @@ def main():
                     raise ValueError(f"{manifest['id']} has no {args.profile} profile")
             for case in cases:
                 lifecycle.check_ready(bundles[case])
-            if any(case.startswith('ai_') for case in cases):
-                if args.ses_root is None: raise ValueError('--ses-root or SES_SOURCE_ROOT required for AI')
-                from .ses_adapter import preflight as ses_preflight
-                ses_report=ses_preflight(args.ses_root)
-                if ses_report['missing_dependencies']:
-                    raise ValueError('SES dependencies unavailable in current Python: '+','.join(ses_report['missing_dependencies']))
         if args.action in ('prepare','run'):
             if not args.execute: raise ValueError('this action requires explicit --execute')
             if args.results is None: raise ValueError('--results must be a new directory outside data')
             for case in cases:
                 options={'vdbench':args.vdbench,'output':args.results/CASES[case],'execute':True}
-                if args.action=='run':options.update(profile=args.profile,ses_root=args.ses_root)
+                if args.action=='run':options.update(profile=args.profile)
                 report=getattr(lifecycle,args.action)(bundles[case],**options)
                 print(core.json_text(report),end='')
         elif args.action=='verify':

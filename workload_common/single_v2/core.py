@@ -121,6 +121,30 @@ def percentages(weights):
     return [format(Decimal(v) / scale, 'f') for v in units]
 
 
+def transfer_percentages(weights):
+    """Round transfer percentages for the stock 5.04.07 integer sampler.
+
+    Correct rounding residuals by largest under/over-allocation; ties retain
+    input order. Zero categories are omitted by the renderer, not forced to 1%.
+    FWD skew deliberately continues to use the separate fractional encoder.
+    """
+    values = [Decimal(str(v)) for v in weights]
+    if not values or any(not v.is_finite() or v <= 0 for v in values):
+        raise ValueError('transfer weights must be finite and positive')
+    total = sum(values)
+    quotas = [v / total * 100 for v in values]
+    units = [int(q.to_integral_value(rounding=ROUND_HALF_UP)) for q in quotas]
+    while sum(units) != 100:
+        if sum(units) < 100:
+            i = max(range(len(units)), key=lambda i: quotas[i] - units[i])
+            units[i] += 1
+        else:
+            i = max((i for i in range(len(units)) if units[i]),
+                    key=lambda i: units[i] - quotas[i])
+            units[i] -= 1
+    return units
+
+
 def _header(model, data_root, prepare):
     lines = [f"* SINGLE v2 {model['id']}; synthetic source-write-to-read research workload",
              'data_errors=1', 'messagescan=no', f"create_anchors={'yes' if prepare else 'no'}",
@@ -154,8 +178,8 @@ def config_texts(model, data_root, rate):
             for lane_index, (lane, skew) in enumerate(zip(phase['lanes'], skews)):
                 xfer = lane['xfersize']
                 if isinstance(xfer, list):
-                    pcts = percentages([pair[1] for pair in xfer])
-                    xfer = '(' + ','.join(f'{pair[0]},{pct}' for pair, pct in zip(xfer, pcts)) + ')'
+                    pcts = transfer_percentages([pair[1] for pair in xfer])
+                    xfer = '(' + ','.join(f'{pair[0]},{pct}' for pair, pct in zip(xfer, pcts) if pct > 0) + ')'
                 suffix = f",stopafter={lane['stopafter']}" if 'stopafter' in lane else ''
                 lines.append(f"fwd={prefix}{lane_index:04d},fsd={lane['bin']},operation=read,threads=1,xfersize={xfer},fileio={lane['fileio']},fileselect={lane['fileselect']},skew={skew}{suffix}")
             phase_rate = 'max' if rate == 'max' else format(rate * phase.get('rate_multiplier', 1), '.12g')

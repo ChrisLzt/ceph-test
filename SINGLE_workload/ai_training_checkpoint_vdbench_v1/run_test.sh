@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-printf '%s\n' '此 SINGLE v1 执行入口已停用。请使用 SINGLE_workload/ai_training_ses_v2/run_test.sh；旧数据不会自动删除。' >&2
-exit 2

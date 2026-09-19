@@ -41,6 +41,20 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(sum(map(float,values)),100.0)
         self.assertEqual(sum(map(Decimal,values)),Decimal(100))
 
+    def test_integer_transfer_rounding_preserves_total_and_removes_zero(self):
+        core = self.core()
+        for weights in ([0.5, 99.5], [33.6, 33.6, 32.8], [1]*422, [0.1, 99.9]):
+            values = core.transfer_percentages(weights)
+            self.assertEqual(sum(values), 100)
+            self.assertTrue(all(isinstance(v, int) and v >= 0 for v in values))
+            total = sum(weights)
+            self.assertTrue(all(abs(v - w/total*100) <= 1 for v, w in zip(values, weights)))
+        m = self.fixture()
+        m['profiles']['baseline'][0]['lanes'][0]['xfersize'] = [[4096, 0.1], [8192, 99.9]]
+        texts, _ = core.config_texts(m, Path('/absent'), 'max')
+        self.assertIn('xfersize=(8192,100)', texts['run_baseline.vdb'])
+        self.assertNotIn('4096,0', texts['run_baseline.vdb'])
+
     def test_caps_expanded_fwd_and_checks_all_profiles(self):
         core=self.core(); m=self.fixture(); m["bins"][0]["files"]=600
         m["profiles"]["baseline"][0]["lanes"]*=513

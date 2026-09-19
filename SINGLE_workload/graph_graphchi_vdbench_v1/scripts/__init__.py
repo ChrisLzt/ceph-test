@@ -1,1 +1,0 @@
-"""GraphChi rendering entry point."""

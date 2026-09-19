@@ -76,4 +76,26 @@ class LifecycleTests(unittest.TestCase):
             root=Path(tmp); self.bundle(root)
             with self.assertRaises(ValueError): api.check_ready(root/'configs')
 
+    def test_ai_current_runs_direct_vdbench_without_ses(self):
+        import os
+        import sys
+        from workload_common.single_v2 import __main__ as cli, CASES
+        from workload_common.single_v2.current_suite import build_current
+        api = self.api()
+        for case in ('ai_training', 'ai_inference'):
+            with self.subTest(case=case), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                bundle = root/'configs'/CASES[case]/'rendered'
+                render(build_current(case), data_root=root/'data', output=bundle, rate='max')
+                args = ['single_v2', 'run', '--case', case, '--profile', 'current',
+                        '--output-root', str(root/'configs'), '--results', str(root/'results'),
+                        '--vdbench', '/usr/bin/true', '--execute']
+                with patch.dict(os.environ, {}, clear=True), patch.object(sys, 'argv', args), \
+                     patch.object(api, 'check_ready', return_value={'state':'ready'}), \
+                     patch.object(api.subprocess, 'run') as execute:
+                    self.assertEqual(cli.main(), 0)
+                    execute.assert_called_once_with(['/usr/bin/true', '-f', str(bundle/'run_current.vdb'),
+                                                     '-o', str(root/'results'/CASES[case])], check=True)
+                self.assertFalse((root/'data').exists())
+
 if __name__=='__main__': unittest.main()
