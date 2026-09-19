@@ -1,0 +1,1233 @@
+{
+  "bins": [
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b000",
+      "files": 3,
+      "id": "size_65536_b000",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b001",
+      "files": 3,
+      "id": "size_65536_b001",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b002",
+      "files": 3,
+      "id": "size_65536_b002",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b003",
+      "files": 3,
+      "id": "size_65536_b003",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b004",
+      "files": 3,
+      "id": "size_65536_b004",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b005",
+      "files": 4,
+      "id": "size_65536_b005",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b006",
+      "files": 5,
+      "id": "size_65536_b006",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b007",
+      "files": 6,
+      "id": "size_65536_b007",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b008",
+      "files": 3,
+      "id": "size_65536_b008",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b009",
+      "files": 5,
+      "id": "size_65536_b009",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b010",
+      "files": 5,
+      "id": "size_65536_b010",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b011",
+      "files": 5,
+      "id": "size_65536_b011",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b012",
+      "files": 6,
+      "id": "size_65536_b012",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b013",
+      "files": 7,
+      "id": "size_65536_b013",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b014",
+      "files": 16,
+      "id": "size_65536_b014",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b015",
+      "files": 20,
+      "id": "size_65536_b015",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b016",
+      "files": 25,
+      "id": "size_65536_b016",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b017",
+      "files": 31,
+      "id": "size_65536_b017",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b018",
+      "files": 19,
+      "id": "size_65536_b018",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b019",
+      "files": 21,
+      "id": "size_65536_b019",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b020",
+      "files": 50,
+      "id": "size_65536_b020",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b021",
+      "files": 30,
+      "id": "size_65536_b021",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b022",
+      "files": 34,
+      "id": "size_65536_b022",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b023",
+      "files": 38,
+      "id": "size_65536_b023",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b024",
+      "files": 42,
+      "id": "size_65536_b024",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b025",
+      "files": 100,
+      "id": "size_65536_b025",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b026",
+      "files": 60,
+      "id": "size_65536_b026",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b027",
+      "files": 66,
+      "id": "size_65536_b027",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b028",
+      "files": 75,
+      "id": "size_65536_b028",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b029",
+      "files": 84,
+      "id": "size_65536_b029",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b030",
+      "files": 94,
+      "id": "size_65536_b030",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b031",
+      "files": 105,
+      "id": "size_65536_b031",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b032",
+      "files": 118,
+      "id": "size_65536_b032",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b033",
+      "files": 132,
+      "id": "size_65536_b033",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b034",
+      "files": 149,
+      "id": "size_65536_b034",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b035",
+      "files": 166,
+      "id": "size_65536_b035",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b036",
+      "files": 186,
+      "id": "size_65536_b036",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b037",
+      "files": 208,
+      "id": "size_65536_b037",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b038",
+      "files": 234,
+      "id": "size_65536_b038",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b039",
+      "files": 262,
+      "id": "size_65536_b039",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b040",
+      "files": 293,
+      "id": "size_65536_b040",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b041",
+      "files": 328,
+      "id": "size_65536_b041",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b042",
+      "files": 368,
+      "id": "size_65536_b042",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b043",
+      "files": 412,
+      "id": "size_65536_b043",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b044",
+      "files": 461,
+      "id": "size_65536_b044",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b045",
+      "files": 517,
+      "id": "size_65536_b045",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b046",
+      "files": 578,
+      "id": "size_65536_b046",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_65536_b047",
+      "files": 647,
+      "id": "size_65536_b047",
+      "size_bytes": 65536
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b000",
+      "files": 3,
+      "id": "size_131072_b000",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b001",
+      "files": 4,
+      "id": "size_131072_b001",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b002",
+      "files": 4,
+      "id": "size_131072_b002",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b003",
+      "files": 3,
+      "id": "size_131072_b003",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b004",
+      "files": 4,
+      "id": "size_131072_b004",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b005",
+      "files": 5,
+      "id": "size_131072_b005",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b006",
+      "files": 5,
+      "id": "size_131072_b006",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b007",
+      "files": 3,
+      "id": "size_131072_b007",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b008",
+      "files": 4,
+      "id": "size_131072_b008",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b009",
+      "files": 4,
+      "id": "size_131072_b009",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b010",
+      "files": 5,
+      "id": "size_131072_b010",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b011",
+      "files": 5,
+      "id": "size_131072_b011",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b012",
+      "files": 6,
+      "id": "size_131072_b012",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b013",
+      "files": 6,
+      "id": "size_131072_b013",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b014",
+      "files": 7,
+      "id": "size_131072_b014",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b015",
+      "files": 8,
+      "id": "size_131072_b015",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b016",
+      "files": 9,
+      "id": "size_131072_b016",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b017",
+      "files": 9,
+      "id": "size_131072_b017",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b018",
+      "files": 11,
+      "id": "size_131072_b018",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b019",
+      "files": 12,
+      "id": "size_131072_b019",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b020",
+      "files": 13,
+      "id": "size_131072_b020",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b021",
+      "files": 30,
+      "id": "size_131072_b021",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b022",
+      "files": 37,
+      "id": "size_131072_b022",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b023",
+      "files": 22,
+      "id": "size_131072_b023",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b024",
+      "files": 24,
+      "id": "size_131072_b024",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b025",
+      "files": 27,
+      "id": "size_131072_b025",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b026",
+      "files": 30,
+      "id": "size_131072_b026",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b027",
+      "files": 34,
+      "id": "size_131072_b027",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b028",
+      "files": 37,
+      "id": "size_131072_b028",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b029",
+      "files": 41,
+      "id": "size_131072_b029",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b030",
+      "files": 45,
+      "id": "size_131072_b030",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b031",
+      "files": 51,
+      "id": "size_131072_b031",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b032",
+      "files": 56,
+      "id": "size_131072_b032",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b033",
+      "files": 130,
+      "id": "size_131072_b033",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b034",
+      "files": 76,
+      "id": "size_131072_b034",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b035",
+      "files": 85,
+      "id": "size_131072_b035",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b036",
+      "files": 94,
+      "id": "size_131072_b036",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b037",
+      "files": 104,
+      "id": "size_131072_b037",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b038",
+      "files": 115,
+      "id": "size_131072_b038",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b039",
+      "files": 129,
+      "id": "size_131072_b039",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b040",
+      "files": 142,
+      "id": "size_131072_b040",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b041",
+      "files": 157,
+      "id": "size_131072_b041",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b042",
+      "files": 174,
+      "id": "size_131072_b042",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b043",
+      "files": 194,
+      "id": "size_131072_b043",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b044",
+      "files": 215,
+      "id": "size_131072_b044",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b045",
+      "files": 237,
+      "id": "size_131072_b045",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b046",
+      "files": 263,
+      "id": "size_131072_b046",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_131072_b047",
+      "files": 291,
+      "id": "size_131072_b047",
+      "size_bytes": 131072
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b000",
+      "files": 1,
+      "id": "size_1048576_b000",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b001",
+      "files": 1,
+      "id": "size_1048576_b001",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b002",
+      "files": 1,
+      "id": "size_1048576_b002",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b003",
+      "files": 1,
+      "id": "size_1048576_b003",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b004",
+      "files": 1,
+      "id": "size_1048576_b004",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b005",
+      "files": 1,
+      "id": "size_1048576_b005",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b006",
+      "files": 2,
+      "id": "size_1048576_b006",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b007",
+      "files": 4,
+      "id": "size_1048576_b007",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b008",
+      "files": 3,
+      "id": "size_1048576_b008",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b009",
+      "files": 3,
+      "id": "size_1048576_b009",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b010",
+      "files": 4,
+      "id": "size_1048576_b010",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b011",
+      "files": 5,
+      "id": "size_1048576_b011",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b012",
+      "files": 12,
+      "id": "size_1048576_b012",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b013",
+      "files": 17,
+      "id": "size_1048576_b013",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b014",
+      "files": 25,
+      "id": "size_1048576_b014",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b015",
+      "files": 36,
+      "id": "size_1048576_b015",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b016",
+      "files": 52,
+      "id": "size_1048576_b016",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b017",
+      "files": 74,
+      "id": "size_1048576_b017",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b018",
+      "files": 105,
+      "id": "size_1048576_b018",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1048576_b019",
+      "files": 152,
+      "id": "size_1048576_b019",
+      "size_bytes": 1048576
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b000",
+      "files": 1,
+      "id": "size_2097152_b000",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b001",
+      "files": 1,
+      "id": "size_2097152_b001",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b002",
+      "files": 1,
+      "id": "size_2097152_b002",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b003",
+      "files": 1,
+      "id": "size_2097152_b003",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b004",
+      "files": 1,
+      "id": "size_2097152_b004",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b005",
+      "files": 1,
+      "id": "size_2097152_b005",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b006",
+      "files": 1,
+      "id": "size_2097152_b006",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b007",
+      "files": 1,
+      "id": "size_2097152_b007",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b008",
+      "files": 2,
+      "id": "size_2097152_b008",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b009",
+      "files": 3,
+      "id": "size_2097152_b009",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b010",
+      "files": 5,
+      "id": "size_2097152_b010",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b011",
+      "files": 6,
+      "id": "size_2097152_b011",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b012",
+      "files": 4,
+      "id": "size_2097152_b012",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b013",
+      "files": 5,
+      "id": "size_2097152_b013",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b014",
+      "files": 12,
+      "id": "size_2097152_b014",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b015",
+      "files": 16,
+      "id": "size_2097152_b015",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b016",
+      "files": 22,
+      "id": "size_2097152_b016",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b017",
+      "files": 28,
+      "id": "size_2097152_b017",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b018",
+      "files": 38,
+      "id": "size_2097152_b018",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_2097152_b019",
+      "files": 51,
+      "id": "size_2097152_b019",
+      "size_bytes": 2097152
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b000",
+      "files": 1,
+      "id": "size_8388608_b000",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b001",
+      "files": 1,
+      "id": "size_8388608_b001",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b002",
+      "files": 1,
+      "id": "size_8388608_b002",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b003",
+      "files": 1,
+      "id": "size_8388608_b003",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b004",
+      "files": 1,
+      "id": "size_8388608_b004",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b005",
+      "files": 1,
+      "id": "size_8388608_b005",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b006",
+      "files": 1,
+      "id": "size_8388608_b006",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b007",
+      "files": 1,
+      "id": "size_8388608_b007",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b008",
+      "files": 1,
+      "id": "size_8388608_b008",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b009",
+      "files": 2,
+      "id": "size_8388608_b009",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b010",
+      "files": 3,
+      "id": "size_8388608_b010",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b011",
+      "files": 2,
+      "id": "size_8388608_b011",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b012",
+      "files": 3,
+      "id": "size_8388608_b012",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b013",
+      "files": 3,
+      "id": "size_8388608_b013",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b014",
+      "files": 4,
+      "id": "size_8388608_b014",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b015",
+      "files": 8,
+      "id": "size_8388608_b015",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b016",
+      "files": 11,
+      "id": "size_8388608_b016",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b017",
+      "files": 14,
+      "id": "size_8388608_b017",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b018",
+      "files": 18,
+      "id": "size_8388608_b018",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_8388608_b019",
+      "files": 23,
+      "id": "size_8388608_b019",
+      "size_bytes": 8388608
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b000",
+      "files": 1,
+      "id": "size_134217728_b000",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b001",
+      "files": 1,
+      "id": "size_134217728_b001",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b002",
+      "files": 1,
+      "id": "size_134217728_b002",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b003",
+      "files": 1,
+      "id": "size_134217728_b003",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b004",
+      "files": 1,
+      "id": "size_134217728_b004",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b005",
+      "files": 1,
+      "id": "size_134217728_b005",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b006",
+      "files": 1,
+      "id": "size_134217728_b006",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b007",
+      "files": 1,
+      "id": "size_134217728_b007",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b008",
+      "files": 1,
+      "id": "size_134217728_b008",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b009",
+      "files": 2,
+      "id": "size_134217728_b009",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b010",
+      "files": 3,
+      "id": "size_134217728_b010",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b011",
+      "files": 2,
+      "id": "size_134217728_b011",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b012",
+      "files": 3,
+      "id": "size_134217728_b012",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b013",
+      "files": 3,
+      "id": "size_134217728_b013",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b014",
+      "files": 4,
+      "id": "size_134217728_b014",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b015",
+      "files": 8,
+      "id": "size_134217728_b015",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b016",
+      "files": 11,
+      "id": "size_134217728_b016",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b017",
+      "files": 14,
+      "id": "size_134217728_b017",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b018",
+      "files": 18,
+      "id": "size_134217728_b018",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_134217728_b019",
+      "files": 23,
+      "id": "size_134217728_b019",
+      "size_bytes": 134217728
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b000",
+      "files": 1,
+      "id": "size_1073741824_b000",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b001",
+      "files": 1,
+      "id": "size_1073741824_b001",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b002",
+      "files": 1,
+      "id": "size_1073741824_b002",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b003",
+      "files": 1,
+      "id": "size_1073741824_b003",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b004",
+      "files": 1,
+      "id": "size_1073741824_b004",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b005",
+      "files": 1,
+      "id": "size_1073741824_b005",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b006",
+      "files": 1,
+      "id": "size_1073741824_b006",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b007",
+      "files": 1,
+      "id": "size_1073741824_b007",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b008",
+      "files": 1,
+      "id": "size_1073741824_b008",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b009",
+      "files": 2,
+      "id": "size_1073741824_b009",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b010",
+      "files": 3,
+      "id": "size_1073741824_b010",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b011",
+      "files": 2,
+      "id": "size_1073741824_b011",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b012",
+      "files": 3,
+      "id": "size_1073741824_b012",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b013",
+      "files": 3,
+      "id": "size_1073741824_b013",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b014",
+      "files": 4,
+      "id": "size_1073741824_b014",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b015",
+      "files": 8,
+      "id": "size_1073741824_b015",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b016",
+      "files": 11,
+      "id": "size_1073741824_b016",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b017",
+      "files": 14,
+      "id": "size_1073741824_b017",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b018",
+      "files": 18,
+      "id": "size_1073741824_b018",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_training_ses_v2/size_1073741824_b019",
+      "files": 23,
+      "id": "size_1073741824_b019",
+      "size_bytes": 1073741824
+    }
+  ],
+  "capacity_bytes": 123363000320,
+  "config_sha256": {
+    "prepare_data.vdb": "eb03ea74913da15f155a054d0e4bbc25289c640d2a8ea5a388c81947c55afa9d",
+    "run_baseline.vdb": "9cf53b859d98039a899e3212efe90c5809812a32a9b95a09a851146591a4f55b",
+    "run_zipf099.vdb": "5a90cd1ca3e3eeeff96f9d01e1b19ecde7f4cd0a16b4523b14ca092016d393dd"
+  },
+  "data_root": "/mnt/cephfs/single_v2/ai_training_ses_v2",
+  "file_count": 10000,
+  "id": "ai_training_ses_v2",
+  "layout_sha256": "c4066b5452280887e4c3ec3c6beca54c51cf5dba5b44d4ec1fd34307204d974b",
+  "max_prepare_fwd": 20,
+  "max_run_fwd": 388,
+  "model_sha256": "55dc7c404ea9e37c7a6bca6c3f188e307c25ab3a34ce90918de3ac26796df418",
+  "profiles": {
+    "baseline": [
+      {
+        "fwd_count": 388,
+        "name": "measure",
+        "seconds": 600,
+        "target_iops": "100"
+      }
+    ],
+    "zipf099": [
+      {
+        "fwd_count": 388,
+        "name": "measure",
+        "seconds": 600,
+        "target_iops": "100"
+      }
+    ]
+  },
+  "provenance": {
+    "adaptation": "SES 1.2.0 template read adaptation research case; not standard SES certification",
+    "ses_build": "1.2.0.25061615",
+    "ses_version": "1.2.0",
+    "source_case": "PERF_002",
+    "source_read_write_ratio": "70:30",
+    "source_write_to_read": true,
+    "templates": {
+      "inference": {
+        "path": "resource/io_model_param_file/vdbench/multi_thread_large_io_rw_as_infer.txt",
+        "sha256": "a7fdd9992c8dae7d6a2ea0768ab23107403d6ce7c5d93fdcecfc525eccb6682c"
+      },
+      "training": {
+        "path": "resource/io_model_param_file/vdbench/multi_thread_large_io_rw_as_mix.txt",
+        "sha256": "c2ec3a654ba3a354d457a935e1ba7a9823cb880bff04b65cc7e1c2bd4392f3c4"
+      }
+    },
+    "wheel_path": "storage_evaluation_system-1.2.0-py3-none-any.whl",
+    "wheel_sha256": "e21b30c18073becb34fca202b83d19b4507729f9d79414dedb1a98b2fca43813"
+  },
+  "rate": 100.0,
+  "schema": 1
+}

@@ -1,0 +1,723 @@
+{
+  "bins": [
+    {
+      "executed_operation": "read",
+      "files": 128,
+      "group": "input",
+      "id": "input",
+      "size_bytes": 67108864,
+      "source_operation": "read",
+      "source_role": "input"
+    },
+    {
+      "executed_operation": "read",
+      "files": 32,
+      "group": "boundary_0",
+      "id": "boundary_0",
+      "size_bytes": 67108864,
+      "source_operation": "read",
+      "source_role": "boundary"
+    },
+    {
+      "executed_operation": "read",
+      "files": 32,
+      "group": "boundary_1",
+      "id": "boundary_1",
+      "size_bytes": 67108864,
+      "source_operation": "read",
+      "source_role": "boundary"
+    },
+    {
+      "executed_operation": "read",
+      "files": 32,
+      "group": "boundary_2",
+      "id": "boundary_2",
+      "size_bytes": 67108864,
+      "source_operation": "read",
+      "source_role": "boundary"
+    },
+    {
+      "executed_operation": "read",
+      "files": 32,
+      "group": "boundary_3",
+      "id": "boundary_3",
+      "size_bytes": 67108864,
+      "source_operation": "read",
+      "source_role": "boundary"
+    },
+    {
+      "executed_operation": "read",
+      "files": 64,
+      "group": "history_01",
+      "id": "history_01",
+      "size_bytes": 67108864,
+      "source_operation": "write",
+      "source_role": "history"
+    },
+    {
+      "executed_operation": "read",
+      "files": 64,
+      "group": "history_02",
+      "id": "history_02",
+      "size_bytes": 67108864,
+      "source_operation": "write",
+      "source_role": "history"
+    },
+    {
+      "executed_operation": "read",
+      "files": 64,
+      "group": "history_03",
+      "id": "history_03",
+      "size_bytes": 67108864,
+      "source_operation": "write",
+      "source_role": "history"
+    },
+    {
+      "executed_operation": "read",
+      "files": 64,
+      "group": "history_04",
+      "id": "history_04",
+      "size_bytes": 67108864,
+      "source_operation": "write",
+      "source_role": "history"
+    },
+    {
+      "executed_operation": "read",
+      "files": 64,
+      "group": "history_05",
+      "id": "history_05",
+      "size_bytes": 67108864,
+      "source_operation": "write",
+      "source_role": "history"
+    },
+    {
+      "executed_operation": "read",
+      "files": 64,
+      "group": "history_06",
+      "id": "history_06",
+      "size_bytes": 67108864,
+      "source_operation": "write",
+      "source_role": "history"
+    },
+    {
+      "executed_operation": "read",
+      "files": 64,
+      "group": "history_07",
+      "id": "history_07",
+      "size_bytes": 67108864,
+      "source_operation": "write",
+      "source_role": "history"
+    },
+    {
+      "executed_operation": "read",
+      "files": 64,
+      "group": "history_08",
+      "id": "history_08",
+      "size_bytes": 67108864,
+      "source_operation": "write",
+      "source_role": "history"
+    },
+    {
+      "executed_operation": "read",
+      "files": 64,
+      "group": "history_09",
+      "id": "history_09",
+      "size_bytes": 67108864,
+      "source_operation": "write",
+      "source_role": "history"
+    },
+    {
+      "executed_operation": "read",
+      "files": 64,
+      "group": "history_10",
+      "id": "history_10",
+      "size_bytes": 67108864,
+      "source_operation": "write",
+      "source_role": "history"
+    },
+    {
+      "executed_operation": "read",
+      "files": 64,
+      "group": "history_11",
+      "id": "history_11",
+      "size_bytes": 67108864,
+      "source_operation": "write",
+      "source_role": "history"
+    },
+    {
+      "executed_operation": "read",
+      "files": 64,
+      "group": "history_12",
+      "id": "history_12",
+      "size_bytes": 67108864,
+      "source_operation": "write",
+      "source_role": "history"
+    },
+    {
+      "executed_operation": "read",
+      "files": 64,
+      "group": "history_13",
+      "id": "history_13",
+      "size_bytes": 67108864,
+      "source_operation": "write",
+      "source_role": "history"
+    },
+    {
+      "executed_operation": "read",
+      "files": 64,
+      "group": "history_14",
+      "id": "history_14",
+      "size_bytes": 67108864,
+      "source_operation": "write",
+      "source_role": "history"
+    },
+    {
+      "executed_operation": "read",
+      "files": 64,
+      "group": "history_15",
+      "id": "history_15",
+      "size_bytes": 67108864,
+      "source_operation": "write",
+      "source_role": "history"
+    },
+    {
+      "executed_operation": "read",
+      "files": 64,
+      "group": "history_16",
+      "id": "history_16",
+      "size_bytes": 67108864,
+      "source_operation": "write",
+      "source_role": "history"
+    },
+    {
+      "executed_operation": "read",
+      "files": 256,
+      "group": "restart_08h",
+      "id": "restart_08h",
+      "size_bytes": 67108864,
+      "source_operation": "write",
+      "source_role": "restart"
+    },
+    {
+      "executed_operation": "read",
+      "files": 256,
+      "group": "restart_16h",
+      "id": "restart_16h",
+      "size_bytes": 67108864,
+      "source_operation": "write",
+      "source_role": "restart"
+    }
+  ],
+  "coverage_semantics": "Event duration does not guarantee full file coverage, a saved checkpoint, or forecast completion.",
+  "default_profile": "baseline",
+  "id": "hpc_wrf_continuous_v2",
+  "logical_visit_bytes": 120259084288,
+  "mean_logical_iops": 47.78666666666667,
+  "prepare_batch_size": 20,
+  "profiles": {
+    "baseline": [
+      {
+        "end_s": 80,
+        "lanes": [
+          {
+            "bin": "input",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "read",
+            "source_role": "input",
+            "threads": 1,
+            "weight": 0.8,
+            "xfersize": 4194304
+          },
+          {
+            "bin": "boundary_0",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "read",
+            "source_role": "boundary",
+            "threads": 1,
+            "weight": 0.2,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 32.0,
+        "logical_visit_bytes": 10737418240,
+        "name": "cold_start",
+        "rate_multiplier": 0.6696428571428571,
+        "seconds": 80,
+        "simulation_hour": 0,
+        "start_s": 0
+      },
+      {
+        "end_s": 105,
+        "lanes": [
+          {
+            "bin": "history_01",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "write",
+            "source_role": "history",
+            "threads": 1,
+            "weight": 1.0,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 40.96,
+        "logical_visit_bytes": 4294967296,
+        "name": "history_01",
+        "rate_multiplier": 0.8571428571428571,
+        "seconds": 25,
+        "simulation_hour": 1,
+        "start_s": 80
+      },
+      {
+        "end_s": 130,
+        "lanes": [
+          {
+            "bin": "history_02",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "write",
+            "source_role": "history",
+            "threads": 1,
+            "weight": 1.0,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 40.96,
+        "logical_visit_bytes": 4294967296,
+        "name": "history_02",
+        "rate_multiplier": 0.8571428571428571,
+        "seconds": 25,
+        "simulation_hour": 2,
+        "start_s": 105
+      },
+      {
+        "end_s": 155,
+        "lanes": [
+          {
+            "bin": "history_03",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "write",
+            "source_role": "history",
+            "threads": 1,
+            "weight": 1.0,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 40.96,
+        "logical_visit_bytes": 4294967296,
+        "name": "history_03",
+        "rate_multiplier": 0.8571428571428571,
+        "seconds": 25,
+        "simulation_hour": 3,
+        "start_s": 130
+      },
+      {
+        "end_s": 180,
+        "lanes": [
+          {
+            "bin": "history_04",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "write",
+            "source_role": "history",
+            "threads": 1,
+            "weight": 1.0,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 40.96,
+        "logical_visit_bytes": 4294967296,
+        "name": "history_04",
+        "rate_multiplier": 0.8571428571428571,
+        "seconds": 25,
+        "simulation_hour": 4,
+        "start_s": 155
+      },
+      {
+        "end_s": 205,
+        "lanes": [
+          {
+            "bin": "boundary_1",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "read",
+            "source_role": "boundary",
+            "threads": 1,
+            "weight": 0.3333333333333333,
+            "xfersize": 4194304
+          },
+          {
+            "bin": "history_05",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "write",
+            "source_role": "history",
+            "threads": 1,
+            "weight": 0.6666666666666666,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 61.44,
+        "logical_visit_bytes": 6442450944,
+        "name": "history_05",
+        "rate_multiplier": 1.2857142857142856,
+        "seconds": 25,
+        "simulation_hour": 5,
+        "start_s": 180
+      },
+      {
+        "end_s": 230,
+        "lanes": [
+          {
+            "bin": "history_06",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "write",
+            "source_role": "history",
+            "threads": 1,
+            "weight": 1.0,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 40.96,
+        "logical_visit_bytes": 4294967296,
+        "name": "history_06",
+        "rate_multiplier": 0.8571428571428571,
+        "seconds": 25,
+        "simulation_hour": 6,
+        "start_s": 205
+      },
+      {
+        "end_s": 255,
+        "lanes": [
+          {
+            "bin": "history_07",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "write",
+            "source_role": "history",
+            "threads": 1,
+            "weight": 1.0,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 40.96,
+        "logical_visit_bytes": 4294967296,
+        "name": "history_07",
+        "rate_multiplier": 0.8571428571428571,
+        "seconds": 25,
+        "simulation_hour": 7,
+        "start_s": 230
+      },
+      {
+        "end_s": 280,
+        "lanes": [
+          {
+            "bin": "history_08",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "write",
+            "source_role": "history",
+            "threads": 1,
+            "weight": 1.0,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 40.96,
+        "logical_visit_bytes": 4294967296,
+        "name": "history_08",
+        "rate_multiplier": 0.8571428571428571,
+        "seconds": 25,
+        "simulation_hour": 8,
+        "start_s": 255
+      },
+      {
+        "end_s": 340,
+        "lanes": [
+          {
+            "bin": "restart_08h",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "write",
+            "source_role": "restart",
+            "threads": 1,
+            "weight": 1.0,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 68.26666666666667,
+        "logical_visit_bytes": 17179869184,
+        "name": "restart_08h_output",
+        "rate_multiplier": 1.4285714285714284,
+        "seconds": 60,
+        "simulation_hour": 8,
+        "start_s": 280
+      },
+      {
+        "end_s": 365,
+        "lanes": [
+          {
+            "bin": "boundary_2",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "read",
+            "source_role": "boundary",
+            "threads": 1,
+            "weight": 0.3333333333333333,
+            "xfersize": 4194304
+          },
+          {
+            "bin": "history_09",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "write",
+            "source_role": "history",
+            "threads": 1,
+            "weight": 0.6666666666666666,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 61.44,
+        "logical_visit_bytes": 6442450944,
+        "name": "history_09",
+        "rate_multiplier": 1.2857142857142856,
+        "seconds": 25,
+        "simulation_hour": 9,
+        "start_s": 340
+      },
+      {
+        "end_s": 390,
+        "lanes": [
+          {
+            "bin": "history_10",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "write",
+            "source_role": "history",
+            "threads": 1,
+            "weight": 1.0,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 40.96,
+        "logical_visit_bytes": 4294967296,
+        "name": "history_10",
+        "rate_multiplier": 0.8571428571428571,
+        "seconds": 25,
+        "simulation_hour": 10,
+        "start_s": 365
+      },
+      {
+        "end_s": 415,
+        "lanes": [
+          {
+            "bin": "history_11",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "write",
+            "source_role": "history",
+            "threads": 1,
+            "weight": 1.0,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 40.96,
+        "logical_visit_bytes": 4294967296,
+        "name": "history_11",
+        "rate_multiplier": 0.8571428571428571,
+        "seconds": 25,
+        "simulation_hour": 11,
+        "start_s": 390
+      },
+      {
+        "end_s": 440,
+        "lanes": [
+          {
+            "bin": "history_12",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "write",
+            "source_role": "history",
+            "threads": 1,
+            "weight": 1.0,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 40.96,
+        "logical_visit_bytes": 4294967296,
+        "name": "history_12",
+        "rate_multiplier": 0.8571428571428571,
+        "seconds": 25,
+        "simulation_hour": 12,
+        "start_s": 415
+      },
+      {
+        "end_s": 465,
+        "lanes": [
+          {
+            "bin": "boundary_3",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "read",
+            "source_role": "boundary",
+            "threads": 1,
+            "weight": 0.3333333333333333,
+            "xfersize": 4194304
+          },
+          {
+            "bin": "history_13",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "write",
+            "source_role": "history",
+            "threads": 1,
+            "weight": 0.6666666666666666,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 61.44,
+        "logical_visit_bytes": 6442450944,
+        "name": "history_13",
+        "rate_multiplier": 1.2857142857142856,
+        "seconds": 25,
+        "simulation_hour": 13,
+        "start_s": 440
+      },
+      {
+        "end_s": 490,
+        "lanes": [
+          {
+            "bin": "history_14",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "write",
+            "source_role": "history",
+            "threads": 1,
+            "weight": 1.0,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 40.96,
+        "logical_visit_bytes": 4294967296,
+        "name": "history_14",
+        "rate_multiplier": 0.8571428571428571,
+        "seconds": 25,
+        "simulation_hour": 14,
+        "start_s": 465
+      },
+      {
+        "end_s": 515,
+        "lanes": [
+          {
+            "bin": "history_15",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "write",
+            "source_role": "history",
+            "threads": 1,
+            "weight": 1.0,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 40.96,
+        "logical_visit_bytes": 4294967296,
+        "name": "history_15",
+        "rate_multiplier": 0.8571428571428571,
+        "seconds": 25,
+        "simulation_hour": 15,
+        "start_s": 490
+      },
+      {
+        "end_s": 540,
+        "lanes": [
+          {
+            "bin": "history_16",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "write",
+            "source_role": "history",
+            "threads": 1,
+            "weight": 1.0,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 40.96,
+        "logical_visit_bytes": 4294967296,
+        "name": "history_16",
+        "rate_multiplier": 0.8571428571428571,
+        "seconds": 25,
+        "simulation_hour": 16,
+        "start_s": 515
+      },
+      {
+        "end_s": 600,
+        "lanes": [
+          {
+            "bin": "restart_16h",
+            "executed_operation": "read",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "source_operation": "write",
+            "source_role": "restart",
+            "threads": 1,
+            "weight": 1.0,
+            "xfersize": 4194304
+          }
+        ],
+        "logical_rate_iops": 68.26666666666667,
+        "logical_visit_bytes": 17179869184,
+        "name": "restart_16h_output",
+        "rate_multiplier": 1.4285714285714284,
+        "seconds": 60,
+        "simulation_hour": 16,
+        "start_s": 540
+      }
+    ]
+  },
+  "provenance": {
+    "design": "2026-09-14-wrf-continuous-design-candidate.md",
+    "event_order_scope": "Boundary read and history output share an RD; their internal call order is not reproduced.",
+    "model_scope": "Engineering lifecycle and capacities; not a WRF trace, NetCDF replay, or MPI simulation.",
+    "namelist_semantics": {
+      "frames_per_outfile": 1,
+      "history_begin": 60,
+      "history_interval": 60,
+      "interval_seconds": 14400,
+      "restart": false,
+      "restart_interval": 480
+    },
+    "source_urls": [
+      "https://www2.mmm.ucar.edu/wrf/users/wrf_users_guide/build/html/running_wrf.html",
+      "https://www2.mmm.ucar.edu/wrf/users/wrf_users_guide/build/html/namelist_variables.html",
+      "https://www2.mmm.ucar.edu/wrf/site/online_tutorial/restart_exercise.html"
+    ],
+    "write_mapping": "History and restart source writes execute as reads only at their output event."
+  },
+  "rate_semantics": "Configured mean IOPS times phase rate_multiplier; one logical visit mean is mean_logical_iops.",
+  "scenario": "continuous forecast; no failure, rollback or recovery-file reread"
+}

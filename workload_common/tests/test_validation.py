@@ -90,7 +90,8 @@ class VdbenchValidationTests(unittest.TestCase):
             script = ROOT / suite / "validate_all.sh"
             self.assertTrue(script.is_file(), suite)
             text = script.read_text(encoding="utf-8")
-            self.assertIn("workload_common.validate_vdbench", text, suite)
+            entry = "workload_common.single_v2 parser-check" if suite == "SINGLE_workload" else "workload_common.validate_vdbench"
+            self.assertIn(entry, text, suite)
             self.assertIn("vdbench", text, suite)
 
 

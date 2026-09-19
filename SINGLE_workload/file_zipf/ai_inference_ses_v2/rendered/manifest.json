@@ -1,0 +1,669 @@
+{
+  "bins": [
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_000",
+      "files": 1,
+      "id": "filezipf_000",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_001",
+      "files": 1,
+      "id": "filezipf_001",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_002",
+      "files": 1,
+      "id": "filezipf_002",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_003",
+      "files": 1,
+      "id": "filezipf_003",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_004",
+      "files": 1,
+      "id": "filezipf_004",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_005",
+      "files": 1,
+      "id": "filezipf_005",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_006",
+      "files": 1,
+      "id": "filezipf_006",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_007",
+      "files": 1,
+      "id": "filezipf_007",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_008",
+      "files": 1,
+      "id": "filezipf_008",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_009",
+      "files": 1,
+      "id": "filezipf_009",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_010",
+      "files": 1,
+      "id": "filezipf_010",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_011",
+      "files": 1,
+      "id": "filezipf_011",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_012",
+      "files": 1,
+      "id": "filezipf_012",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_013",
+      "files": 1,
+      "id": "filezipf_013",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_014",
+      "files": 1,
+      "id": "filezipf_014",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_015",
+      "files": 1,
+      "id": "filezipf_015",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_016",
+      "files": 1,
+      "id": "filezipf_016",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_017",
+      "files": 1,
+      "id": "filezipf_017",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_018",
+      "files": 1,
+      "id": "filezipf_018",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_019",
+      "files": 1,
+      "id": "filezipf_019",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_020",
+      "files": 1,
+      "id": "filezipf_020",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_021",
+      "files": 1,
+      "id": "filezipf_021",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_022",
+      "files": 1,
+      "id": "filezipf_022",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_023",
+      "files": 1,
+      "id": "filezipf_023",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_024",
+      "files": 1,
+      "id": "filezipf_024",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_025",
+      "files": 1,
+      "id": "filezipf_025",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_026",
+      "files": 1,
+      "id": "filezipf_026",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_027",
+      "files": 1,
+      "id": "filezipf_027",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_028",
+      "files": 1,
+      "id": "filezipf_028",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_029",
+      "files": 1,
+      "id": "filezipf_029",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_030",
+      "files": 1,
+      "id": "filezipf_030",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_031",
+      "files": 1,
+      "id": "filezipf_031",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_032",
+      "files": 1,
+      "id": "filezipf_032",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_033",
+      "files": 1,
+      "id": "filezipf_033",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_034",
+      "files": 1,
+      "id": "filezipf_034",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_035",
+      "files": 1,
+      "id": "filezipf_035",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_036",
+      "files": 1,
+      "id": "filezipf_036",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_037",
+      "files": 1,
+      "id": "filezipf_037",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_038",
+      "files": 1,
+      "id": "filezipf_038",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_039",
+      "files": 1,
+      "id": "filezipf_039",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_040",
+      "files": 1,
+      "id": "filezipf_040",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_041",
+      "files": 1,
+      "id": "filezipf_041",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_042",
+      "files": 1,
+      "id": "filezipf_042",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_043",
+      "files": 1,
+      "id": "filezipf_043",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_044",
+      "files": 1,
+      "id": "filezipf_044",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_045",
+      "files": 1,
+      "id": "filezipf_045",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_046",
+      "files": 1,
+      "id": "filezipf_046",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_047",
+      "files": 1,
+      "id": "filezipf_047",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_048",
+      "files": 1,
+      "id": "filezipf_048",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_049",
+      "files": 1,
+      "id": "filezipf_049",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_050",
+      "files": 1,
+      "id": "filezipf_050",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_051",
+      "files": 1,
+      "id": "filezipf_051",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_052",
+      "files": 1,
+      "id": "filezipf_052",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_053",
+      "files": 1,
+      "id": "filezipf_053",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_054",
+      "files": 1,
+      "id": "filezipf_054",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_055",
+      "files": 1,
+      "id": "filezipf_055",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_056",
+      "files": 1,
+      "id": "filezipf_056",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_057",
+      "files": 1,
+      "id": "filezipf_057",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_058",
+      "files": 1,
+      "id": "filezipf_058",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_059",
+      "files": 1,
+      "id": "filezipf_059",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_060",
+      "files": 1,
+      "id": "filezipf_060",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_061",
+      "files": 1,
+      "id": "filezipf_061",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_062",
+      "files": 1,
+      "id": "filezipf_062",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_063",
+      "files": 1,
+      "id": "filezipf_063",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_064",
+      "files": 1,
+      "id": "filezipf_064",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_065",
+      "files": 1,
+      "id": "filezipf_065",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_066",
+      "files": 1,
+      "id": "filezipf_066",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_067",
+      "files": 1,
+      "id": "filezipf_067",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_068",
+      "files": 1,
+      "id": "filezipf_068",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_069",
+      "files": 1,
+      "id": "filezipf_069",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_070",
+      "files": 1,
+      "id": "filezipf_070",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_071",
+      "files": 1,
+      "id": "filezipf_071",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_072",
+      "files": 1,
+      "id": "filezipf_072",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_073",
+      "files": 1,
+      "id": "filezipf_073",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_074",
+      "files": 1,
+      "id": "filezipf_074",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_075",
+      "files": 1,
+      "id": "filezipf_075",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_076",
+      "files": 1,
+      "id": "filezipf_076",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_077",
+      "files": 1,
+      "id": "filezipf_077",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_078",
+      "files": 1,
+      "id": "filezipf_078",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_079",
+      "files": 1,
+      "id": "filezipf_079",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_080",
+      "files": 1,
+      "id": "filezipf_080",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_081",
+      "files": 1,
+      "id": "filezipf_081",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_082",
+      "files": 1,
+      "id": "filezipf_082",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_083",
+      "files": 1,
+      "id": "filezipf_083",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_084",
+      "files": 1,
+      "id": "filezipf_084",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_085",
+      "files": 1,
+      "id": "filezipf_085",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_086",
+      "files": 1,
+      "id": "filezipf_086",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_087",
+      "files": 1,
+      "id": "filezipf_087",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_088",
+      "files": 1,
+      "id": "filezipf_088",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_089",
+      "files": 1,
+      "id": "filezipf_089",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_090",
+      "files": 1,
+      "id": "filezipf_090",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_091",
+      "files": 1,
+      "id": "filezipf_091",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_092",
+      "files": 1,
+      "id": "filezipf_092",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_093",
+      "files": 1,
+      "id": "filezipf_093",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_094",
+      "files": 1,
+      "id": "filezipf_094",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_095",
+      "files": 1,
+      "id": "filezipf_095",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_096",
+      "files": 1,
+      "id": "filezipf_096",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_097",
+      "files": 1,
+      "id": "filezipf_097",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_098",
+      "files": 1,
+      "id": "filezipf_098",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2/filezipf_099",
+      "files": 1,
+      "id": "filezipf_099",
+      "size_bytes": 536870912
+    }
+  ],
+  "capacity_bytes": 123480309760,
+  "config_sha256": {
+    "prepare_data.vdb": "f66488a6dd7fbd80e4f0ef6a44f5bd66029740d04b37f6c45145ae708bbebb8b",
+    "run_baseline.vdb": "9ba0f95979b53e8422d3c97905f4024b9882a2768e49f4f33f96ae9a499b34d8",
+    "run_file_zipf099.vdb": "216a9596b1a38102e3ede3986fd5a2a1e407aca98d476899cc0092209033e209"
+  },
+  "data_root": "/mnt/cephfs/single_file_zipf_v1/ai_inference_ses_v2",
+  "file_count": 100,
+  "id": "ai_inference_ses_v2",
+  "layout_sha256": "f5ba9f10087e629fa5869db863f8c2f3379c40e6e2102ab78e4ecda8daf78ab5",
+  "max_prepare_fwd": 20,
+  "max_run_fwd": 100,
+  "model_sha256": "4d46e728f7a8a0d6045c3d556f7000581a33ac87f07dcfb3494f5353a6b08e99",
+  "profiles": {
+    "baseline": [
+      {
+        "fwd_count": 100,
+        "name": "sequential",
+        "seconds": 360,
+        "target_iops": "max"
+      },
+      {
+        "fwd_count": 100,
+        "name": "random",
+        "seconds": 240,
+        "target_iops": "max"
+      }
+    ],
+    "file_zipf099": [
+      {
+        "fwd_count": 100,
+        "name": "sequential",
+        "seconds": 360,
+        "target_iops": "max"
+      },
+      {
+        "fwd_count": 100,
+        "name": "random",
+        "seconds": 240,
+        "target_iops": "max"
+      }
+    ]
+  },
+  "provenance": {
+    "adaptation": "SES 1.2.0 template read adaptation research case; not standard SES certification",
+    "ses_build": "1.2.0.25061615",
+    "ses_version": "1.2.0",
+    "source_case": "PERF_003",
+    "source_read_write_ratio": "80:20",
+    "source_write_to_read": true,
+    "templates": {
+      "inference": {
+        "path": "resource/io_model_param_file/vdbench/multi_thread_large_io_rw_as_infer.txt",
+        "sha256": "a7fdd9992c8dae7d6a2ea0768ab23107403d6ce7c5d93fdcecfc525eccb6682c"
+      },
+      "training": {
+        "path": "resource/io_model_param_file/vdbench/multi_thread_large_io_rw_as_mix.txt",
+        "sha256": "c2ec3a654ba3a354d457a935e1ba7a9823cb880bff04b65cc7e1c2bd4392f3c4"
+      }
+    },
+    "wheel_path": "storage_evaluation_system-1.2.0-py3-none-any.whl",
+    "wheel_sha256": "e21b30c18073becb34fca202b83d19b4507729f9d79414dedb1a98b2fca43813"
+  },
+  "rate": "max",
+  "schema": 1
+}

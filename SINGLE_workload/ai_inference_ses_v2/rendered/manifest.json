@@ -1,0 +1,201 @@
+{
+  "bins": [
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_536870912_b000",
+      "files": 4,
+      "id": "size_536870912_b000",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_536870912_b001",
+      "files": 4,
+      "id": "size_536870912_b001",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_536870912_b002",
+      "files": 4,
+      "id": "size_536870912_b002",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_536870912_b003",
+      "files": 4,
+      "id": "size_536870912_b003",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_536870912_b004",
+      "files": 4,
+      "id": "size_536870912_b004",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_536870912_b005",
+      "files": 5,
+      "id": "size_536870912_b005",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_536870912_b006",
+      "files": 5,
+      "id": "size_536870912_b006",
+      "size_bytes": 536870912
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_1073741824_b000",
+      "files": 4,
+      "id": "size_1073741824_b000",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_1073741824_b001",
+      "files": 4,
+      "id": "size_1073741824_b001",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_1073741824_b002",
+      "files": 4,
+      "id": "size_1073741824_b002",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_1073741824_b003",
+      "files": 4,
+      "id": "size_1073741824_b003",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_1073741824_b004",
+      "files": 4,
+      "id": "size_1073741824_b004",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_1073741824_b005",
+      "files": 4,
+      "id": "size_1073741824_b005",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_1073741824_b006",
+      "files": 4,
+      "id": "size_1073741824_b006",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_1073741824_b007",
+      "files": 4,
+      "id": "size_1073741824_b007",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_1073741824_b008",
+      "files": 4,
+      "id": "size_1073741824_b008",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_1073741824_b009",
+      "files": 4,
+      "id": "size_1073741824_b009",
+      "size_bytes": 1073741824
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_2147483648_b000",
+      "files": 4,
+      "id": "size_2147483648_b000",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_2147483648_b001",
+      "files": 4,
+      "id": "size_2147483648_b001",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_2147483648_b002",
+      "files": 4,
+      "id": "size_2147483648_b002",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_2147483648_b003",
+      "files": 4,
+      "id": "size_2147483648_b003",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_2147483648_b004",
+      "files": 4,
+      "id": "size_2147483648_b004",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_2147483648_b005",
+      "files": 5,
+      "id": "size_2147483648_b005",
+      "size_bytes": 2147483648
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/ai_inference_ses_v2/size_2147483648_b006",
+      "files": 5,
+      "id": "size_2147483648_b006",
+      "size_bytes": 2147483648
+    }
+  ],
+  "capacity_bytes": 123480309760,
+  "config_sha256": {
+    "prepare_data.vdb": "fee4d56289f785b9453e78ef9f91f94c897b92abbd6bab553a7127588110cf57",
+    "run_baseline.vdb": "a724323598eeb06de03b82a07a734c9e3221a5ac7d6e2b09d87f7073e93d7ffa",
+    "run_zipf099.vdb": "d061a3f7c715839c5b6ed46c5979e714dee0009618c37e98ca90f4ce08a8a1df"
+  },
+  "data_root": "/mnt/cephfs/single_v2/ai_inference_ses_v2",
+  "file_count": 100,
+  "id": "ai_inference_ses_v2",
+  "layout_sha256": "efba7e9032c0f8e3ea0c2a984fb501fe909196fafd895475c7a6b2643355a8e0",
+  "max_prepare_fwd": 20,
+  "max_run_fwd": 96,
+  "model_sha256": "ba3a83e9d9674691fded674ee7fa576afeedaa1b11037f2f51504876ecafdbb3",
+  "profiles": {
+    "baseline": [
+      {
+        "fwd_count": 96,
+        "name": "measure",
+        "seconds": 600,
+        "target_iops": "100"
+      }
+    ],
+    "zipf099": [
+      {
+        "fwd_count": 96,
+        "name": "measure",
+        "seconds": 600,
+        "target_iops": "100"
+      }
+    ]
+  },
+  "provenance": {
+    "adaptation": "SES 1.2.0 template read adaptation research case; not standard SES certification",
+    "ses_build": "1.2.0.25061615",
+    "ses_version": "1.2.0",
+    "source_case": "PERF_003",
+    "source_read_write_ratio": "80:20",
+    "source_write_to_read": true,
+    "templates": {
+      "inference": {
+        "path": "resource/io_model_param_file/vdbench/multi_thread_large_io_rw_as_infer.txt",
+        "sha256": "a7fdd9992c8dae7d6a2ea0768ab23107403d6ce7c5d93fdcecfc525eccb6682c"
+      },
+      "training": {
+        "path": "resource/io_model_param_file/vdbench/multi_thread_large_io_rw_as_mix.txt",
+        "sha256": "c2ec3a654ba3a354d457a935e1ba7a9823cb880bff04b65cc7e1c2bd4392f3c4"
+      }
+    },
+    "wheel_path": "storage_evaluation_system-1.2.0-py3-none-any.whl",
+    "wheel_sha256": "e21b30c18073becb34fca202b83d19b4507729f9d79414dedb1a98b2fca43813"
+  },
+  "rate": 100.0,
+  "schema": 1
+}

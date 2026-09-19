@@ -1,0 +1,2429 @@
+{
+  "bins": [
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_00",
+      "files": 1,
+      "id": "dst_00_src_00_bin_00",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_01",
+      "files": 1,
+      "id": "dst_00_src_00_bin_01",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_02",
+      "files": 1,
+      "id": "dst_00_src_00_bin_02",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_03",
+      "files": 1,
+      "id": "dst_00_src_00_bin_03",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_04",
+      "files": 1,
+      "id": "dst_00_src_00_bin_04",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_05",
+      "files": 1,
+      "id": "dst_00_src_00_bin_05",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_06",
+      "files": 1,
+      "id": "dst_00_src_00_bin_06",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_07",
+      "files": 1,
+      "id": "dst_00_src_00_bin_07",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_08",
+      "files": 1,
+      "id": "dst_00_src_00_bin_08",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_09",
+      "files": 1,
+      "id": "dst_00_src_00_bin_09",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_10",
+      "files": 1,
+      "id": "dst_00_src_00_bin_10",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_11",
+      "files": 1,
+      "id": "dst_00_src_00_bin_11",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_12",
+      "files": 11,
+      "id": "dst_00_src_00_bin_12",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_13",
+      "files": 11,
+      "id": "dst_00_src_00_bin_13",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_14",
+      "files": 11,
+      "id": "dst_00_src_00_bin_14",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_15",
+      "files": 11,
+      "id": "dst_00_src_00_bin_15",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_16",
+      "files": 11,
+      "id": "dst_00_src_00_bin_16",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_17",
+      "files": 10,
+      "id": "dst_00_src_00_bin_17",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_18",
+      "files": 10,
+      "id": "dst_00_src_00_bin_18",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_19",
+      "files": 10,
+      "id": "dst_00_src_00_bin_19",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_20",
+      "files": 10,
+      "id": "dst_00_src_00_bin_20",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_21",
+      "files": 10,
+      "id": "dst_00_src_00_bin_21",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_22",
+      "files": 10,
+      "id": "dst_00_src_00_bin_22",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_00_bin_23",
+      "files": 10,
+      "id": "dst_00_src_00_bin_23",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_00",
+      "files": 1,
+      "id": "dst_01_src_00_bin_00",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_01",
+      "files": 1,
+      "id": "dst_01_src_00_bin_01",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_02",
+      "files": 1,
+      "id": "dst_01_src_00_bin_02",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_03",
+      "files": 1,
+      "id": "dst_01_src_00_bin_03",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_04",
+      "files": 1,
+      "id": "dst_01_src_00_bin_04",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_05",
+      "files": 1,
+      "id": "dst_01_src_00_bin_05",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_06",
+      "files": 1,
+      "id": "dst_01_src_00_bin_06",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_07",
+      "files": 1,
+      "id": "dst_01_src_00_bin_07",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_08",
+      "files": 1,
+      "id": "dst_01_src_00_bin_08",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_09",
+      "files": 1,
+      "id": "dst_01_src_00_bin_09",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_10",
+      "files": 1,
+      "id": "dst_01_src_00_bin_10",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_11",
+      "files": 1,
+      "id": "dst_01_src_00_bin_11",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_12",
+      "files": 11,
+      "id": "dst_01_src_00_bin_12",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_13",
+      "files": 11,
+      "id": "dst_01_src_00_bin_13",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_14",
+      "files": 11,
+      "id": "dst_01_src_00_bin_14",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_15",
+      "files": 11,
+      "id": "dst_01_src_00_bin_15",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_16",
+      "files": 11,
+      "id": "dst_01_src_00_bin_16",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_17",
+      "files": 10,
+      "id": "dst_01_src_00_bin_17",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_18",
+      "files": 10,
+      "id": "dst_01_src_00_bin_18",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_19",
+      "files": 10,
+      "id": "dst_01_src_00_bin_19",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_20",
+      "files": 10,
+      "id": "dst_01_src_00_bin_20",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_21",
+      "files": 10,
+      "id": "dst_01_src_00_bin_21",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_22",
+      "files": 10,
+      "id": "dst_01_src_00_bin_22",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_00_bin_23",
+      "files": 10,
+      "id": "dst_01_src_00_bin_23",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_00",
+      "files": 1,
+      "id": "dst_02_src_00_bin_00",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_01",
+      "files": 1,
+      "id": "dst_02_src_00_bin_01",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_02",
+      "files": 1,
+      "id": "dst_02_src_00_bin_02",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_03",
+      "files": 1,
+      "id": "dst_02_src_00_bin_03",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_04",
+      "files": 1,
+      "id": "dst_02_src_00_bin_04",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_05",
+      "files": 1,
+      "id": "dst_02_src_00_bin_05",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_06",
+      "files": 1,
+      "id": "dst_02_src_00_bin_06",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_07",
+      "files": 1,
+      "id": "dst_02_src_00_bin_07",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_08",
+      "files": 1,
+      "id": "dst_02_src_00_bin_08",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_09",
+      "files": 1,
+      "id": "dst_02_src_00_bin_09",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_10",
+      "files": 1,
+      "id": "dst_02_src_00_bin_10",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_11",
+      "files": 1,
+      "id": "dst_02_src_00_bin_11",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_12",
+      "files": 11,
+      "id": "dst_02_src_00_bin_12",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_13",
+      "files": 11,
+      "id": "dst_02_src_00_bin_13",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_14",
+      "files": 11,
+      "id": "dst_02_src_00_bin_14",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_15",
+      "files": 11,
+      "id": "dst_02_src_00_bin_15",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_16",
+      "files": 11,
+      "id": "dst_02_src_00_bin_16",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_17",
+      "files": 11,
+      "id": "dst_02_src_00_bin_17",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_18",
+      "files": 10,
+      "id": "dst_02_src_00_bin_18",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_19",
+      "files": 10,
+      "id": "dst_02_src_00_bin_19",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_20",
+      "files": 10,
+      "id": "dst_02_src_00_bin_20",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_21",
+      "files": 10,
+      "id": "dst_02_src_00_bin_21",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_22",
+      "files": 10,
+      "id": "dst_02_src_00_bin_22",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_00_bin_23",
+      "files": 10,
+      "id": "dst_02_src_00_bin_23",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_00",
+      "files": 1,
+      "id": "dst_03_src_00_bin_00",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_01",
+      "files": 1,
+      "id": "dst_03_src_00_bin_01",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_02",
+      "files": 1,
+      "id": "dst_03_src_00_bin_02",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_03",
+      "files": 1,
+      "id": "dst_03_src_00_bin_03",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_04",
+      "files": 1,
+      "id": "dst_03_src_00_bin_04",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_05",
+      "files": 1,
+      "id": "dst_03_src_00_bin_05",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_06",
+      "files": 1,
+      "id": "dst_03_src_00_bin_06",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_07",
+      "files": 1,
+      "id": "dst_03_src_00_bin_07",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_08",
+      "files": 1,
+      "id": "dst_03_src_00_bin_08",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_09",
+      "files": 1,
+      "id": "dst_03_src_00_bin_09",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_10",
+      "files": 1,
+      "id": "dst_03_src_00_bin_10",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_11",
+      "files": 1,
+      "id": "dst_03_src_00_bin_11",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_12",
+      "files": 11,
+      "id": "dst_03_src_00_bin_12",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_13",
+      "files": 11,
+      "id": "dst_03_src_00_bin_13",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_14",
+      "files": 11,
+      "id": "dst_03_src_00_bin_14",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_15",
+      "files": 11,
+      "id": "dst_03_src_00_bin_15",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_16",
+      "files": 11,
+      "id": "dst_03_src_00_bin_16",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_17",
+      "files": 11,
+      "id": "dst_03_src_00_bin_17",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_18",
+      "files": 10,
+      "id": "dst_03_src_00_bin_18",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_19",
+      "files": 10,
+      "id": "dst_03_src_00_bin_19",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_20",
+      "files": 10,
+      "id": "dst_03_src_00_bin_20",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_21",
+      "files": 10,
+      "id": "dst_03_src_00_bin_21",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_22",
+      "files": 10,
+      "id": "dst_03_src_00_bin_22",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_00_bin_23",
+      "files": 10,
+      "id": "dst_03_src_00_bin_23",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_00",
+      "files": 1,
+      "id": "dst_00_src_01_bin_00",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_01",
+      "files": 1,
+      "id": "dst_00_src_01_bin_01",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_02",
+      "files": 1,
+      "id": "dst_00_src_01_bin_02",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_03",
+      "files": 1,
+      "id": "dst_00_src_01_bin_03",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_04",
+      "files": 1,
+      "id": "dst_00_src_01_bin_04",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_05",
+      "files": 1,
+      "id": "dst_00_src_01_bin_05",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_06",
+      "files": 1,
+      "id": "dst_00_src_01_bin_06",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_07",
+      "files": 1,
+      "id": "dst_00_src_01_bin_07",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_08",
+      "files": 1,
+      "id": "dst_00_src_01_bin_08",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_09",
+      "files": 1,
+      "id": "dst_00_src_01_bin_09",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_10",
+      "files": 1,
+      "id": "dst_00_src_01_bin_10",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_11",
+      "files": 1,
+      "id": "dst_00_src_01_bin_11",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_12",
+      "files": 11,
+      "id": "dst_00_src_01_bin_12",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_13",
+      "files": 11,
+      "id": "dst_00_src_01_bin_13",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_14",
+      "files": 11,
+      "id": "dst_00_src_01_bin_14",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_15",
+      "files": 10,
+      "id": "dst_00_src_01_bin_15",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_16",
+      "files": 10,
+      "id": "dst_00_src_01_bin_16",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_17",
+      "files": 10,
+      "id": "dst_00_src_01_bin_17",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_18",
+      "files": 10,
+      "id": "dst_00_src_01_bin_18",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_19",
+      "files": 10,
+      "id": "dst_00_src_01_bin_19",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_20",
+      "files": 10,
+      "id": "dst_00_src_01_bin_20",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_21",
+      "files": 10,
+      "id": "dst_00_src_01_bin_21",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_22",
+      "files": 10,
+      "id": "dst_00_src_01_bin_22",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_01_bin_23",
+      "files": 10,
+      "id": "dst_00_src_01_bin_23",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_00",
+      "files": 1,
+      "id": "dst_01_src_01_bin_00",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_01",
+      "files": 1,
+      "id": "dst_01_src_01_bin_01",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_02",
+      "files": 1,
+      "id": "dst_01_src_01_bin_02",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_03",
+      "files": 1,
+      "id": "dst_01_src_01_bin_03",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_04",
+      "files": 1,
+      "id": "dst_01_src_01_bin_04",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_05",
+      "files": 1,
+      "id": "dst_01_src_01_bin_05",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_06",
+      "files": 1,
+      "id": "dst_01_src_01_bin_06",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_07",
+      "files": 1,
+      "id": "dst_01_src_01_bin_07",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_08",
+      "files": 1,
+      "id": "dst_01_src_01_bin_08",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_09",
+      "files": 1,
+      "id": "dst_01_src_01_bin_09",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_10",
+      "files": 1,
+      "id": "dst_01_src_01_bin_10",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_11",
+      "files": 1,
+      "id": "dst_01_src_01_bin_11",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_12",
+      "files": 11,
+      "id": "dst_01_src_01_bin_12",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_13",
+      "files": 11,
+      "id": "dst_01_src_01_bin_13",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_14",
+      "files": 11,
+      "id": "dst_01_src_01_bin_14",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_15",
+      "files": 10,
+      "id": "dst_01_src_01_bin_15",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_16",
+      "files": 10,
+      "id": "dst_01_src_01_bin_16",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_17",
+      "files": 10,
+      "id": "dst_01_src_01_bin_17",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_18",
+      "files": 10,
+      "id": "dst_01_src_01_bin_18",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_19",
+      "files": 10,
+      "id": "dst_01_src_01_bin_19",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_20",
+      "files": 10,
+      "id": "dst_01_src_01_bin_20",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_21",
+      "files": 10,
+      "id": "dst_01_src_01_bin_21",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_22",
+      "files": 10,
+      "id": "dst_01_src_01_bin_22",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_01_bin_23",
+      "files": 10,
+      "id": "dst_01_src_01_bin_23",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_00",
+      "files": 1,
+      "id": "dst_02_src_01_bin_00",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_01",
+      "files": 1,
+      "id": "dst_02_src_01_bin_01",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_02",
+      "files": 1,
+      "id": "dst_02_src_01_bin_02",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_03",
+      "files": 1,
+      "id": "dst_02_src_01_bin_03",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_04",
+      "files": 1,
+      "id": "dst_02_src_01_bin_04",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_05",
+      "files": 1,
+      "id": "dst_02_src_01_bin_05",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_06",
+      "files": 1,
+      "id": "dst_02_src_01_bin_06",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_07",
+      "files": 1,
+      "id": "dst_02_src_01_bin_07",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_08",
+      "files": 1,
+      "id": "dst_02_src_01_bin_08",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_09",
+      "files": 1,
+      "id": "dst_02_src_01_bin_09",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_10",
+      "files": 1,
+      "id": "dst_02_src_01_bin_10",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_11",
+      "files": 1,
+      "id": "dst_02_src_01_bin_11",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_12",
+      "files": 11,
+      "id": "dst_02_src_01_bin_12",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_13",
+      "files": 11,
+      "id": "dst_02_src_01_bin_13",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_14",
+      "files": 11,
+      "id": "dst_02_src_01_bin_14",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_15",
+      "files": 11,
+      "id": "dst_02_src_01_bin_15",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_16",
+      "files": 10,
+      "id": "dst_02_src_01_bin_16",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_17",
+      "files": 10,
+      "id": "dst_02_src_01_bin_17",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_18",
+      "files": 10,
+      "id": "dst_02_src_01_bin_18",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_19",
+      "files": 10,
+      "id": "dst_02_src_01_bin_19",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_20",
+      "files": 10,
+      "id": "dst_02_src_01_bin_20",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_21",
+      "files": 10,
+      "id": "dst_02_src_01_bin_21",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_22",
+      "files": 10,
+      "id": "dst_02_src_01_bin_22",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_01_bin_23",
+      "files": 10,
+      "id": "dst_02_src_01_bin_23",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_00",
+      "files": 1,
+      "id": "dst_03_src_01_bin_00",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_01",
+      "files": 1,
+      "id": "dst_03_src_01_bin_01",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_02",
+      "files": 1,
+      "id": "dst_03_src_01_bin_02",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_03",
+      "files": 1,
+      "id": "dst_03_src_01_bin_03",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_04",
+      "files": 1,
+      "id": "dst_03_src_01_bin_04",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_05",
+      "files": 1,
+      "id": "dst_03_src_01_bin_05",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_06",
+      "files": 1,
+      "id": "dst_03_src_01_bin_06",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_07",
+      "files": 1,
+      "id": "dst_03_src_01_bin_07",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_08",
+      "files": 1,
+      "id": "dst_03_src_01_bin_08",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_09",
+      "files": 1,
+      "id": "dst_03_src_01_bin_09",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_10",
+      "files": 1,
+      "id": "dst_03_src_01_bin_10",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_11",
+      "files": 1,
+      "id": "dst_03_src_01_bin_11",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_12",
+      "files": 11,
+      "id": "dst_03_src_01_bin_12",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_13",
+      "files": 11,
+      "id": "dst_03_src_01_bin_13",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_14",
+      "files": 11,
+      "id": "dst_03_src_01_bin_14",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_15",
+      "files": 10,
+      "id": "dst_03_src_01_bin_15",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_16",
+      "files": 10,
+      "id": "dst_03_src_01_bin_16",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_17",
+      "files": 10,
+      "id": "dst_03_src_01_bin_17",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_18",
+      "files": 10,
+      "id": "dst_03_src_01_bin_18",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_19",
+      "files": 10,
+      "id": "dst_03_src_01_bin_19",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_20",
+      "files": 10,
+      "id": "dst_03_src_01_bin_20",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_21",
+      "files": 10,
+      "id": "dst_03_src_01_bin_21",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_22",
+      "files": 10,
+      "id": "dst_03_src_01_bin_22",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_01_bin_23",
+      "files": 10,
+      "id": "dst_03_src_01_bin_23",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_00",
+      "files": 1,
+      "id": "dst_00_src_02_bin_00",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_01",
+      "files": 1,
+      "id": "dst_00_src_02_bin_01",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_02",
+      "files": 1,
+      "id": "dst_00_src_02_bin_02",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_03",
+      "files": 1,
+      "id": "dst_00_src_02_bin_03",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_04",
+      "files": 1,
+      "id": "dst_00_src_02_bin_04",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_05",
+      "files": 1,
+      "id": "dst_00_src_02_bin_05",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_06",
+      "files": 1,
+      "id": "dst_00_src_02_bin_06",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_07",
+      "files": 1,
+      "id": "dst_00_src_02_bin_07",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_08",
+      "files": 1,
+      "id": "dst_00_src_02_bin_08",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_09",
+      "files": 1,
+      "id": "dst_00_src_02_bin_09",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_10",
+      "files": 1,
+      "id": "dst_00_src_02_bin_10",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_11",
+      "files": 1,
+      "id": "dst_00_src_02_bin_11",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_12",
+      "files": 10,
+      "id": "dst_00_src_02_bin_12",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_13",
+      "files": 10,
+      "id": "dst_00_src_02_bin_13",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_14",
+      "files": 10,
+      "id": "dst_00_src_02_bin_14",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_15",
+      "files": 10,
+      "id": "dst_00_src_02_bin_15",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_16",
+      "files": 10,
+      "id": "dst_00_src_02_bin_16",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_17",
+      "files": 10,
+      "id": "dst_00_src_02_bin_17",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_18",
+      "files": 10,
+      "id": "dst_00_src_02_bin_18",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_19",
+      "files": 10,
+      "id": "dst_00_src_02_bin_19",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_20",
+      "files": 10,
+      "id": "dst_00_src_02_bin_20",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_21",
+      "files": 10,
+      "id": "dst_00_src_02_bin_21",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_22",
+      "files": 9,
+      "id": "dst_00_src_02_bin_22",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_02_bin_23",
+      "files": 9,
+      "id": "dst_00_src_02_bin_23",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_00",
+      "files": 1,
+      "id": "dst_01_src_02_bin_00",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_01",
+      "files": 1,
+      "id": "dst_01_src_02_bin_01",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_02",
+      "files": 1,
+      "id": "dst_01_src_02_bin_02",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_03",
+      "files": 1,
+      "id": "dst_01_src_02_bin_03",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_04",
+      "files": 1,
+      "id": "dst_01_src_02_bin_04",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_05",
+      "files": 1,
+      "id": "dst_01_src_02_bin_05",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_06",
+      "files": 1,
+      "id": "dst_01_src_02_bin_06",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_07",
+      "files": 1,
+      "id": "dst_01_src_02_bin_07",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_08",
+      "files": 1,
+      "id": "dst_01_src_02_bin_08",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_09",
+      "files": 1,
+      "id": "dst_01_src_02_bin_09",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_10",
+      "files": 1,
+      "id": "dst_01_src_02_bin_10",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_11",
+      "files": 1,
+      "id": "dst_01_src_02_bin_11",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_12",
+      "files": 10,
+      "id": "dst_01_src_02_bin_12",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_13",
+      "files": 10,
+      "id": "dst_01_src_02_bin_13",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_14",
+      "files": 10,
+      "id": "dst_01_src_02_bin_14",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_15",
+      "files": 10,
+      "id": "dst_01_src_02_bin_15",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_16",
+      "files": 10,
+      "id": "dst_01_src_02_bin_16",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_17",
+      "files": 10,
+      "id": "dst_01_src_02_bin_17",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_18",
+      "files": 10,
+      "id": "dst_01_src_02_bin_18",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_19",
+      "files": 10,
+      "id": "dst_01_src_02_bin_19",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_20",
+      "files": 10,
+      "id": "dst_01_src_02_bin_20",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_21",
+      "files": 9,
+      "id": "dst_01_src_02_bin_21",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_22",
+      "files": 9,
+      "id": "dst_01_src_02_bin_22",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_02_bin_23",
+      "files": 9,
+      "id": "dst_01_src_02_bin_23",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_00",
+      "files": 1,
+      "id": "dst_02_src_02_bin_00",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_01",
+      "files": 1,
+      "id": "dst_02_src_02_bin_01",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_02",
+      "files": 1,
+      "id": "dst_02_src_02_bin_02",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_03",
+      "files": 1,
+      "id": "dst_02_src_02_bin_03",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_04",
+      "files": 1,
+      "id": "dst_02_src_02_bin_04",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_05",
+      "files": 1,
+      "id": "dst_02_src_02_bin_05",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_06",
+      "files": 1,
+      "id": "dst_02_src_02_bin_06",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_07",
+      "files": 1,
+      "id": "dst_02_src_02_bin_07",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_08",
+      "files": 1,
+      "id": "dst_02_src_02_bin_08",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_09",
+      "files": 1,
+      "id": "dst_02_src_02_bin_09",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_10",
+      "files": 1,
+      "id": "dst_02_src_02_bin_10",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_11",
+      "files": 1,
+      "id": "dst_02_src_02_bin_11",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_12",
+      "files": 10,
+      "id": "dst_02_src_02_bin_12",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_13",
+      "files": 10,
+      "id": "dst_02_src_02_bin_13",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_14",
+      "files": 10,
+      "id": "dst_02_src_02_bin_14",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_15",
+      "files": 10,
+      "id": "dst_02_src_02_bin_15",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_16",
+      "files": 10,
+      "id": "dst_02_src_02_bin_16",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_17",
+      "files": 10,
+      "id": "dst_02_src_02_bin_17",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_18",
+      "files": 10,
+      "id": "dst_02_src_02_bin_18",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_19",
+      "files": 10,
+      "id": "dst_02_src_02_bin_19",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_20",
+      "files": 10,
+      "id": "dst_02_src_02_bin_20",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_21",
+      "files": 9,
+      "id": "dst_02_src_02_bin_21",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_22",
+      "files": 9,
+      "id": "dst_02_src_02_bin_22",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_02_bin_23",
+      "files": 9,
+      "id": "dst_02_src_02_bin_23",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_00",
+      "files": 1,
+      "id": "dst_03_src_02_bin_00",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_01",
+      "files": 1,
+      "id": "dst_03_src_02_bin_01",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_02",
+      "files": 1,
+      "id": "dst_03_src_02_bin_02",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_03",
+      "files": 1,
+      "id": "dst_03_src_02_bin_03",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_04",
+      "files": 1,
+      "id": "dst_03_src_02_bin_04",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_05",
+      "files": 1,
+      "id": "dst_03_src_02_bin_05",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_06",
+      "files": 1,
+      "id": "dst_03_src_02_bin_06",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_07",
+      "files": 1,
+      "id": "dst_03_src_02_bin_07",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_08",
+      "files": 1,
+      "id": "dst_03_src_02_bin_08",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_09",
+      "files": 1,
+      "id": "dst_03_src_02_bin_09",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_10",
+      "files": 1,
+      "id": "dst_03_src_02_bin_10",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_11",
+      "files": 1,
+      "id": "dst_03_src_02_bin_11",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_12",
+      "files": 10,
+      "id": "dst_03_src_02_bin_12",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_13",
+      "files": 10,
+      "id": "dst_03_src_02_bin_13",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_14",
+      "files": 10,
+      "id": "dst_03_src_02_bin_14",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_15",
+      "files": 10,
+      "id": "dst_03_src_02_bin_15",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_16",
+      "files": 10,
+      "id": "dst_03_src_02_bin_16",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_17",
+      "files": 10,
+      "id": "dst_03_src_02_bin_17",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_18",
+      "files": 10,
+      "id": "dst_03_src_02_bin_18",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_19",
+      "files": 10,
+      "id": "dst_03_src_02_bin_19",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_20",
+      "files": 10,
+      "id": "dst_03_src_02_bin_20",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_21",
+      "files": 10,
+      "id": "dst_03_src_02_bin_21",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_22",
+      "files": 9,
+      "id": "dst_03_src_02_bin_22",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_02_bin_23",
+      "files": 9,
+      "id": "dst_03_src_02_bin_23",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_00",
+      "files": 1,
+      "id": "dst_00_src_03_bin_00",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_01",
+      "files": 1,
+      "id": "dst_00_src_03_bin_01",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_02",
+      "files": 1,
+      "id": "dst_00_src_03_bin_02",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_03",
+      "files": 1,
+      "id": "dst_00_src_03_bin_03",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_04",
+      "files": 1,
+      "id": "dst_00_src_03_bin_04",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_05",
+      "files": 1,
+      "id": "dst_00_src_03_bin_05",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_06",
+      "files": 1,
+      "id": "dst_00_src_03_bin_06",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_07",
+      "files": 1,
+      "id": "dst_00_src_03_bin_07",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_08",
+      "files": 1,
+      "id": "dst_00_src_03_bin_08",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_09",
+      "files": 1,
+      "id": "dst_00_src_03_bin_09",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_10",
+      "files": 1,
+      "id": "dst_00_src_03_bin_10",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_11",
+      "files": 1,
+      "id": "dst_00_src_03_bin_11",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_12",
+      "files": 9,
+      "id": "dst_00_src_03_bin_12",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_13",
+      "files": 9,
+      "id": "dst_00_src_03_bin_13",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_14",
+      "files": 8,
+      "id": "dst_00_src_03_bin_14",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_15",
+      "files": 8,
+      "id": "dst_00_src_03_bin_15",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_16",
+      "files": 8,
+      "id": "dst_00_src_03_bin_16",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_17",
+      "files": 8,
+      "id": "dst_00_src_03_bin_17",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_18",
+      "files": 8,
+      "id": "dst_00_src_03_bin_18",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_19",
+      "files": 8,
+      "id": "dst_00_src_03_bin_19",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_20",
+      "files": 8,
+      "id": "dst_00_src_03_bin_20",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_21",
+      "files": 8,
+      "id": "dst_00_src_03_bin_21",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_22",
+      "files": 8,
+      "id": "dst_00_src_03_bin_22",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_00_src_03_bin_23",
+      "files": 8,
+      "id": "dst_00_src_03_bin_23",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_00",
+      "files": 1,
+      "id": "dst_01_src_03_bin_00",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_01",
+      "files": 1,
+      "id": "dst_01_src_03_bin_01",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_02",
+      "files": 1,
+      "id": "dst_01_src_03_bin_02",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_03",
+      "files": 1,
+      "id": "dst_01_src_03_bin_03",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_04",
+      "files": 1,
+      "id": "dst_01_src_03_bin_04",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_05",
+      "files": 1,
+      "id": "dst_01_src_03_bin_05",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_06",
+      "files": 1,
+      "id": "dst_01_src_03_bin_06",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_07",
+      "files": 1,
+      "id": "dst_01_src_03_bin_07",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_08",
+      "files": 1,
+      "id": "dst_01_src_03_bin_08",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_09",
+      "files": 1,
+      "id": "dst_01_src_03_bin_09",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_10",
+      "files": 1,
+      "id": "dst_01_src_03_bin_10",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_11",
+      "files": 1,
+      "id": "dst_01_src_03_bin_11",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_12",
+      "files": 9,
+      "id": "dst_01_src_03_bin_12",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_13",
+      "files": 9,
+      "id": "dst_01_src_03_bin_13",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_14",
+      "files": 8,
+      "id": "dst_01_src_03_bin_14",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_15",
+      "files": 8,
+      "id": "dst_01_src_03_bin_15",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_16",
+      "files": 8,
+      "id": "dst_01_src_03_bin_16",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_17",
+      "files": 8,
+      "id": "dst_01_src_03_bin_17",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_18",
+      "files": 8,
+      "id": "dst_01_src_03_bin_18",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_19",
+      "files": 8,
+      "id": "dst_01_src_03_bin_19",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_20",
+      "files": 8,
+      "id": "dst_01_src_03_bin_20",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_21",
+      "files": 8,
+      "id": "dst_01_src_03_bin_21",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_22",
+      "files": 8,
+      "id": "dst_01_src_03_bin_22",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_01_src_03_bin_23",
+      "files": 8,
+      "id": "dst_01_src_03_bin_23",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_00",
+      "files": 1,
+      "id": "dst_02_src_03_bin_00",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_01",
+      "files": 1,
+      "id": "dst_02_src_03_bin_01",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_02",
+      "files": 1,
+      "id": "dst_02_src_03_bin_02",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_03",
+      "files": 1,
+      "id": "dst_02_src_03_bin_03",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_04",
+      "files": 1,
+      "id": "dst_02_src_03_bin_04",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_05",
+      "files": 1,
+      "id": "dst_02_src_03_bin_05",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_06",
+      "files": 1,
+      "id": "dst_02_src_03_bin_06",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_07",
+      "files": 1,
+      "id": "dst_02_src_03_bin_07",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_08",
+      "files": 1,
+      "id": "dst_02_src_03_bin_08",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_09",
+      "files": 1,
+      "id": "dst_02_src_03_bin_09",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_10",
+      "files": 1,
+      "id": "dst_02_src_03_bin_10",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_11",
+      "files": 1,
+      "id": "dst_02_src_03_bin_11",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_12",
+      "files": 9,
+      "id": "dst_02_src_03_bin_12",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_13",
+      "files": 9,
+      "id": "dst_02_src_03_bin_13",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_14",
+      "files": 8,
+      "id": "dst_02_src_03_bin_14",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_15",
+      "files": 8,
+      "id": "dst_02_src_03_bin_15",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_16",
+      "files": 8,
+      "id": "dst_02_src_03_bin_16",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_17",
+      "files": 8,
+      "id": "dst_02_src_03_bin_17",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_18",
+      "files": 8,
+      "id": "dst_02_src_03_bin_18",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_19",
+      "files": 8,
+      "id": "dst_02_src_03_bin_19",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_20",
+      "files": 8,
+      "id": "dst_02_src_03_bin_20",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_21",
+      "files": 8,
+      "id": "dst_02_src_03_bin_21",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_22",
+      "files": 8,
+      "id": "dst_02_src_03_bin_22",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_02_src_03_bin_23",
+      "files": 8,
+      "id": "dst_02_src_03_bin_23",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_00",
+      "files": 1,
+      "id": "dst_03_src_03_bin_00",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_01",
+      "files": 1,
+      "id": "dst_03_src_03_bin_01",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_02",
+      "files": 1,
+      "id": "dst_03_src_03_bin_02",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_03",
+      "files": 1,
+      "id": "dst_03_src_03_bin_03",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_04",
+      "files": 1,
+      "id": "dst_03_src_03_bin_04",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_05",
+      "files": 1,
+      "id": "dst_03_src_03_bin_05",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_06",
+      "files": 1,
+      "id": "dst_03_src_03_bin_06",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_07",
+      "files": 1,
+      "id": "dst_03_src_03_bin_07",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_08",
+      "files": 1,
+      "id": "dst_03_src_03_bin_08",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_09",
+      "files": 1,
+      "id": "dst_03_src_03_bin_09",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_10",
+      "files": 1,
+      "id": "dst_03_src_03_bin_10",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_11",
+      "files": 1,
+      "id": "dst_03_src_03_bin_11",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_12",
+      "files": 9,
+      "id": "dst_03_src_03_bin_12",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_13",
+      "files": 8,
+      "id": "dst_03_src_03_bin_13",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_14",
+      "files": 8,
+      "id": "dst_03_src_03_bin_14",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_15",
+      "files": 8,
+      "id": "dst_03_src_03_bin_15",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_16",
+      "files": 8,
+      "id": "dst_03_src_03_bin_16",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_17",
+      "files": 8,
+      "id": "dst_03_src_03_bin_17",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_18",
+      "files": 8,
+      "id": "dst_03_src_03_bin_18",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_19",
+      "files": 8,
+      "id": "dst_03_src_03_bin_19",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_20",
+      "files": 8,
+      "id": "dst_03_src_03_bin_20",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_21",
+      "files": 8,
+      "id": "dst_03_src_03_bin_21",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_22",
+      "files": 8,
+      "id": "dst_03_src_03_bin_22",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2/dst_03_src_03_bin_23",
+      "files": 8,
+      "id": "dst_03_src_03_bin_23",
+      "size_bytes": 67108864
+    }
+  ],
+  "capacity_bytes": 137438953472,
+  "config_sha256": {
+    "prepare_data.vdb": "6dff48c99a30b6cb02a8fd18f36d05aa2a155941d662090b4505a77a0d5edf82",
+    "run_baseline.vdb": "fc3ce24aa5ceb6203b739279de59555d1de09c9819a3e24f435391db6babe1b9",
+    "run_zipf099.vdb": "5df64ed96ce38fd593f78527c355bce7335ebacafda061f579f5480190cfd61b"
+  },
+  "data_root": "/mnt/cephfs/single_v2/graph_graphchi_psw_v2",
+  "file_count": 2048,
+  "id": "graph_graphchi_psw_v2",
+  "layout_sha256": "a5eecf827a89c0f42afda283c36b33ca98b6400d61a200df17b1ac69b08accde",
+  "max_prepare_fwd": 20,
+  "max_run_fwd": 168,
+  "model_sha256": "5ba98eda908d1c626b253d108748c996661082c8c1c0186fe7489eba04aaaf9e",
+  "profiles": {
+    "baseline": [
+      {
+        "fwd_count": 168,
+        "name": "psw_interval_0",
+        "seconds": 150,
+        "target_iops": "103.179029559"
+      },
+      {
+        "fwd_count": 168,
+        "name": "psw_interval_1",
+        "seconds": 150,
+        "target_iops": "102.286670385"
+      },
+      {
+        "fwd_count": 168,
+        "name": "psw_interval_2",
+        "seconds": 150,
+        "target_iops": "100.613496933"
+      },
+      {
+        "fwd_count": 168,
+        "name": "psw_interval_3",
+        "seconds": 150,
+        "target_iops": "93.9208031233"
+      }
+    ],
+    "zipf099": [
+      {
+        "fwd_count": 168,
+        "name": "psw_interval_0",
+        "seconds": 150,
+        "target_iops": "103.179029559"
+      },
+      {
+        "fwd_count": 168,
+        "name": "psw_interval_1",
+        "seconds": 150,
+        "target_iops": "102.286670385"
+      },
+      {
+        "fwd_count": 168,
+        "name": "psw_interval_2",
+        "seconds": 150,
+        "target_iops": "100.613496933"
+      },
+      {
+        "fwd_count": 168,
+        "name": "psw_interval_3",
+        "seconds": 150,
+        "target_iops": "93.9208031233"
+      }
+    ]
+  },
+  "provenance": {
+    "algorithm_url": "https://www.usenix.org/system/files/conference/osdi12/osdi12-final-126.pdf",
+    "design": "2026-09-14-graphchi-psw-design-candidate.md",
+    "implementation_commit": "6461c89f217f63482e2468d776bb942067f8288c",
+    "model_scope": "Synthetic equal-byte edge fragments; not native graph encoding or measured trace.",
+    "topology": {
+      "compressed_bytes": 21168784,
+      "compressed_sha256": "bcac0af0471d749f4a8c010bca92b61cf2868a0570741de06892fc062f265ea6",
+      "edge_matrix_src_rows_dst_columns": [
+        [
+          341692,
+          342667,
+          343119,
+          343629
+        ],
+        [
+          336739,
+          337245,
+          337818,
+          337405
+        ],
+        [
+          323029,
+          322004,
+          321882,
+          323009
+        ],
+        [
+          274904,
+          274244,
+          273499,
+          272154
+        ]
+      ],
+      "edges": 5105039,
+      "inclusive_interval_cuts": [
+        245316,
+        487247,
+        718657
+      ],
+      "max_node_id": 916427,
+      "nodes": 875713,
+      "shard_edge_counts": [
+        1276364,
+        1276160,
+        1276318,
+        1276197
+      ],
+      "source_url": "https://snap.stanford.edu/data/web-Google.txt.gz"
+    },
+    "write_mapping": "Full-update template: active-edge load and writeback both execute as reads on the same bins, with logical volume doubled."
+  },
+  "rate": 100.0,
+  "schema": 1
+}

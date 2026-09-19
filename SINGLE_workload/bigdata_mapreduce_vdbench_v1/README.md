@@ -1,3 +1,5 @@
+> SINGLE v1 历史模型：准备和运行入口已停用。当前用例见 [../bigdata_baleen_v2/README.md](../bigdata_baleen_v2/README.md)。保留旧渲染器仅供回归核对；不会自动迁移或删除已有数据。
+
 # MapReduce 文件冷热负载
 
 ## 来源与设计逻辑

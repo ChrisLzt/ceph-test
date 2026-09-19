@@ -1,3 +1,5 @@
+> SINGLE v1 历史模型：准备和运行入口已停用。当前用例见 [../hpc_wrf_continuous_v2/README.md](../hpc_wrf_continuous_v2/README.md)。保留旧渲染器仅供回归核对；不会自动迁移或删除已有数据。
+
 # WRF 生命周期 Vdbench 冷热负载
 
 ## 来源与设计逻辑

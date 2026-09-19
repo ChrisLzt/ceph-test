@@ -1,0 +1,293 @@
+{
+  "bins": [
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/input",
+      "files": 128,
+      "id": "input",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/boundary_0",
+      "files": 32,
+      "id": "boundary_0",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/boundary_1",
+      "files": 32,
+      "id": "boundary_1",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/boundary_2",
+      "files": 32,
+      "id": "boundary_2",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/boundary_3",
+      "files": 32,
+      "id": "boundary_3",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/history_01",
+      "files": 64,
+      "id": "history_01",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/history_02",
+      "files": 64,
+      "id": "history_02",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/history_03",
+      "files": 64,
+      "id": "history_03",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/history_04",
+      "files": 64,
+      "id": "history_04",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/history_05",
+      "files": 64,
+      "id": "history_05",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/history_06",
+      "files": 64,
+      "id": "history_06",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/history_07",
+      "files": 64,
+      "id": "history_07",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/history_08",
+      "files": 64,
+      "id": "history_08",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/history_09",
+      "files": 64,
+      "id": "history_09",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/history_10",
+      "files": 64,
+      "id": "history_10",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/history_11",
+      "files": 64,
+      "id": "history_11",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/history_12",
+      "files": 64,
+      "id": "history_12",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/history_13",
+      "files": 64,
+      "id": "history_13",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/history_14",
+      "files": 64,
+      "id": "history_14",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/history_15",
+      "files": 64,
+      "id": "history_15",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/history_16",
+      "files": 64,
+      "id": "history_16",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/restart_08h",
+      "files": 256,
+      "id": "restart_08h",
+      "size_bytes": 67108864
+    },
+    {
+      "anchor": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2/restart_16h",
+      "files": 256,
+      "id": "restart_16h",
+      "size_bytes": 67108864
+    }
+  ],
+  "capacity_bytes": 120259084288,
+  "config_sha256": {
+    "prepare_data.vdb": "3eeb8d3d196e19f91b094bec8b06ad04c3a7ff6ef331ad6d496167519da217bf",
+    "run_baseline.vdb": "eb99caf4410bf0e6551e8da381da4374e7a32e0bf61f90d083fcbfdd0ccb2a91"
+  },
+  "data_root": "/mnt/cephfs/single_v2/hpc_wrf_continuous_v2",
+  "file_count": 1792,
+  "id": "hpc_wrf_continuous_v2",
+  "layout_sha256": "fff799629b052fbc69e94dd54134b4dc75dbf545d12ad6818bf59a156ff3eb17",
+  "max_prepare_fwd": 20,
+  "max_run_fwd": 2,
+  "model_sha256": "bd1e0f47bc3a8bc63b63d40b585de7dab695bf89c00705bb4221cdb95d422f5e",
+  "profiles": {
+    "baseline": [
+      {
+        "fwd_count": 2,
+        "name": "cold_start",
+        "seconds": 80,
+        "target_iops": "66.9642857143"
+      },
+      {
+        "fwd_count": 1,
+        "name": "history_01",
+        "seconds": 25,
+        "target_iops": "85.7142857143"
+      },
+      {
+        "fwd_count": 1,
+        "name": "history_02",
+        "seconds": 25,
+        "target_iops": "85.7142857143"
+      },
+      {
+        "fwd_count": 1,
+        "name": "history_03",
+        "seconds": 25,
+        "target_iops": "85.7142857143"
+      },
+      {
+        "fwd_count": 1,
+        "name": "history_04",
+        "seconds": 25,
+        "target_iops": "85.7142857143"
+      },
+      {
+        "fwd_count": 2,
+        "name": "history_05",
+        "seconds": 25,
+        "target_iops": "128.571428571"
+      },
+      {
+        "fwd_count": 1,
+        "name": "history_06",
+        "seconds": 25,
+        "target_iops": "85.7142857143"
+      },
+      {
+        "fwd_count": 1,
+        "name": "history_07",
+        "seconds": 25,
+        "target_iops": "85.7142857143"
+      },
+      {
+        "fwd_count": 1,
+        "name": "history_08",
+        "seconds": 25,
+        "target_iops": "85.7142857143"
+      },
+      {
+        "fwd_count": 1,
+        "name": "restart_08h_output",
+        "seconds": 60,
+        "target_iops": "142.857142857"
+      },
+      {
+        "fwd_count": 2,
+        "name": "history_09",
+        "seconds": 25,
+        "target_iops": "128.571428571"
+      },
+      {
+        "fwd_count": 1,
+        "name": "history_10",
+        "seconds": 25,
+        "target_iops": "85.7142857143"
+      },
+      {
+        "fwd_count": 1,
+        "name": "history_11",
+        "seconds": 25,
+        "target_iops": "85.7142857143"
+      },
+      {
+        "fwd_count": 1,
+        "name": "history_12",
+        "seconds": 25,
+        "target_iops": "85.7142857143"
+      },
+      {
+        "fwd_count": 2,
+        "name": "history_13",
+        "seconds": 25,
+        "target_iops": "128.571428571"
+      },
+      {
+        "fwd_count": 1,
+        "name": "history_14",
+        "seconds": 25,
+        "target_iops": "85.7142857143"
+      },
+      {
+        "fwd_count": 1,
+        "name": "history_15",
+        "seconds": 25,
+        "target_iops": "85.7142857143"
+      },
+      {
+        "fwd_count": 1,
+        "name": "history_16",
+        "seconds": 25,
+        "target_iops": "85.7142857143"
+      },
+      {
+        "fwd_count": 1,
+        "name": "restart_16h_output",
+        "seconds": 60,
+        "target_iops": "142.857142857"
+      }
+    ]
+  },
+  "provenance": {
+    "design": "2026-09-14-wrf-continuous-design-candidate.md",
+    "event_order_scope": "Boundary read and history output share an RD; their internal call order is not reproduced.",
+    "model_scope": "Engineering lifecycle and capacities; not a WRF trace, NetCDF replay, or MPI simulation.",
+    "namelist_semantics": {
+      "frames_per_outfile": 1,
+      "history_begin": 60,
+      "history_interval": 60,
+      "interval_seconds": 14400,
+      "restart": false,
+      "restart_interval": 480
+    },
+    "source_urls": [
+      "https://www2.mmm.ucar.edu/wrf/users/wrf_users_guide/build/html/running_wrf.html",
+      "https://www2.mmm.ucar.edu/wrf/users/wrf_users_guide/build/html/namelist_variables.html",
+      "https://www2.mmm.ucar.edu/wrf/site/online_tutorial/restart_exercise.html"
+    ],
+    "write_mapping": "History and restart source writes execute as reads only at their output event."
+  },
+  "rate": 100.0,
+  "schema": 1
+}

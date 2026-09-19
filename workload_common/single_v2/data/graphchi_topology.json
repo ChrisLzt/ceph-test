@@ -1,0 +1,45 @@
+{
+  "source_url": "https://snap.stanford.edu/data/web-Google.txt.gz",
+  "compressed_bytes": 21168784,
+  "compressed_sha256": "bcac0af0471d749f4a8c010bca92b61cf2868a0570741de06892fc062f265ea6",
+  "nodes": 875713,
+  "edges": 5105039,
+  "max_node_id": 916427,
+  "inclusive_interval_cuts": [
+    245316,
+    487247,
+    718657
+  ],
+  "edge_matrix_src_rows_dst_columns": [
+    [
+      341692,
+      342667,
+      343119,
+      343629
+    ],
+    [
+      336739,
+      337245,
+      337818,
+      337405
+    ],
+    [
+      323029,
+      322004,
+      321882,
+      323009
+    ],
+    [
+      274904,
+      274244,
+      273499,
+      272154
+    ]
+  ],
+  "shard_edge_counts": [
+    1276364,
+    1276160,
+    1276318,
+    1276197
+  ]
+}

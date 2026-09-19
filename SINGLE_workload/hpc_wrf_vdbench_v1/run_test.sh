@@ -1,15 +1,4 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
-script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
-cd "$script_dir"
-
-./render_config.sh run
-
-vdbench_home=${VDBENCH_HOME:-/home/chris/PDSL/vdbench}
-output_dir=${OUTPUT_DIR:-output/run_test}
-
-"$vdbench_home/vdbench" \
-    -f rendered/run_test.vdb \
-    -o "$output_dir"
-
+printf '%s\n' '此 SINGLE v1 执行入口已停用。请使用 SINGLE_workload/hpc_wrf_continuous_v2/run_test.sh；旧数据不会自动删除。' >&2
+exit 2

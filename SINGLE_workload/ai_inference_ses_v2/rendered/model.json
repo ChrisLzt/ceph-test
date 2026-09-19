@@ -1,0 +1,1785 @@
+{
+  "bins": [
+    {
+      "files": 4,
+      "group": "size_536870912",
+      "id": "size_536870912_b000",
+      "rank_end": 4,
+      "rank_start": 1,
+      "size_bytes": 536870912
+    },
+    {
+      "files": 4,
+      "group": "size_536870912",
+      "id": "size_536870912_b001",
+      "rank_end": 8,
+      "rank_start": 5,
+      "size_bytes": 536870912
+    },
+    {
+      "files": 4,
+      "group": "size_536870912",
+      "id": "size_536870912_b002",
+      "rank_end": 12,
+      "rank_start": 9,
+      "size_bytes": 536870912
+    },
+    {
+      "files": 4,
+      "group": "size_536870912",
+      "id": "size_536870912_b003",
+      "rank_end": 16,
+      "rank_start": 13,
+      "size_bytes": 536870912
+    },
+    {
+      "files": 4,
+      "group": "size_536870912",
+      "id": "size_536870912_b004",
+      "rank_end": 20,
+      "rank_start": 17,
+      "size_bytes": 536870912
+    },
+    {
+      "files": 5,
+      "group": "size_536870912",
+      "id": "size_536870912_b005",
+      "rank_end": 25,
+      "rank_start": 21,
+      "size_bytes": 536870912
+    },
+    {
+      "files": 5,
+      "group": "size_536870912",
+      "id": "size_536870912_b006",
+      "rank_end": 30,
+      "rank_start": 26,
+      "size_bytes": 536870912
+    },
+    {
+      "files": 4,
+      "group": "size_1073741824",
+      "id": "size_1073741824_b000",
+      "rank_end": 4,
+      "rank_start": 1,
+      "size_bytes": 1073741824
+    },
+    {
+      "files": 4,
+      "group": "size_1073741824",
+      "id": "size_1073741824_b001",
+      "rank_end": 8,
+      "rank_start": 5,
+      "size_bytes": 1073741824
+    },
+    {
+      "files": 4,
+      "group": "size_1073741824",
+      "id": "size_1073741824_b002",
+      "rank_end": 12,
+      "rank_start": 9,
+      "size_bytes": 1073741824
+    },
+    {
+      "files": 4,
+      "group": "size_1073741824",
+      "id": "size_1073741824_b003",
+      "rank_end": 16,
+      "rank_start": 13,
+      "size_bytes": 1073741824
+    },
+    {
+      "files": 4,
+      "group": "size_1073741824",
+      "id": "size_1073741824_b004",
+      "rank_end": 20,
+      "rank_start": 17,
+      "size_bytes": 1073741824
+    },
+    {
+      "files": 4,
+      "group": "size_1073741824",
+      "id": "size_1073741824_b005",
+      "rank_end": 24,
+      "rank_start": 21,
+      "size_bytes": 1073741824
+    },
+    {
+      "files": 4,
+      "group": "size_1073741824",
+      "id": "size_1073741824_b006",
+      "rank_end": 28,
+      "rank_start": 25,
+      "size_bytes": 1073741824
+    },
+    {
+      "files": 4,
+      "group": "size_1073741824",
+      "id": "size_1073741824_b007",
+      "rank_end": 32,
+      "rank_start": 29,
+      "size_bytes": 1073741824
+    },
+    {
+      "files": 4,
+      "group": "size_1073741824",
+      "id": "size_1073741824_b008",
+      "rank_end": 36,
+      "rank_start": 33,
+      "size_bytes": 1073741824
+    },
+    {
+      "files": 4,
+      "group": "size_1073741824",
+      "id": "size_1073741824_b009",
+      "rank_end": 40,
+      "rank_start": 37,
+      "size_bytes": 1073741824
+    },
+    {
+      "files": 4,
+      "group": "size_2147483648",
+      "id": "size_2147483648_b000",
+      "rank_end": 4,
+      "rank_start": 1,
+      "size_bytes": 2147483648
+    },
+    {
+      "files": 4,
+      "group": "size_2147483648",
+      "id": "size_2147483648_b001",
+      "rank_end": 8,
+      "rank_start": 5,
+      "size_bytes": 2147483648
+    },
+    {
+      "files": 4,
+      "group": "size_2147483648",
+      "id": "size_2147483648_b002",
+      "rank_end": 12,
+      "rank_start": 9,
+      "size_bytes": 2147483648
+    },
+    {
+      "files": 4,
+      "group": "size_2147483648",
+      "id": "size_2147483648_b003",
+      "rank_end": 16,
+      "rank_start": 13,
+      "size_bytes": 2147483648
+    },
+    {
+      "files": 4,
+      "group": "size_2147483648",
+      "id": "size_2147483648_b004",
+      "rank_end": 20,
+      "rank_start": 17,
+      "size_bytes": 2147483648
+    },
+    {
+      "files": 5,
+      "group": "size_2147483648",
+      "id": "size_2147483648_b005",
+      "rank_end": 25,
+      "rank_start": 21,
+      "size_bytes": 2147483648
+    },
+    {
+      "files": 5,
+      "group": "size_2147483648",
+      "id": "size_2147483648_b006",
+      "rank_end": 30,
+      "rank_start": 26,
+      "size_bytes": 2147483648
+    }
+  ],
+  "id": "ai_inference_ses_v2",
+  "identity_policy": "Fixed class-conditional rank mapped in bin/file enumeration order; no reshuffle",
+  "measurement": {
+    "discard_initial_seconds": 0,
+    "seconds": 600,
+    "warmup_seconds": 0
+  },
+  "profiles": {
+    "baseline": [
+      {
+        "lanes": [
+          {
+            "bin": "size_536870912_b000",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.005217391304347826,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b000",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.005217391304347826,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b000",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0034782608695652175,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b000",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0034782608695652175,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b001",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.005217391304347826,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b001",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.005217391304347826,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b001",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0034782608695652175,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b001",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0034782608695652175,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b002",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.005217391304347826,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b002",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.005217391304347826,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b002",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0034782608695652175,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b002",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0034782608695652175,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b003",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.005217391304347826,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b003",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.005217391304347826,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b003",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0034782608695652175,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b003",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0034782608695652175,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b004",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.005217391304347826,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b004",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.005217391304347826,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b004",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0034782608695652175,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b004",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0034782608695652175,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b005",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.006521739130434782,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b005",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.006521739130434782,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b005",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.004347826086956522,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b005",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.004347826086956522,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b006",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.006521739130434782,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b006",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.006521739130434782,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b006",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.004347826086956522,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b006",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.004347826086956522,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b000",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b000",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b000",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b000",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b001",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b001",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b001",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b001",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b002",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b002",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b002",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b002",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b003",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b003",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b003",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b003",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b004",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b004",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b004",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b004",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b005",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b005",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b005",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b005",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b006",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b006",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b006",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b006",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b007",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b007",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b007",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b007",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b008",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b008",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b008",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b008",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b009",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b009",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.010434782608695651,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b009",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b009",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006956521739130435,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b000",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.020869565217391303,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b000",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.020869565217391303,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b000",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.01391304347826087,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b000",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.01391304347826087,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b001",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.020869565217391303,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b001",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.020869565217391303,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b001",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.01391304347826087,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b001",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.01391304347826087,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b002",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.020869565217391303,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b002",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.020869565217391303,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b002",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.01391304347826087,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b002",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.01391304347826087,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b003",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.020869565217391303,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b003",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.020869565217391303,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b003",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.01391304347826087,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b003",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.01391304347826087,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b004",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.020869565217391303,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b004",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.020869565217391303,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b004",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.01391304347826087,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b004",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.01391304347826087,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b005",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.02608695652173913,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b005",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.02608695652173913,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b005",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.017391304347826087,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b005",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.017391304347826087,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b006",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.02608695652173913,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b006",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.02608695652173913,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b006",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.017391304347826087,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b006",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.017391304347826087,
+            "xfersize": 65536
+          }
+        ],
+        "name": "measure",
+        "rate_multiplier": 1,
+        "seconds": 600
+      }
+    ],
+    "zipf099": [
+      {
+        "lanes": [
+          {
+            "bin": "size_536870912_b000",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.020215075829932743,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b000",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.020215075829932743,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b000",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.013476717219955163,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b000",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.013476717219955163,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b001",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.006238491140822853,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b001",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.006238491140822853,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b001",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.004158994093881902,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b001",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.004158994093881902,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b002",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.0038080156419105647,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b002",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.0038080156419105647,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b002",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0025386770946070436,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b002",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0025386770946070436,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b003",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.002751494273152321,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b003",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.002751494273152321,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b003",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0018343295154348808,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b003",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0018343295154348808,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b004",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.0021569056512487947,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b004",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.0021569056512487947,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b004",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.00143793710083253,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b004",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.00143793710083253,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b005",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.0021736338632361765,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b005",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.0021736338632361765,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b005",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0014490892421574512,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b005",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0014490892421574512,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b006",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.0017868183823052418,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b006",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.0017868183823052418,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_536870912_b006",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0011912122548701613,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_536870912_b006",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0011912122548701613,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b000",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.050263224989984645,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b000",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.050263224989984645,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b000",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.03350881665998977,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b000",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.03350881665998977,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b001",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.015511526469017869,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b001",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.015511526469017869,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b001",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.010341017646011913,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b001",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.010341017646011913,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b002",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.009468336828661226,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b002",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.009468336828661226,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b002",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006312224552440818,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b002",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.006312224552440818,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b003",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.006841378032593289,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b003",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.006841378032593289,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b003",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.004560918688395526,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b003",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.004560918688395526,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b004",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.005362979339922083,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b004",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.005362979339922083,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b004",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.003575319559948056,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b004",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.003575319559948056,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b005",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.004413018345282621,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b005",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.004413018345282621,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b005",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0029420122301884147,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b005",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0029420122301884147,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b006",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.0037504792067915623,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b006",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.0037504792067915623,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b006",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.002500319471194375,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b006",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.002500319471194375,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b007",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.003261790281187042,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b007",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.003261790281187042,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b007",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.002174526854124695,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b007",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.002174526854124695,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b008",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.0028863304935156206,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b008",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.0028863304935156206,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b008",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0019242203290104139,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b008",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0019242203290104139,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b009",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.00258876210000055,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b009",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.00258876210000055,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_1073741824_b009",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0017258414000003667,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_1073741824_b009",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.0017258414000003667,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b000",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.08086030331973097,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b000",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.08086030331973097,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b000",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.05390686887982065,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b000",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.05390686887982065,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b001",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.024953964563291412,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b001",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.024953964563291412,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b001",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.01663597637552761,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b001",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.01663597637552761,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b002",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.015232062567642259,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b002",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.015232062567642259,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b002",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.010154708378428174,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b002",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.010154708378428174,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b003",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.011005977092609283,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b003",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.011005977092609283,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b003",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.007337318061739523,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b003",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.007337318061739523,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b004",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.008627622604995179,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b004",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.008627622604995179,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b004",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.00575174840333012,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b004",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.00575174840333012,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b005",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.008694535452944706,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b005",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.008694535452944706,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b005",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.005796356968629805,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b005",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.005796356968629805,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b006",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.007147273529220967,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b006",
+            "fileio": "sequential",
+            "fileselect": "sequential",
+            "threads": 1,
+            "weight": 0.007147273529220967,
+            "xfersize": 65536
+          },
+          {
+            "bin": "size_2147483648_b006",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.004764849019480645,
+            "xfersize": 131072
+          },
+          {
+            "bin": "size_2147483648_b006",
+            "fileio": "random",
+            "fileselect": "random",
+            "threads": 1,
+            "weight": 0.004764849019480645,
+            "xfersize": 65536
+          }
+        ],
+        "name": "measure",
+        "rate_multiplier": 1,
+        "seconds": 600
+      }
+    ]
+  },
+  "provenance": {
+    "adaptation": "SES 1.2.0 template read adaptation research case; not standard SES certification",
+    "ses_build": "1.2.0.25061615",
+    "ses_version": "1.2.0",
+    "source_case": "PERF_003",
+    "source_read_write_ratio": "80:20",
+    "source_write_to_read": true,
+    "templates": {
+      "inference": {
+        "path": "resource/io_model_param_file/vdbench/multi_thread_large_io_rw_as_infer.txt",
+        "sha256": "a7fdd9992c8dae7d6a2ea0768ab23107403d6ce7c5d93fdcecfc525eccb6682c"
+      },
+      "training": {
+        "path": "resource/io_model_param_file/vdbench/multi_thread_large_io_rw_as_mix.txt",
+        "sha256": "c2ec3a654ba3a354d457a935e1ba7a9823cb880bff04b65cc7e1c2bd4392f3c4"
+      }
+    },
+    "wheel_path": "storage_evaluation_system-1.2.0-py3-none-any.whl",
+    "wheel_sha256": "e21b30c18073becb34fca202b83d19b4507729f9d79414dedb1a98b2fca43813"
+  },
+  "zipf": {
+    "alpha": 0.99,
+    "scope": "conditional within each fixed file-size class; preserve operation mass of each class",
+    "status": "offline ideal approximation; runtime error acceptance threshold not established",
+    "tv_percent": 13.766302846904498
+  }
+}
